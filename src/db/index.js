@@ -1,9 +1,9 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import { firekey } from './firekeys'
+import { fireKey } from './FireKeys'
 
 const db = firebase
-  .initializeApp(firekey)
+  .initializeApp(fireKey)
   .firestore()
 
 export default db

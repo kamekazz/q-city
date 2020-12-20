@@ -1,4 +1,4 @@
-export const firekey = {
+export const fireKey = {
     apiKey: "AIzaSyCUqsJWShnxjAf_lJiuS5dNKwZgh-wkDtg",
     authDomain: "w-city-53c78.firebaseapp.com",
     databaseURL: "https://w-city-53c78.firebaseio.com",
