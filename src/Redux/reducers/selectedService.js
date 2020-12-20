@@ -1,5 +1,5 @@
 
-import { FETCH_SERVICE_SUCCESS, REQUEST_SERVICE } from 'types'
+import { FETCH_SERVICE_SUCCESS, REQUEST_SERVICE } from 'Redux/types'
 import { combineReducers } from 'redux'
 
 

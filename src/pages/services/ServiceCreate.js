@@ -4,7 +4,7 @@ import withAuthorization from 'components/hoc/withAuthorization'
 import { Redirect } from 'react-router-dom'
 
 
-import { createService } from 'actions'
+import { createService } from 'Redux/actions'
 
 
 const ServiceCreate = ({auth}) => {

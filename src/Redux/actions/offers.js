@@ -3,7 +3,7 @@ import {
   FETCH_OFFERS_SUCCESS, 
   CHANGE_OFFER_STATUS,
   REQUEST_RESOURCE,
-  FETCH_RESOURCE_SUCCESS } from 'types'
+  FETCH_RESOURCE_SUCCESS } from 'Redux/types'
 
 import * as api from 'api'
 

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import RegisterForm from 'components/auth/RegisterForm'
-import { register } from 'actions'
+import { register } from 'Redux/actions'
 import { useToasts } from 'react-toast-notifications'
 import onlyGuest from 'components/hoc/onlyGuest'
 

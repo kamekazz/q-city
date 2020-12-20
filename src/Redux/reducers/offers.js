@@ -4,7 +4,7 @@ import { isFetching } from './common'
 import { 
   CHANGE_OFFER_STATUS, 
   FETCH_OFFERS_SUCCESS,
-  COLLABORATION_CREATED_FROM_OFFER } from 'types'
+  COLLABORATION_CREATED_FROM_OFFER } from 'Redux/types'
 
 
 

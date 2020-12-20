@@ -1,5 +1,5 @@
 
-import { REQUEST_RESOURCE, FETCH_RESOURCE_SUCCESS} from 'types'
+import { REQUEST_RESOURCE, FETCH_RESOURCE_SUCCESS} from 'Redux/types'
 
 
 export const isFetching = resource => {

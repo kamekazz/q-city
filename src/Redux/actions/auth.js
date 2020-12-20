@@ -2,7 +2,7 @@
 
 import { 
   SET_AUTH_USER, 
-  RESET_AUTH_STATE } from 'types'
+  RESET_AUTH_STATE } from 'Redux/types'
 
 import * as api from 'api'
 

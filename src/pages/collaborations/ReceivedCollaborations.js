@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import withAuthorization from 'components/hoc/withAuthorization'
-import { fetchCollaborations } from 'actions'
+import { fetchCollaborations } from 'Redux/actions'
 import moment from 'moment'
 import { Timestamp } from 'db'
 

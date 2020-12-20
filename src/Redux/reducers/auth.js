@@ -2,7 +2,7 @@
 import { SET_AUTH_USER, 
          RESET_AUTH_STATE,
          FETCH_USER_SERVICES_SUCCESS,
-         FETCH_USER_MESSAGES_SUCCESS } from 'types'
+         FETCH_USER_MESSAGES_SUCCESS } from 'Redux/types'
 import { combineReducers } from 'redux'
 
 

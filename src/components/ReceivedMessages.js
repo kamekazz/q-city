@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { getMessages } from 'reducers'
-import { markMessageAsRead } from 'actions'
+import { getMessages } from 'Redux/reducers'
+import { markMessageAsRead } from 'Redux/actions'
 import { useHistory } from 'react-router-dom'
 
 const ReceivedMessages = ({dispatch, messages}) => {

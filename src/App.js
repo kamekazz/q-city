@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Provider } from 'react-redux'
 import { ToastProvider } from 'react-toast-notifications'
-import initStore from './store'
+import initStore from './Redux/store'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 import ServiceApp from './ServiceApp'
@@ -11,7 +11,7 @@ import {
   onAuthStateChanged, 
   storeAuthUser, 
   subscribeToMessages,
-  checkUserConnection } from 'actions'
+  checkUserConnection } from './Redux/actions'
 
 const store = initStore()
 

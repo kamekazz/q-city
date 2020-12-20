@@ -8,7 +8,7 @@ import {
   UPDATE_COLLABORATION_USER,
   SET_COLLABORATION_MESSAGES, 
   RESET_COLLABORATION_MESSAGES,
-  REMOVE_COLLABORATION_MESSAGE } from 'types'
+  REMOVE_COLLABORATION_MESSAGE } from 'Redux/types'
 import * as api from 'api'
 
 export const collaborate = ({collaboration, message}) => dispatch =>

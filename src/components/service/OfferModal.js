@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Modal from 'components/Modal'
 import { useToasts } from 'react-toast-notifications'
 
-import { createRef, createOffer } from 'actions'
+import { createRef, createOffer } from 'Redux/actions'
 
 const OfferModal = ({service, auth}) => {
 

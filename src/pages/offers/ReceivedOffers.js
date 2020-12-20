@@ -6,7 +6,7 @@ import ServiceItem from 'components/service/ServiceItem'
 import { connect } from 'react-redux'
 import Spinner from 'components/Spinner'
 
-import { fetchReceivedOffers, changeOfferStatus } from 'actions'
+import { fetchReceivedOffers, changeOfferStatus } from 'Redux/actions'
 
 class ReceivedOffers extends React.Component {
 

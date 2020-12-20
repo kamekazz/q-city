@@ -11,7 +11,7 @@ import {
   subToProfile,
   sendChatMessage,
   subToMessages,
-  startCollaboration } from 'actions'
+  startCollaboration } from 'Redux/actions'
 import JoinedPeople from 'components/collaboration/JoinedPeople'
 import ChatMessages from 'components/collaboration/ChatMessages'
 import Timer from 'components/collaboration/Timer'
