@@ -1,12 +1,13 @@
 import firebase from 'firebase/app'
-import 'firebase/firestore'
+import 'firebase/storage';
+import 'firebase/firestore';
 import { fireKey } from './FireKeys'
 
-const db = firebase
-  .initializeApp(fireKey)
-  .firestore()
+const db = firebase.initializeApp(fireKey).firestore()
 
-export default db
-
+const projectStorage = firebase.storage();
+  
+const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 const { Timestamp } = firebase.firestore
-export { Timestamp } 
+export { projectStorage,  timestamp,Timestamp };
+export default db

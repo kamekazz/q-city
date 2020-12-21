@@ -20,6 +20,7 @@ import ReceivedOffersPage from './pages/offers/ReceivedOffers'
 
 import ReceivedCollaborationsPage from './pages/collaborations/ReceivedCollaborations'
 import CollaborationDetailPage from './pages/collaborations/CollaborationDetail'
+import AppNinja from './pages/Ninja.App/src/AppNinja'
 
 const Routes = () => 
   <Switch>
@@ -64,6 +65,9 @@ const Routes = () =>
     </Route>
     <Route path="/faq">
       <FaqPage />
+    </Route>
+    <Route path="/ninja">
+      <AppNinja />
     </Route>
     <Route path="/">
       <HomePage />
