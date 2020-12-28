@@ -16,7 +16,7 @@ const Modal = ({ setSelectedImg, selectedImg }) => {
     >
       <motion.img src={selectedImg} alt="enlarged pic" 
         initial={{ y: "-100vh" }}
-        animate={{ y: 0 }}
+        animate={{ y: "20vh"  }}
       />
     </motion.div>
   )

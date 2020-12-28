@@ -88,6 +88,11 @@ const Navbar = props => {
                       Manage
                   </a>
                   <div className="navbar-dropdown">
+                  <Link 
+                      to="/ninja"
+                      className="navbar-item">
+                        ninja image
+                    </Link>
                     <Link 
                       to="/services/new"
                       className="navbar-item">

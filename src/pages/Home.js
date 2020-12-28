@@ -6,6 +6,7 @@ import Hero from 'components/Hero'
 import ServiceItem from 'components/service/ServiceItem'
 
 import { fetchServices } from 'Redux/actions'
+import axios from 'axios'
 
 class Home extends React.Component {
 
@@ -15,10 +16,27 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.fetchServices()
+    this.getInfoForSalsify()
+    
   }
 
   renderServices = (services) =>
     services.map(service => <ServiceItem key={service.id} service={service} />)
+  
+  getInfoForSalsify=()=>{
+    axios.get('https://app.salsify.com/catalogs/api/catalogs/cea4e749-855a-4b54-adc5-6e437fbde1da/products/538010')
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+  }
   
 
   render() {
@@ -32,6 +50,7 @@ class Home extends React.Component {
               <h2 className="title is-2">Great Power Comes </h2>
               <h3 className="subtitle is-5 is-muted">With great Responsability</h3>
               <div className="divider is-centered"></div>
+               <img src="https://images.salsify.com/image/upload/s--cJxbvTPb--/c_limit,cs_srgb,h_600,w_600/zrtedbhc0qwqylmakxda.jpg" alt="https://images.salsify.com/image/upload/s--cJxbvTPb--/c_limit,cs_srgb,h_600,w_600/zrtedbhc0qwqylmakxda.jpg"/>
             </div>
 
             <div className="content-wrapper">
