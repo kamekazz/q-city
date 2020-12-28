@@ -5,7 +5,7 @@ import { ToastProvider } from 'react-toast-notifications'
 import initStore from './Redux/store'
 
 import { BrowserRouter as Router } from 'react-router-dom'
-import ServiceApp from './ServiceApp'
+import MainApp from './MainApp'
 
 import { 
   onAuthStateChanged, 
@@ -43,7 +43,7 @@ class App extends React.Component {
       <Provider store={store}>
         <ToastProvider>
           <Router>
-            <ServiceApp />
+            <MainApp />
           </Router>
         </ToastProvider>
       </Provider>

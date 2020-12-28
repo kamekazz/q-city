@@ -8,7 +8,7 @@ import Navbar from 'components/Navbar'
 import Routes from './Routes'
 import Spinner from 'components/Spinner'
 
-class ServiceApp extends React.Component {
+class MainApp extends React.Component {
 
   renderApplication = auth => 
     <React.Fragment>
@@ -31,4 +31,4 @@ class ServiceApp extends React.Component {
 
 const mapStateToProps = state => ({auth: state.auth})
   
-export default connect(mapStateToProps)(ServiceApp)
+export default connect(mapStateToProps)(MainApp)
