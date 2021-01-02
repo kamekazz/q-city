@@ -10,7 +10,6 @@ class MainApp extends React.Component {
   renderApplication = (auth) => (
     <>
       <Navbar loadFresh id="navbar-main" auth={auth} />
-      <Navbar auth={auth} id="navbar-clone" />
       <Sidebar />
       <Routes />
     </>

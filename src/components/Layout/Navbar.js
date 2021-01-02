@@ -1,173 +1,177 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
+import React from "react";
+import clsx from "clsx";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import List from "@material-ui/core/List";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
 
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import ReceivedMessages from "components/ReceivedMessages";
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  hide: {
+    display: "none",
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: "nowrap",
+  },
+  drawerOpen: {
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: "hidden",
+    width: theme.spacing(7) + 1,
+    [theme.breakpoints.up("sm")]: {
+      width: theme.spacing(9) + 1,
+    },
+  },
+  toolbar: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+}));
 
 const Navbar = (props) => {
-  const { user, isAuth, messages } = props.auth;
-  const { loadFresh } = props;
+  const classes = useStyles();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
 
-  useEffect(() => {
-    if (!loadFresh) {
-      return;
-    }
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
-    const script = document.createElement("script");
-    script.src = `${process.env.PUBLIC_URL}/js/fresh.js`;
-    script.async = true;
-    document.body.appendChild(script);
-  }, [loadFresh]);
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <nav
-      id={props.id || ""}
-      className="navbar is-fresh is-transparent no-shadow"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div className="container">
-        <div className="navbar-brand">
-          <Link to="/" className="navbar-item">
-            <div className="title">Servicario</div>
-          </Link>
-
-          <a className="navbar-item is-hidden-desktop is-hidden-tablet">
-            <div
-              id="menu-icon-wrapper"
-              className="menu-icon-wrapper"
-              style={{ visibility: "visible" }}
-            >
-              <svg width="1000px" height="1000px">
-                <path
-                  className="path1"
-                  d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"
-                ></path>
-                <path className="path2" d="M 300 500 L 700 500"></path>
-                <path
-                  className="path3"
-                  d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"
-                ></path>
-              </svg>
-              <button
-                id="menu-icon-trigger"
-                className="menu-icon-trigger"
-              ></button>
-            </div>
-          </a>
-
-          <a
-            role="button"
-            className="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbar-menu"
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, {
+              [classes.hide]: open,
+            })}
           >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            Mini variant drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="permanent"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
+        })}
+        classes={{
+          paper: clsx({
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          }),
+        }}
+      >
+        <div className={classes.toolbar}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
         </div>
-
-        <div id="navbar-menu" className="navbar-menu is-static">
-          <div className="navbar-start">
-            <a className="navbar-item is-hidden-mobile">
-              <div
-                id="menu-icon-wrapper"
-                className="menu-icon-wrapper"
-                style={{ visibility: "visible" }}
-              >
-                <svg width="1000px" height="1000px">
-                  <path
-                    className="path1"
-                    d="M 300 400 L 700 400 C 900 400 900 750 600 850 A 400 400 0 0 1 200 200 L 800 800"
-                  ></path>
-                  <path className="path2" d="M 300 500 L 700 500"></path>
-                  <path
-                    className="path3"
-                    d="M 700 600 L 300 600 C 100 600 100 200 400 150 A 400 380 0 1 1 200 800 L 800 200"
-                  ></path>
-                </svg>
-                <button
-                  id="menu-icon-trigger"
-                  className="menu-icon-trigger"
-                ></button>
-              </div>
-            </a>
-          </div>
-
-          <div className="navbar-end">
-            {isAuth && (
-              <div className="navbar-item is-secondary user-welcome">
-                {`Hi ${user.fullName}`}
-              </div>
-            )}
-            <Link to="/" className="navbar-item is-secondary">
-              Home
-            </Link>
-            <Link to="/faq" className="navbar-item is-secondary">
-              Faq
-            </Link>
-            {isAuth && (
-              <React.Fragment>
-                <div className="navbar-item has-dropdown is-hoverable">
-                  <a className="navbar-link">Manage</a>
-                  <div className="navbar-dropdown">
-                    <Link to="/ninja" className="navbar-item">
-                      ninja image
-                    </Link>
-                    <Link to="/services/new" className="navbar-item">
-                      Create Service
-                    </Link>
-                    <Link to="/services/me" className="navbar-item">
-                      Your Services
-                    </Link>
-                    <Link to="/offers/sent" className="navbar-item">
-                      Sent Offers
-                    </Link>
-                    <Link to="/offers/received" className="navbar-item">
-                      Received Offers
-                    </Link>
-                    <Link to="/collaborations/me" className="navbar-item">
-                      Received Collaborations
-                    </Link>
-                  </div>
-                </div>
-                <div className="navbar-item has-dropdown is-hoverable">
-                  <a className="navbar-link">Messages</a>
-                  <div className="navbar-dropdown navbar-dropdown-messages">
-                    {messages && <ReceivedMessages />}
-                  </div>
-                </div>
-              </React.Fragment>
-            )}
-            {!isAuth && (
-              <React.Fragment>
-                <Link
-                  to="/login"
-                  className="navbar-item is-secondary modal-trigger"
-                  data-modal="auth-modal"
-                >
-                  Login
-                </Link>
-                <Link to="/register" className="navbar-item">
-                  <span className="button signup-button rounded secondary-btn raised">
-                    Register
-                  </span>
-                </Link>
-              </React.Fragment>
-            )}
-            {isAuth && (
-              <Link to="/logout" className="navbar-item">
-                <span className="button signup-button is-danger rounded raised">
-                  Logout
-                </span>
-              </Link>
-            )}
-          </div>
-        </div>
-      </div>
-    </nav>
+        <Divider />
+        <List>
+          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {["All mail", "Trash", "Spam"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <h1>kendra</h1>
+      </main>
+    </div>
   );
 };
 
