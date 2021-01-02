@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Sidebar from "components/Sidebar";
-import Navbar from "components/Navbar";
+import Navbar from "components/Layout/Navbar";
 import Routes from "./Routes";
 import Spinner from "components/Spinner";
 
