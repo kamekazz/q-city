@@ -118,7 +118,7 @@ const Navbar = (prop) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Mini variant drawer
+            Q City
           </Typography>
         </Toolbar>
       </AppBar>
