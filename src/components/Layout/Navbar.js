@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = (props) => {
+const Navbar = (prop) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -169,7 +169,7 @@ const Navbar = (props) => {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <h1>kendra</h1>
+        {prop.children}
       </main>
     </div>
   );

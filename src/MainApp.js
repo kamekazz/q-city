@@ -9,9 +9,9 @@ import Spinner from "components/Spinner";
 class MainApp extends React.Component {
   renderApplication = (auth) => (
     <>
-      <Navbar loadFresh id="navbar-main" auth={auth} />
-      <Sidebar />
-      <Routes />
+      <Navbar loadFresh id="navbar-main" auth={auth}>
+        <Routes />
+      </Navbar>
     </>
   );
 
