@@ -4,6 +4,7 @@ import {
   StepLabel,
   Typography,
   Button,
+  Paper,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
@@ -11,9 +12,8 @@ import ProductInfo from "./ProductInfo";
 
 const useStyles = makeStyles({
   root: {
-    width: "50%",
     margin: "1rem auto",
-    border: "1px solid #999",
+    padding: "6px 12px",
     "& .MuiStepIcon-active": {
       color: "blue",
     },
@@ -48,7 +48,7 @@ const MultiForm = () => {
   const steps = getSteps();
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <Paper className={classes.root}>
       <Stepper alternativeLabel activeStep={activateStep}>
         {steps.map((_label) => (
           <Step key={_label}>
@@ -66,7 +66,7 @@ const MultiForm = () => {
           </Button>
         </>
       )}
-    </div>
+    </Paper>
   );
 };
 

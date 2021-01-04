@@ -1,9 +1,9 @@
-export const VALUE = 'value';
-export const ERROR = 'error';
+export const VALUE = "value";
+export const ERROR = "error";
 export const REQUIRED_FIELD_ERROR = "Field can't be empty";
 
 function is_bool(value) {
-  return typeof value === 'boolean';
+  return typeof value === "boolean";
 }
 
 /**
@@ -12,7 +12,7 @@ function is_bool(value) {
  * @param {object} value
  */
 export function is_object(value) {
-  return typeof value === 'object' && value !== null;
+  return typeof value === "object" && value !== null;
 }
 
 /**
@@ -22,7 +22,7 @@ export function is_object(value) {
  */
 export function is_required(value, isRequired) {
   if (!value && isRequired) return REQUIRED_FIELD_ERROR;
-  return '';
+  return "";
 }
 
 export function get_prop_values(stateSchema, prop) {
