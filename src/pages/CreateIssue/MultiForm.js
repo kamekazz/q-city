@@ -30,10 +30,10 @@ const MultiForm = () => {
 
   const [activateStep, setStep] = useState(0);
 
-  const getStepsContent = (_stepIndex) => {
+  const getStepsContent = (_stepIndex, _handelStep) => {
     switch (_stepIndex) {
       case 0:
-        return <ProductInfo />;
+        return <ProductInfo handelStep={_handelStep} />;
       case 1:
         return "2 Choose plan";
       case 2:
@@ -56,16 +56,9 @@ const MultiForm = () => {
           </Step>
         ))}
       </Stepper>
-      {activateStep === steps.length ? (
-        "The Step completed"
-      ) : (
-        <>
-          {getStepsContent(activateStep)}
-          <Button onClick={handelStep}>
-            {activateStep === steps.length ? "Finch" : "Next"}
-          </Button>
-        </>
-      )}
+      {activateStep === steps.length
+        ? "The Step completed"
+        : getStepsContent(activateStep, handelStep)}
     </Paper>
   );
 };
