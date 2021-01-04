@@ -22,7 +22,12 @@ const ProductInfo = (props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant="h5">Product Information</Typography>
+      <Typography
+        variant="h5"
+        style={{ width: "100%", textAlign: "center", marginBottom: 6 }}
+      >
+        Product Information
+      </Typography>
       <TextContainerEL>
         <TextField
           label="IBM"
@@ -73,6 +78,13 @@ const TextContainerEL = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 6px;
+  @media screen and (max-width: 480px) {
+    justify-content: center;
+  }
+
+  .MuiFormControl-root {
+    margin-bottom: 6px;
+  }
 `;
 
 const BottomContainerEL = styled.div`
