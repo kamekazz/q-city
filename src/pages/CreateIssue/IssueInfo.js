@@ -48,6 +48,7 @@ const IssueInfo = (props) => {
           rows={4}
           inputRef={register}
           variant="outlined"
+          fullWidth
         />
         <TextField
           label="Lot"
