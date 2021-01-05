@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 const ProductInfo = (props) => {
   const { handelStep } = props;
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     handelStep();
@@ -32,14 +32,19 @@ const ProductInfo = (props) => {
         <TextField
           label="IBM"
           variant="outlined"
-          inputRef={register}
+          inputRef={register({ required: true, maxLength: 6, minLength: 6 })}
           name="ibm"
+          type="number"
+          helperText={errors.ibm && "most de 6 digit and required"}
+          error={errors.ibm && true}
         />
         <TextField
           label="PO"
           variant="outlined"
-          inputRef={register}
-          name="PO"
+          inputRef={register({ required: true })}
+          name="po"
+          helperText={errors.po && "required"}
+          error={errors.po && true}
         />
         <TextField
           label="Vender"
@@ -52,6 +57,7 @@ const ProductInfo = (props) => {
           variant="outlined"
           inputRef={register}
           name="location"
+          defaultValue="nj"
         />
         <TextField
           label="Container"

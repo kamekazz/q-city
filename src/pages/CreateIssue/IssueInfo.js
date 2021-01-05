@@ -14,7 +14,7 @@ import styled from "styled-components";
 
 const IssueInfo = (props) => {
   const { handelStep } = props;
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     handelStep();
@@ -33,8 +33,12 @@ const IssueInfo = (props) => {
         <TextField
           label="Issue code"
           variant="outlined"
-          inputRef={register}
+          inputRef={register({ required: true, minLength: 3 })}
           name="issue_code"
+          helperText={
+            errors.issue_code && "most de 3 digit or highjack and required"
+          }
+          error={errors.issue_code && true}
         />
         <TextField
           id="outlined-multiline-static"
@@ -48,26 +52,38 @@ const IssueInfo = (props) => {
         <TextField
           label="Lot"
           variant="outlined"
-          inputRef={register}
           name="lot"
+          type="number"
+          inputRef={register({ required: true, min: 0 })}
+          helperText={errors.lot && "required"}
+          error={errors.lot && true}
         />
         <TextField
           label="Sample Size"
+          type="number"
           variant="outlined"
-          inputRef={register}
+          inputRef={register({ required: true, min: 0 })}
           name="sample_size"
+          helperText={errors.sample_size && "required"}
+          error={errors.sample_size && true}
         />
         <TextField
+          type="number"
           label="Pass"
           variant="outlined"
-          inputRef={register}
+          inputRef={register({ required: true, min: 0 })}
           name="pass"
+          helperText={errors.pass && "required"}
+          error={errors.pass && true}
         />
         <TextField
+          type="number"
           label="Fail"
           variant="outlined"
-          inputRef={register}
+          inputRef={register({ required: true, min: 0 })}
           name="fail"
+          helperText={errors.fail && "required"}
+          error={errors.issue_code && true}
         />
       </TextContainerEL>
       <BottomContainerEL>
