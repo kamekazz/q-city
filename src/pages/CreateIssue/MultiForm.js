@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
+import FileModule from "./addfile/src/FileModule";
 import IssueInfo from "./IssueInfo";
 import ProductInfo from "./ProductInfo";
 
@@ -29,7 +30,7 @@ const MultiForm = () => {
     return ["START ISSUE", "ADD ISSUE", "ADD IMAGE"];
   };
 
-  const [activateStep, setStep] = useState(0);
+  const [activateStep, setStep] = useState(2);
   const [mainData, setMainData] = useState({});
 
   const getStepsContent = (_stepIndex, _handelStep) => {
@@ -41,7 +42,7 @@ const MultiForm = () => {
       case 1:
         return <IssueInfo handelStep={_handelStep} />;
       case 2:
-        return "3 Check out";
+        return <FileModule />;
       default:
         return "undone step";
     }
