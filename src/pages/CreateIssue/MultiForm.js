@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
+import IssueInfo from "./IssueInfo";
 import ProductInfo from "./ProductInfo";
 
 const useStyles = makeStyles({
@@ -25,17 +26,20 @@ const useStyles = makeStyles({
 
 const MultiForm = () => {
   const getSteps = () => {
-    return ["SIGN UP", "CHOOSE PLAN", "CHECK OUT"];
+    return ["START ISSUE", "ADD ISSUE", "ADD IMAGE"];
   };
 
   const [activateStep, setStep] = useState(0);
+  const [mainData, setMainData] = useState({});
 
   const getStepsContent = (_stepIndex, _handelStep) => {
     switch (_stepIndex) {
       case 0:
-        return <ProductInfo handelStep={_handelStep} />;
+        return (
+          <ProductInfo handelStep={_handelStep} setMainData={setMainData} />
+        );
       case 1:
-        return "2 Choose plan";
+        return <IssueInfo handelStep={_handelStep} />;
       case 2:
         return "3 Check out";
       default:

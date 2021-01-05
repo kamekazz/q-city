@@ -11,7 +11,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-const ProductInfo = (props) => {
+
+const IssueInfo = (props) => {
   const { handelStep } = props;
   const { register, handleSubmit } = useForm();
 
@@ -26,38 +27,47 @@ const ProductInfo = (props) => {
         variant="h5"
         style={{ width: "100%", textAlign: "center", marginBottom: 6 }}
       >
-        Product Information
+        Enter Issue
       </Typography>
       <TextContainerEL>
         <TextField
-          label="IBM"
+          label="Issue code"
           variant="outlined"
           inputRef={register}
-          name="ibm"
+          name="issue_code"
         />
         <TextField
-          label="PO"
-          variant="outlined"
+          id="outlined-multiline-static"
+          label="Note"
+          name="note"
+          multiline
+          rows={4}
           inputRef={register}
-          name="PO"
+          variant="outlined"
         />
         <TextField
-          label="Vender"
+          label="Lot"
           variant="outlined"
           inputRef={register}
-          name="vender"
+          name="lot"
         />
         <TextField
-          label="Location"
+          label="Sample Size"
           variant="outlined"
           inputRef={register}
-          name="location"
+          name="sample_size"
         />
         <TextField
-          label="Container"
+          label="Pass"
           variant="outlined"
           inputRef={register}
-          name="container"
+          name="pass"
+        />
+        <TextField
+          label="Fail"
+          variant="outlined"
+          inputRef={register}
+          name="fail"
         />
       </TextContainerEL>
       <BottomContainerEL>
@@ -72,7 +82,7 @@ const ProductInfo = (props) => {
   );
 };
 
-export default ProductInfo;
+export default IssueInfo;
 const TextContainerEL = styled.div`
   display: flex;
   flex-wrap: wrap;
