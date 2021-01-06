@@ -25,7 +25,7 @@ label input {
   width: 0;
   opacity: 0;
 }
-label {
+.App > form:nth-child(2) > label:nth-child(1) {
   display: block;
   width: 60px;
   height: 60px;
@@ -37,7 +37,7 @@ label {
   font-weight: bold;
   font-size: 48px;
 }
-label:hover {
+.App > form:nth-child(2) > label:nth-child(1):hover {
   background: var(--primary);
   color: white;
 }

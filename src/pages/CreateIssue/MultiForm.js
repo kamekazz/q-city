@@ -4,6 +4,7 @@ import { useState } from "react";
 import FileModule from "./addfile/src/FileModule";
 import IssueInfo from "./IssueInfo";
 import ProductInfo from "./ProductInfo";
+import ReviewReport from "./ReviewReport";
 
 const useStyles = makeStyles({
   root: {
@@ -20,13 +21,13 @@ const useStyles = makeStyles({
 
 const MultiForm = () => {
   const getSteps = () => {
-    return ["START ISSUE", "ADD ISSUE", "Uploaded files", "Finalize Issue"];
+    return ["START", "ADD ISSUE", "Uploaded files", "Finalize"];
   };
 
-  const [activateStep, setStep] = useState(2);
+  const [activateStep, setStep] = useState(0);
   const [mainData, setMainData] = useState({});
 
-  const getStepsContent = (_stepIndex, _handelStep) => {
+  const getStepsContent = (_stepIndex, _handelStep, _handelBack) => {
     switch (_stepIndex) {
       case 0:
         return (
@@ -35,6 +36,7 @@ const MultiForm = () => {
       case 1:
         return (
           <IssueInfo
+            handelBack={_handelBack}
             handelStep={_handelStep}
             setMainData={setMainData}
             mainData={mainData}
@@ -43,6 +45,16 @@ const MultiForm = () => {
       case 2:
         return (
           <FileModule
+            handelBack={_handelBack}
+            handelStep={_handelStep}
+            setMainData={setMainData}
+            mainData={mainData}
+          />
+        );
+      case 3:
+        return (
+          <ReviewReport
+            handelBack={_handelBack}
             handelStep={_handelStep}
             setMainData={setMainData}
             mainData={mainData}
@@ -54,6 +66,9 @@ const MultiForm = () => {
   };
   const handelStep = () => {
     setStep((_state) => _state + 1);
+  };
+  const handelBack = () => {
+    setStep((_state) => _state - 1);
   };
   const steps = getSteps();
   const classes = useStyles();
@@ -68,7 +83,7 @@ const MultiForm = () => {
       </Stepper>
       {activateStep === steps.length
         ? "The Step completed"
-        : getStepsContent(activateStep, handelStep)}
+        : getStepsContent(activateStep, handelStep, handelBack)}
     </Paper>
   );
 };

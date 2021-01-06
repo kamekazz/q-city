@@ -6,7 +6,7 @@ import Modal from "./comps/Modal";
 import "./addFile.css";
 import { Typography, Button } from "@material-ui/core";
 
-function FileModule() {
+function FileModule(props) {
   const [selectedImg, setSelectedImg] = useState(null);
 
   return (
@@ -21,10 +21,14 @@ function FileModule() {
       <UploadForm />
       <ImageGrid setSelectedImg={setSelectedImg} />
       <BottomContainerEL>
-        <Button variant="contained" style={{ marginRight: 6 }}>
-          cancel
+        <Button
+          variant="contained"
+          style={{ marginRight: 6 }}
+          onClick={props.handelBack}
+        >
+          Back
         </Button>
-        <Button type="submit" variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={props.handelStep}>
           Next
         </Button>
       </BottomContainerEL>

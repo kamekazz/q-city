@@ -78,8 +78,12 @@ const IssueInfo = (props) => {
         />
       </TextContainerEL>
       <BottomContainerEL>
-        <Button variant="contained" style={{ marginRight: 6 }}>
-          cancel
+        <Button
+          variant="contained"
+          style={{ marginRight: 6 }}
+          onClick={props.handelBack}
+        >
+          Back
         </Button>
         <Button type="submit" variant="contained" color="primary">
           Next
