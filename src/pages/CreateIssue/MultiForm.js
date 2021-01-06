@@ -1,11 +1,4 @@
-import {
-  Stepper,
-  Step,
-  StepLabel,
-  Typography,
-  Button,
-  Paper,
-} from "@material-ui/core";
+import { Stepper, Step, StepLabel, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import FileModule from "./addfile/src/FileModule";
@@ -40,9 +33,21 @@ const MultiForm = () => {
           <ProductInfo handelStep={_handelStep} setMainData={setMainData} />
         );
       case 1:
-        return <IssueInfo handelStep={_handelStep} />;
+        return (
+          <IssueInfo
+            handelStep={_handelStep}
+            setMainData={setMainData}
+            mainData={mainData}
+          />
+        );
       case 2:
-        return <FileModule />;
+        return (
+          <FileModule
+            handelStep={_handelStep}
+            setMainData={setMainData}
+            mainData={mainData}
+          />
+        );
       default:
         return "undone step";
     }
