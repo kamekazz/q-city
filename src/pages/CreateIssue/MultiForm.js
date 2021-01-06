@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
 const MultiForm = () => {
   const getSteps = () => {
-    return ["START ISSUE", "ADD ISSUE", "ADD IMAGE"];
+    return ["START ISSUE", "ADD ISSUE", "Uploaded files", "Finalize Issue"];
   };
 
   const [activateStep, setStep] = useState(2);
