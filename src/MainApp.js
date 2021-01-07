@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Navbar from "components/Layout/Navbar";
+import Navbar from "components/Layout/Nav/Navbar";
 import Routes from "./Routes";
 import Spinner from "components/Spinner";
 
