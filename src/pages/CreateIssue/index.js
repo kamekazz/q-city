@@ -1,4 +1,4 @@
-import onlyGuest from "components/hoc/onlyGuest";
+import withAuthorization from "components/hoc/withAuthorization";
 import MultiForm from "./MultiForm";
 const CreateIssuePages = () => {
   return (
@@ -8,4 +8,4 @@ const CreateIssuePages = () => {
   );
 };
 
-export default onlyGuest(CreateIssuePages);
+export default withAuthorization(CreateIssuePages);
