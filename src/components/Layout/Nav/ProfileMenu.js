@@ -1,28 +1,39 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
+import React, { useState } from "react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import IconButton from "@material-ui/core/IconButton";
+import { useHistory } from "react-router-dom";
 
 export default function ProfileMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [anchorEl, setAnchorEl] = useState(null);
+  const history = useHistory();
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const goToLogin = () => {
+    handleClose();
+    history.push("login");
+  };
+
   return (
     <div>
-      <Button
-        aria-controls="simple-menu"
+      <IconButton
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
         aria-haspopup="true"
-        onClick={handleClick}
+        onClick={handleMenu}
+        color="inherit"
+        size="medium"
       >
-        Open Menu
-      </Button>
+        <AccountCircle fontSize="large" />
+      </IconButton>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -30,9 +41,7 @@ export default function ProfileMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={goToLogin}>Logout</MenuItem>
       </Menu>
     </div>
   );
