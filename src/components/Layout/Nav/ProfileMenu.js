@@ -4,11 +4,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import IconButton from "@material-ui/core/IconButton";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "api";
 
-export default function ProfileMenu() {
+function ProfileMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
-
+  const { isAuth } = props;
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -41,8 +43,15 @@ export default function ProfileMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={goToLogin}>Logout</MenuItem>
+        {isAuth ? (
+          <MenuItem onClick={logout}>Logout</MenuItem>
+        ) : (
+          <MenuItem onClick={goToLogin}>Login</MenuItem>
+        )}
       </Menu>
     </div>
   );
 }
+const mapStateToProps = (state) => ({ isAuth: state.auth.isAuth });
+
+export default connect(mapStateToProps)(ProfileMenu);
