@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { newIssueReport } from "helpers/issueReport";
 import { createReport } from "api/report";
+import { useState } from "react";
 
 const schema = yup.object().shape({
   ibm: yup.string().required().min(6).max(6),
@@ -17,7 +18,7 @@ const schema = yup.object().shape({
 
 const ProductInfo = (props) => {
   const { handelStep, setMainData } = props;
-
+  const [disableButton, setDisableButton] = useState(false);
   const { register, handleSubmit, errors } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
@@ -25,7 +26,7 @@ const ProductInfo = (props) => {
 
   const onSubmit = (data) => {
     const report = newIssueReport(data);
-
+    setDisableButton(true);
     createReport(report, handelStep, setMainData);
   };
 
@@ -82,10 +83,12 @@ const ProductInfo = (props) => {
         />
       </TextContainerEL>
       <BottomContainerEL>
-        <Button variant="contained" style={{ marginRight: 6 }}>
-          cancel
-        </Button>
-        <Button type="submit" variant="contained" color="primary">
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={disableButton}
+        >
           Next
         </Button>
       </BottomContainerEL>

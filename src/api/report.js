@@ -31,3 +31,18 @@ export const updateReportStepTwo = (
       // The document probably doesn't exist.
       console.error("Error updating document: ", error);
     });
+
+export const deleteReport = (_id, history, handleClose) => {
+  db.collection("report")
+    .doc(_id)
+    .delete()
+    .then(function () {
+      console.log("Document successfully deleted!");
+      history.push("/home");
+      handleClose();
+    })
+    .catch(function (error) {
+      console.error("Error removing document: ", error);
+      handleClose();
+    });
+};

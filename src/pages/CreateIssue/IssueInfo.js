@@ -1,10 +1,12 @@
 import { Typography, Button, TextField } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { useState } from "react";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { updateReportStepTwo } from "api/report";
+import DeleteModal from "./DeleteModel";
 
 const schema = yup.object().shape({
   issue_code: yup.string().required().min(3),
@@ -16,6 +18,8 @@ const schema = yup.object().shape({
 
 const IssueInfo = (props) => {
   const { handelStep, setMainData, mainData } = props;
+  const [disableButton, setDisableButton] = useState(false);
+
   const { register, handleSubmit, errors } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
@@ -23,6 +27,7 @@ const IssueInfo = (props) => {
 
   const onSubmit = (data) => {
     updateReportStepTwo(data, handelStep, setMainData, mainData.id);
+    setDisableButton(true);
   };
 
   return (
@@ -90,14 +95,13 @@ const IssueInfo = (props) => {
         />
       </TextContainerEL>
       <BottomContainerEL>
+        <DeleteModal _id={mainData.id} />
         <Button
+          type="submit"
           variant="contained"
-          style={{ marginRight: 6 }}
-          onClick={props.handelBack}
+          color="primary"
+          disabled={disableButton}
         >
-          Back
-        </Button>
-        <Button type="submit" variant="contained" color="primary">
           Next
         </Button>
       </BottomContainerEL>
