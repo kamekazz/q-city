@@ -54,9 +54,9 @@ export default function DeleteModal(props) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
+      <h2 id="simple-modal-title">would you like to continue?</h2>
       <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        if ypu decide to save you can come back and finish a report at any time
       </p>
       <Button
         variant="contained"

@@ -36,7 +36,7 @@ const IssueInfo = (props) => {
         variant="h5"
         style={{ width: "100%", textAlign: "center", marginBottom: 6 }}
       >
-        Enter Issue
+        Enter Issue for IBM:"{mainData.ibm}"
       </Typography>
       <TextContainerEL>
         <TextField

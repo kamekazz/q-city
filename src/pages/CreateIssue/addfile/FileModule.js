@@ -5,8 +5,10 @@ import ImageGrid from "./components/ImageGrid";
 import Modal from "./components/Modal";
 import "./addFile.css";
 import { Typography, Button } from "@material-ui/core";
+import DeleteModal from "./../DeleteModel";
 
 function FileModule(props) {
+  const { mainData } = props;
   const [selectedImg, setSelectedImg] = useState(null);
 
   return (
@@ -21,13 +23,7 @@ function FileModule(props) {
       <UploadForm />
       <ImageGrid setSelectedImg={setSelectedImg} />
       <BottomContainerEL>
-        <Button
-          variant="contained"
-          style={{ marginRight: 6 }}
-          onClick={props.handelBack}
-        >
-          Back
-        </Button>
+        <DeleteModal _id={mainData.id} />
         <Button variant="contained" color="primary" onClick={props.handelStep}>
           Next
         </Button>
