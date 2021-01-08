@@ -17,4 +17,5 @@ export const newIssueReport = ({
   createdByUid: "000",
   status: "draft",
   createdAt: Timestamp.fromDate(new Date()),
+  images: [],
 });

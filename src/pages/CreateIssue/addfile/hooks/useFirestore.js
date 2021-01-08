@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
 import db from "db";
+const id = "dUrfVOuWOfZmww9dpLeZ";
 
 const useFirestore = (collection) => {
   const [docs, setDocs] = useState([]);
 
   useEffect(() => {
     const unSub = db
-      .collection(collection)
-      .orderBy("createdAt", "desc")
-      .onSnapshot((snap) => {
-        let documents = [];
-        snap.forEach((doc) => {
-          documents.push({ ...doc.data(), id: doc.id });
-        });
-        setDocs(documents);
+      .collection("report")
+      .doc(id)
+      .onSnapshot(function (doc) {
+        let allImages = doc.data().images;
+        setDocs(allImages);
       });
 
     return () => unSub();
