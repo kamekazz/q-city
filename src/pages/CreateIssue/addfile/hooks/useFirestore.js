@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react";
 import db from "db";
-const id = "dUrfVOuWOfZmww9dpLeZ";
+// const id = "dUrfVOuWOfZmww9dpLeZ";
 
-const useFirestore = (collection) => {
-  const [docs, setDocs] = useState([]);
+const useFirestore = (_id) => {
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     const unSub = db
       .collection("report")
-      .doc(id)
+      .doc(_id)
       .onSnapshot(function (doc) {
         let allImages = doc.data().images;
-        setDocs(allImages);
+        setImages(allImages);
       });
 
     return () => unSub();
     // this is a cleanup function that react will run when
     // a component using the hook un mounts
-  }, [collection]);
+  }, [_id]);
 
-  return { docs };
+  return { images };
 };
 
 export default useFirestore;

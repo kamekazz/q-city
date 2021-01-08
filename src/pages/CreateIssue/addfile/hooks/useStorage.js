@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { projectStorage, timestamp, pushArrayUnion } from "db";
+import { projectStorage, pushArrayUnion } from "db";
 import db from "db";
 
-const useStorage = (file) => {
+const useStorage = (file, _id) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
-  const id = "dUrfVOuWOfZmww9dpLeZ";
+  // const id = "dUrfVOuWOfZmww9dpLeZ";
   useEffect(() => {
     // references
     const storageRef = projectStorage.ref(`issue_report/${file.name}`);
-    const documentRef = db.collection("report").doc(id);
+    const documentRef = db.collection("report").doc(_id);
 
     storageRef.put(file).on(
       "state_changed",
@@ -23,17 +23,20 @@ const useStorage = (file) => {
       },
       async () => {
         const url = await storageRef.getDownloadURL();
-        const createdAt = timestamp();
+        // const createdAt = timestamp();
+        let d = new Date();
+        let n = d.getMilliseconds();
         await documentRef.update({
           images: pushArrayUnion({
             url: url,
             titleImage: "",
+            createdAt: n,
           }),
         });
         setUrl(url);
       }
     );
-  }, [file]);
+  }, [file, _id]);
 
   return { progress, url, error };
 };

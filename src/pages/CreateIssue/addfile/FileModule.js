@@ -20,8 +20,8 @@ function FileModule(props) {
         Files
       </Typography>
 
-      <UploadForm />
-      <ImageGrid setSelectedImg={setSelectedImg} />
+      <UploadForm _id={mainData.id} />
+      <ImageGrid setSelectedImg={setSelectedImg} _id={mainData.id} />
       <BottomContainerEL>
         <DeleteModal _id={mainData.id} />
         <Button variant="contained" color="primary" onClick={props.handelStep}>
