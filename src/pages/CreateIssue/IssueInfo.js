@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { updateReportStepTwo } from "api/report";
 
 const schema = yup.object().shape({
   issue_code: yup.string().required().min(3),
@@ -14,15 +15,14 @@ const schema = yup.object().shape({
 });
 
 const IssueInfo = (props) => {
-  const { handelStep } = props;
+  const { handelStep, setMainData, mainData } = props;
   const { register, handleSubmit, errors } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (data) => {
-    handelStep();
-    alert(JSON.stringify(data));
+    updateReportStepTwo(data, handelStep, setMainData, mainData.id);
   };
 
   return (
