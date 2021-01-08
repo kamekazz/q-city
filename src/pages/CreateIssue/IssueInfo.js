@@ -2,9 +2,23 @@ import { Typography, Button, TextField } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  issue_code: yup.string().required().min(3),
+  lot: yup.number().required().min(1),
+  sample_size: yup.number().required().min(1),
+  pass: yup.number().required().min(0),
+  failed: yup.number().required().min(0),
+});
+
 const IssueInfo = (props) => {
   const { handelStep } = props;
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm({
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (data) => {
     handelStep();
@@ -23,11 +37,9 @@ const IssueInfo = (props) => {
         <TextField
           label="Issue code"
           variant="outlined"
-          inputRef={register({ required: true, minLength: 3 })}
           name="issue_code"
-          helperText={
-            errors.issue_code && "most de 3 digit or highjack and required"
-          }
+          inputRef={register}
+          helperText={errors?.issue_code?.message}
           error={errors.issue_code && true}
         />
         <TextField
@@ -45,36 +57,36 @@ const IssueInfo = (props) => {
           variant="outlined"
           name="lot"
           type="number"
-          inputRef={register({ required: true, min: 0 })}
-          helperText={errors.lot && "required"}
+          inputRef={register}
+          helperText={errors?.lot?.message}
           error={errors.lot && true}
         />
         <TextField
           label="Sample Size"
           type="number"
           variant="outlined"
-          inputRef={register({ required: true, min: 0 })}
+          inputRef={register}
           name="sample_size"
-          helperText={errors.sample_size && "required"}
+          helperText={errors?.sample_size?.message}
           error={errors.sample_size && true}
         />
         <TextField
           type="number"
           label="Pass"
           variant="outlined"
-          inputRef={register({ required: true, min: 0 })}
+          inputRef={register}
           name="pass"
-          helperText={errors.pass && "required"}
+          helperText={errors?.pass?.message}
           error={errors.pass && true}
         />
         <TextField
           type="number"
-          label="Fail"
+          label="Failed"
           variant="outlined"
-          inputRef={register({ required: true, min: 0 })}
-          name="fail"
-          helperText={errors.fail && "required"}
-          error={errors.issue_code && true}
+          inputRef={register}
+          name="failed"
+          helperText={errors?.pass?.message}
+          error={errors.pass && true}
         />
       </TextContainerEL>
       <BottomContainerEL>

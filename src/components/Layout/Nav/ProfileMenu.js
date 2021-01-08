@@ -5,7 +5,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import IconButton from "@material-ui/core/IconButton";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout } from "api";
 
 function ProfileMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,6 +21,11 @@ function ProfileMenu(props) {
   const goToLogin = () => {
     handleClose();
     history.push("login");
+  };
+
+  const goToLogout = () => {
+    handleClose();
+    history.push("logout");
   };
 
   return (
@@ -44,7 +48,7 @@ function ProfileMenu(props) {
         onClose={handleClose}
       >
         {isAuth ? (
-          <MenuItem onClick={logout}>Logout</MenuItem>
+          <MenuItem onClick={goToLogout}>Logout</MenuItem>
         ) : (
           <MenuItem onClick={goToLogin}>Login</MenuItem>
         )}

@@ -1,9 +1,25 @@
 import { Typography, Button, TextField } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  ibm: yup.string().required().min(6).max(6),
+  po: yup.string().required().min(4),
+  vender: yup.string().required().min(2),
+  location: yup.string().required().min(2),
+  container: yup.string().required().min(7),
+});
+
 const ProductInfo = (props) => {
   const { handelStep } = props;
-  const { register, handleSubmit, errors } = useForm();
+
+  const { register, handleSubmit, errors } = useForm({
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (data) => {
     handelStep();
@@ -22,18 +38,18 @@ const ProductInfo = (props) => {
         <TextField
           label="IBM"
           variant="outlined"
-          inputRef={register({ required: true, maxLength: 6, minLength: 6 })}
           name="ibm"
           type="number"
-          helperText={errors.ibm && "most de 6 digit and required"}
+          inputRef={register}
+          helperText={errors?.ibm?.message}
           error={errors.ibm && true}
         />
         <TextField
           label="PO"
           variant="outlined"
-          inputRef={register({ required: true })}
+          inputRef={register}
           name="po"
-          helperText={errors.po && "required"}
+          helperText={errors?.po?.message}
           error={errors.po && true}
         />
         <TextField
@@ -41,6 +57,8 @@ const ProductInfo = (props) => {
           variant="outlined"
           inputRef={register}
           name="vender"
+          helperText={errors?.vender?.message}
+          error={errors.vender && true}
         />
         <TextField
           label="Location"
@@ -48,12 +66,16 @@ const ProductInfo = (props) => {
           inputRef={register}
           name="location"
           defaultValue="nj"
+          helperText={errors?.location?.message}
+          error={errors.location && true}
         />
         <TextField
           label="Container"
           variant="outlined"
           inputRef={register}
           name="container"
+          helperText={errors?.container?.message}
+          error={errors.container && true}
         />
       </TextContainerEL>
       <BottomContainerEL>

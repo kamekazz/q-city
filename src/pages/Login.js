@@ -20,6 +20,14 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  email: yup.string().required().email(),
+  password: yup.string().required().min(6),
+});
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -43,7 +51,10 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   const classes = useStyles();
   const [redirect, setRedirect] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm({
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  });
   const { addToast } = useToasts();
 
   const onLogin = (loginData) => {
@@ -88,7 +99,9 @@ const Login = () => {
             name="email"
             autoComplete="email"
             autoFocus
-            inputRef={register({ required: true })}
+            inputRef={register}
+            helperText={errors?.email?.message}
+            error={errors.email && true}
           />
           <TextField
             variant="outlined"
@@ -100,7 +113,9 @@ const Login = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            inputRef={register({ required: true })}
+            inputRef={register}
+            helperText={errors?.password?.message}
+            error={errors.password && true}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
