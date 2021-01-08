@@ -5,20 +5,36 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MailIcon from "@material-ui/icons/Mail";
 import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 const SideBarLink = (props) => {
-  const { to } = props;
+  const { to, children, text } = props;
   return (
-    <NavLink to={to} activeClassName="selected">
+    <StyledLink
+      to={to}
+      activeStyle={{
+        fontWeight: "bold",
+        color: "red",
+      }}
+    >
       <List>
         <ListItem button>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Create Report"} />
+          <ListItemIcon>{children}</ListItemIcon>
+          <ListItemText primary={text} />
         </ListItem>
       </List>
-    </NavLink>
+    </StyledLink>
   );
 };
 export default SideBarLink;
+
+const StyledLink = styled(NavLink)`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;

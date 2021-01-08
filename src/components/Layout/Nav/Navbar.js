@@ -19,7 +19,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import ProfileMenu from "./ProfileMenu";
 import CreateIssue from "pages/CreateIssue";
 import SideBarLink from "./SideBarLink";
-
+import ReportProblemTwoToneIcon from "@material-ui/icons/ReportProblemTwoTone";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -72,7 +72,9 @@ function ResponsiveDrawer(props) {
     <div>
       <div className={classes.toolbar} />
       <Divider />
-      <SideBarLink to="create_issue"></SideBarLink>
+      <SideBarLink to="create_issue" text="Create Report">
+        <ReportProblemTwoToneIcon />
+      </SideBarLink>
     </div>
   );
 
