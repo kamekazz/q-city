@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
 
 :root {
   --primary: #4f42f8;
@@ -8,7 +8,7 @@
 
 /* base styles & title */
 body {
-  font-family: "Noto Serif";
+  font-family: 'Noto Serif';
   color: var(--secondary);
 }
 .App {
@@ -63,7 +63,21 @@ label input {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 40px;
 }
-
+@media screen and (max-width: 1440px) {
+  .img-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .img-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media screen and (max-width: 768px) {
+  .img-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 @media screen and (max-width: 500px) {
   .img-grid {
     grid-template-columns: 1fr;

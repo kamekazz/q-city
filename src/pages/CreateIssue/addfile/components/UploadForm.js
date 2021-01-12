@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +56,9 @@ const UploadForm = ({ _id }) => {
             <PhotoCamera fontSize="large" />
           </IconButton>
         </label>
+        <Typography variant="h6" gutterBottom>
+          Click Me
+        </Typography>
       </div>
       <div className="output">
         {error && <div className="error">{error}</div>}
