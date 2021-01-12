@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import { Provider } from "react-redux";
-import { ToastProvider } from "react-toast-notifications";
-import initStore from "./Redux/store";
+import { Provider } from 'react-redux';
+import { ToastProvider } from 'react-toast-notifications';
+import initStore from './Redux/store';
 
-import { BrowserRouter as Router } from "react-router-dom";
-import MainApp from "./MainApp";
+import { BrowserRouter as Router } from 'react-router-dom';
+import MainApp from './MainApp';
 
 import {
   onAuthStateChanged,
   storeAuthUser,
   subscribeToMessages,
   checkUserConnection,
-} from "./Redux/actions";
-import GlobalStyle from "Styles/global.styles";
+} from './Redux/actions';
+import GlobalStyle from 'styles/global.styles';
 
 const store = initStore();
 
