@@ -1,32 +1,32 @@
-import { Stepper, Step, StepLabel, Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { useState } from "react";
-import FileModule from "./addfile/FileModule";
-import IssueInfo from "./IssueInfo";
-import ProductInfo from "./ProductInfo";
-import ReviewReport from "./ReviewReport";
+import { Stepper, Step, StepLabel, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
+import FileModule from './addfile/FileModule';
+import IssueInfo from './IssueInfo';
+import ProductInfo from './ProductInfo';
+import ReviewReport from './ReviewReport';
 
 const useStyles = makeStyles({
   root: {
-    margin: "1rem auto",
-    padding: "6px 12px",
-    "& .MuiStepIcon-active": {
-      color: "blue",
+    margin: '1rem auto',
+    padding: '6px 12px',
+    '& .MuiStepIcon-active': {
+      color: 'blue',
     },
-    "& .MuiStepIcon-completed": {
-      color: "green",
+    '& .MuiStepIcon-completed': {
+      color: 'green',
     },
   },
 });
 
 const MultiForm = () => {
   const getSteps = () => {
-    return ["START", "ADD ISSUE", "Uploaded files", "Finalize"];
+    return ['START', 'ADD ISSUE', 'Uploaded files', 'Finalize'];
   };
 
-  const [activateStep, setStep] = useState(0);
+  const [activateStep, setStep] = useState(2);
   const [mainData, setMainData] = useState({});
-  console.log("main data", mainData);
+  console.log('main data', mainData);
   const getStepsContent = (_stepIndex, _handelStep, _handelBack) => {
     switch (_stepIndex) {
       case 0:
@@ -61,7 +61,7 @@ const MultiForm = () => {
           />
         );
       default:
-        return "undone step";
+        return 'undone step';
     }
   };
   const handelStep = () => {
@@ -82,7 +82,7 @@ const MultiForm = () => {
         ))}
       </Stepper>
       {activateStep === steps.length
-        ? "The Step completed"
+        ? 'The Step completed'
         : getStepsContent(activateStep, handelStep, handelBack)}
     </Paper>
   );
