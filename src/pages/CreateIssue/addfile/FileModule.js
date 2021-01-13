@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import UploadForm from "./components/UploadForm";
-import ImageGrid from "./components/ImageGrid";
-import Modal from "./components/Modal";
-import "./addFile.css";
-import { Typography, Button } from "@material-ui/core";
-import DeleteModal from "./../DeleteModel";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import UploadForm from './components/UploadForm';
+import ImageGrid from './components/ImageGrid';
+import Modal from './components/Modal';
+import './addFile.css';
+import { Typography, Button } from '@material-ui/core';
+import DeleteModal from '../DeleteModel';
 
 function FileModule(props) {
   const { mainData } = props;
@@ -15,7 +15,7 @@ function FileModule(props) {
     <div className="App">
       <Typography
         variant="h5"
-        style={{ width: "100%", textAlign: "center", marginBottom: 6 }}
+        style={{ width: '100%', textAlign: 'center', marginBottom: 6 }}
       >
         Files
       </Typography>

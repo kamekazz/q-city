@@ -1,7 +1,7 @@
 import { Stepper, Step, StepLabel, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
-import FileModule from './addfile/FileModule';
+import FileModule from './addFile/FileModule';
 import IssueInfo from './IssueInfo';
 import ProductInfo from './ProductInfo';
 import ReviewReport from './ReviewReport';

@@ -6,7 +6,7 @@ const useStorage = (file, _id) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
-  // const id = "dUrfVOuWOfZmww9dpLeZ";
+
   useEffect(() => {
     // references
     const storageRef = projectStorage.ref(`issue_report/${file.name}`);
