@@ -8,7 +8,7 @@ import ReviewReport from './ReviewReport';
 
 const useStyles = makeStyles({
   root: {
-    margin: '1rem auto',
+    margin: '0 auto',
     padding: '6px 12px',
     '& .MuiStepIcon-active': {
       color: 'blue',
