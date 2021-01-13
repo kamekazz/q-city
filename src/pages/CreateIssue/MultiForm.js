@@ -24,9 +24,9 @@ const MultiForm = () => {
     return ['START', 'ADD ISSUE', 'Uploaded files', 'Finalize'];
   };
 
-  const [activateStep, setStep] = useState(2);
+  const [activateStep, setStep] = useState(0);
   const [mainData, setMainData] = useState({});
-  console.log('main data', mainData);
+
   const getStepsContent = (_stepIndex, _handelStep, _handelBack) => {
     switch (_stepIndex) {
       case 0:

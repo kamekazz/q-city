@@ -1,5 +1,5 @@
-import React from 'react';
-// import useFirestore from '../hooks/useFirestore';
+import React, { useEffect, useState } from 'react';
+import useFirestore from '../hooks/useFirestore';
 // import { motion } from 'framer-motion';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -12,57 +12,23 @@ import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { TextField } from '@material-ui/core';
 import styled from 'styled-components';
+import { deleteReportImage, updateReportImage } from 'api/report';
 
 const ImageGrid = ({ setSelectedImg, _id }) => {
-  // const { images } = useFirestore(_id);
-  const images = [
-    {
-      createdAt: 465463453342,
-      titleImage: 'main images',
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fnewdonod.png?alt=media&token=dd4e1e6a-39a5-40fb-93ed-cffd961908c6',
-    },
-    {
-      createdAt: 465463452343342,
-      titleImage: 'main images',
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fnewdonod.png?alt=media&token=dd4e1e6a-39a5-40fb-93ed-cffd961908c6',
-    },
-    {
-      createdAt: 4654643532453342,
-      titleImage: 'main images',
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fnewdonod.png?alt=media&token=dd4e1e6a-39a5-40fb-93ed-cffd961908c6',
-    },
-    {
-      createdAt: 4654633452345342,
-      titleImage: 'main images',
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fnewdonod.png?alt=media&token=dd4e1e6a-39a5-40fb-93ed-cffd961908c6',
-    },
-    {
-      createdAt: 4654633453254342,
-      titleImage: 'main images',
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fnewdonod.png?alt=media&token=dd4e1e6a-39a5-40fb-93ed-cffd961908c6',
-    },
-    {
-      createdAt: 46546435323342,
-      titleImage: 'main images',
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fnewdonod.png?alt=media&token=dd4e1e6a-39a5-40fb-93ed-cffd961908c6',
-    },
-  ];
+  const { images } = useFirestore(_id);
 
   return (
     <div className="img-grid">
       {images &&
-        images.map((element) => (
+        images.map((element, index) => (
           <div key={element.createdAt}>
             <ImgMediaCard
               _url={element.url}
               setSelectedImg={setSelectedImg}
               _titleImage={element.titleImage}
+              _id={_id}
+              _indexImage={index}
+              _createdAt={element.createdAt}
             />
           </div>
         ))}
@@ -80,7 +46,35 @@ const useStyles = makeStyles({
 
 function ImgMediaCard(props) {
   const classes = useStyles();
-  const { _url, _titleImage, setSelectedImg } = props;
+  const {
+    _url,
+    _titleImage,
+    setSelectedImg,
+    _id,
+    _indexImage,
+    _createdAt,
+  } = props;
+  const [title, setTitle] = useState('dfd');
+
+  const handleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const onsubmitSave = () => {
+    updateReportImage(_id, _indexImage, 'titleImage', title);
+  };
+
+  const handleDelete = () => {
+    deleteReportImage(_id, {
+      url: _url,
+      titleImage: _titleImage,
+      createdAt: _createdAt,
+    });
+  };
+
+  useEffect(() => {
+    setTitle(_titleImage);
+  }, [setTitle, _titleImage]);
 
   return (
     <Card className={classes.root}>
@@ -94,19 +88,25 @@ function ImgMediaCard(props) {
           onClick={() => setSelectedImg(_url)}
         />
         <CardContent>
-          <TextField label="Title" variant="outlined" fullWidth />
+          <TextField
+            label="Title"
+            variant="outlined"
+            fullWidth
+            onChange={handleChange}
+            value={title}
+          />
         </CardContent>
       </CardActionArea>
       <RowEl>
-        <Button size="small" color="secondary">
+        <Button size="small" color="secondary" onClick={handleDelete}>
           delete
         </Button>
         <Button
-          variant="contained"
           color="primary"
           size="small"
           className={classes.button}
           startIcon={<SaveIcon />}
+          onClick={onsubmitSave}
         >
           Save
         </Button>

@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { projectStorage, pushArrayUnion } from "db";
-import db from "db";
+import { useState, useEffect } from 'react';
+import { projectStorage, pushArrayUnion } from 'db';
+import db from 'db';
 
 const useStorage = (file, _id) => {
   const [progress, setProgress] = useState(0);
@@ -10,10 +10,10 @@ const useStorage = (file, _id) => {
   useEffect(() => {
     // references
     const storageRef = projectStorage.ref(`issue_report/${file.name}`);
-    const documentRef = db.collection("report").doc(_id);
+    const documentRef = db.collection('report').doc(_id);
 
     storageRef.put(file).on(
-      "state_changed",
+      'state_changed',
       (snap) => {
         let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
         setProgress(percentage);
@@ -29,7 +29,7 @@ const useStorage = (file, _id) => {
         await documentRef.update({
           images: pushArrayUnion({
             url: url,
-            titleImage: "",
+            titleImage: '',
             createdAt: n,
           }),
         });
