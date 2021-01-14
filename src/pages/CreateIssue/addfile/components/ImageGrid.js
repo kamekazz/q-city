@@ -65,11 +65,15 @@ function ImgMediaCard(props) {
   };
 
   const handleDelete = () => {
-    deleteReportImage(_id, {
-      url: _url,
-      titleImage: _titleImage,
-      createdAt: _createdAt,
-    });
+    deleteReportImage(
+      _id,
+      {
+        url: _url,
+        titleImage: _titleImage,
+        createdAt: _createdAt,
+      },
+      _url
+    );
   };
 
   useEffect(() => {

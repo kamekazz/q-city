@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
+
   drawerPaper: {
     width: drawerWidth,
   },
@@ -64,7 +65,23 @@ function ResponsiveDrawer(props) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
+      <div
+        className={classes.toolbar}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Typography
+          variant="h6"
+          noWrap
+          align="center"
+          className={classes.title}
+        >
+          Q-City
+        </Typography>
+      </div>
       <Divider />
       <SideBarLink to="create_issue" text="Create Report">
         <ReportProblemTwoToneIcon />

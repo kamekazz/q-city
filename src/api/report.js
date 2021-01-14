@@ -1,5 +1,5 @@
 import db from 'db';
-import { removeArrayUnion } from 'db/index';
+import { removeArrayUnion, projectStorage } from 'db/index';
 export const createReport = (_report, handelStep, setMainData) =>
   db
     .collection('report')
@@ -74,9 +74,31 @@ export const updateReportImage = (_id, _indexImage, _keyValue, _value) => {
     });
 };
 
-export const deleteReportImage = (_id, _value) => {
+export const deleteReportImage = (_id, _value, _url) => {
   let reportRef = db.collection('report').doc(_id);
-  reportRef.update({
-    images: removeArrayUnion(_value),
-  });
+  console.log('_url', _url);
+  reportRef
+    .update({
+      images: removeArrayUnion(_value),
+    })
+    .then(() => {
+      console.log('Document successfully deleteReportImage!,');
+      // Create a reference to the file to delete
+      var imageRef = projectStorage.refFromURL(_url);
+
+      // Delete the file
+      imageRef
+        .delete()
+        .then(function () {
+          // File deleted successfully
+          console.log('File is delete form store,');
+        })
+        .catch(function (error) {
+          // Uh-oh, an error occurred!
+          console.log('error', error);
+        });
+    })
+    .catch((error) => {
+      console.log('Error getting document:', error);
+    });
 };

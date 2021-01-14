@@ -1,13 +1,9 @@
 export const styleColor = {
   primary: {
-    lite: '#8b8ae7',
     main: '#5654df',
-    dark: '#3b39ac;'
   },
   secondary: {
-    lite: '#39fae0',
     main: '#13d7bc',
-    dark: '#01a790'
   },
   error: { main: '#ff6a9c' },
   color: {
@@ -17,6 +13,6 @@ export const styleColor = {
     greyDark2: '#999',
     greyDark3: '#333',
     listedBlue: '#f0f8ff',
-    black1: '#202020'
-  }
+    black1: '#202020',
+  },
 };
