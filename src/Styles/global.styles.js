@@ -17,8 +17,8 @@ body {
     color: ${styleColor.color.greyDark};
 }
 ::selection {
-    background-color: ${styleColor.primary.main};
-    color: ${styleColor.color.white};
+    background-color: ${styleColor.primary};
+    color: ${styleColor.secondary};
 }
 /* width */
 ::-webkit-scrollBar {

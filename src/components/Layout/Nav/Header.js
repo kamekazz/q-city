@@ -17,7 +17,7 @@ import ReportProblemTwoToneIcon from '@material-ui/icons/ReportProblemTwoTone';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-
+import logo from 'assets/logo.svg';
 function ElevationScroll(props) {
   const { children, window } = props;
 
@@ -34,7 +34,9 @@ function ElevationScroll(props) {
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
+    marginBottom: '1em',
   },
+  logo: {},
 }));
 
 function Header(props) {
@@ -43,8 +45,8 @@ function Header(props) {
     <>
       <ElevationScroll {...props}>
         <AppBar color="primary">
-          <Toolbar>
-            <Typography variant="h3">Q-City</Typography>
+          <Toolbar disableGutters>
+            <img alt="company logo" src={logo} className={classes.logo} />
           </Toolbar>
         </AppBar>
       </ElevationScroll>

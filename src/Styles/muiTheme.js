@@ -36,8 +36,9 @@ const theme = createMuiTheme({
       lineHeight: 1.5,
     },
     h3: {
+      fontFamily: 'Pacifico',
       fontSize: '2.5rem',
-      color: '#FFFF',
+      color: styleColor.primary,
     },
     h4: {
       fontFamily: 'Raleway',

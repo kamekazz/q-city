@@ -1,12 +1,12 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
-import React from "react";
-import { connect } from "react-redux"; // HOC
-import Hero from "components/Hero";
-import ServiceItem from "components/service/ServiceItem";
+import React from 'react';
+import { connect } from 'react-redux'; // HOC
+import Hero from 'components/Hero';
+import ServiceItem from 'components/service/ServiceItem';
 
-import { fetchServices } from "Redux/actions";
-import axios from "axios";
+import { fetchServices } from 'Redux/actions';
+import axios from 'axios';
 
 class Home extends React.Component {
   state = {
@@ -25,9 +25,9 @@ class Home extends React.Component {
 
   getInfoForSalsify = () => {
     axios
-      .get(
-        "https://app.salsify.com/catalogs/api/catalogs/cea4e749-855a-4b54-adc5-6e437fbde1da/products/538010"
-      )
+      .get
+      // 'https://app.salsify.com/catalogs/api/catalogs/cea4e749-855a-4b54-adc5-6e437fbde1da/products/538010'
+      ()
       .then(function (response) {
         // handle success
         console.log(response);
@@ -59,7 +59,7 @@ class Home extends React.Component {
 
             <div className="content-wrapper">
               <div className="columns is-multiline">
-                {this.renderServices(services)}
+                {/* {this.renderServices(services)} */}
               </div>
             </div>
           </div>
