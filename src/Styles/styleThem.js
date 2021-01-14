@@ -3,12 +3,10 @@ const arcOrange = '#FFBA60';
 const arcGrey = '#868686';
 
 export const styleColor = {
-  primary: {
-    main: arcBlue,
-  },
-  secondary: {
-    main: arcOrange,
-  },
+  primary: arcBlue,
+
+  secondary: arcOrange,
+
   error: { main: '#ff6a9c' },
   color: {
     white: '#fff',
@@ -18,5 +16,6 @@ export const styleColor = {
     greyDark3: '#333',
     listedBlue: '#f0f8ff',
     black1: '#202020',
+    arcGrey: arcGrey,
   },
 };

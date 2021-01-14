@@ -14,6 +14,8 @@ import {
   checkUserConnection,
 } from './Redux/actions';
 import GlobalStyle from 'styles/global.styles';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { theme } from 'styles/muiTheme';
 
 const store = initStore();
 
@@ -45,9 +47,11 @@ class App extends React.Component {
       <Provider store={store}>
         <GlobalStyle />
         <ToastProvider>
-          <Router>
-            <MainApp />
-          </Router>
+          <ThemeProvider theme={theme}>
+            <Router>
+              <MainApp />
+            </Router>
+          </ThemeProvider>
         </ToastProvider>
       </Provider>
     );

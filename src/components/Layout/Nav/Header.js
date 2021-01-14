@@ -31,15 +31,25 @@ function ElevationScroll(props) {
   });
 }
 
+const useStyles = makeStyles((theme) => ({
+  toolbarMargin: {
+    ...theme.mixins.toolbar,
+  },
+}));
+
 function Header(props) {
+  const classes = useStyles();
   return (
-    <ElevationScroll {...props}>
-      <AppBar>
-        <Toolbar>
-          <Typography variant="h6">Q-City</Typography>
-        </Toolbar>
-      </AppBar>
-    </ElevationScroll>
+    <>
+      <ElevationScroll {...props}>
+        <AppBar color="primary">
+          <Toolbar>
+            <Typography variant="h3">Q-City</Typography>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+      <div className={classes.toolbarMargin} />
+    </>
   );
 }
 

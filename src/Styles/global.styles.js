@@ -34,7 +34,10 @@ body {
 ::-webkit-scrollBar-thumb {
     background-image:  linear-gradient(
         to  bottom,
+        rgba( 11, 114, 185, 1),
+        rgba( 11, 114, 185, 1),
         rgba( 11, 114, 185, 0.8),
+        rgba( 255, 186, 96 , 0.8),
         rgba( 255, 186, 96 , 0.8)
     );
     border-radius: 3px;
@@ -43,7 +46,7 @@ body {
   
 /* Handle on hover */
 ::-webkit-scrollBar-thumb:hover {
-    background:${styleColor.primary.main}; 
+    background:${styleColor.primary}; 
 }
 `;
 
