@@ -22,7 +22,7 @@ body {
 }
 /* width */
 ::-webkit-scrollBar {
-    width: 10px;
+    width: 7px;
 }
   
 /* Track */
@@ -33,9 +33,9 @@ body {
 /* Handle */
 ::-webkit-scrollBar-thumb {
     background-image:  linear-gradient(
-        to right bottom,
-        rgba( 139, 138, 231 , 0.8),
-        rgba( 59, 57, 172, 0.8)
+        to  bottom,
+        rgba( 11, 114, 185, 0.8),
+        rgba( 255, 186, 96 , 0.8)
     );
     border-radius: 3px;
     transition: all .2s ease-out;

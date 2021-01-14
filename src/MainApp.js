@@ -7,9 +7,10 @@ import Spinner from 'components/Spinner';
 
 class MainApp extends React.Component {
   renderApplication = (auth) => (
-    <Navbar loadFresh id="navbar-main" auth={auth}>
+    <>
+      <Navbar auth={auth}></Navbar>
       <Routes />
-    </Navbar>
+    </>
   );
 
   render() {
