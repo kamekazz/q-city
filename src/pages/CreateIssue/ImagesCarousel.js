@@ -11,26 +11,26 @@ import { autoPlay } from 'react-swipeable-views-utils';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const tutorialSteps = [
-  {
-    createdAt: 1235,
-    titleImage: 'l5432aasdfabel',
-    url:
-      'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
-  },
-  {
-    createdAt: 1234,
-    titleImage: 'la523besfdl',
-    url:
-      'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
-  },
-  {
-    createdAt: 1233,
-    titleImage: 'la523asdfbel',
-    url:
-      'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
-  },
-];
+// const tutorialSteps = [
+//   {
+//     createdAt: 1235,
+//     titleImage: 'l5432aasdfabel',
+//     url:
+//       'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
+//   },
+//   {
+//     createdAt: 1234,
+//     titleImage: 'la523besfdl',
+//     url:
+//       'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
+//   },
+//   {
+//     createdAt: 1233,
+//     titleImage: 'la523asdfbel',
+//     url:
+//       'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
+//   },
+// ];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SwipeableTextMobileStepper(props) {
-  const { _images } = props;
-
+  const { images } = props;
+  const tutorialSteps = images;
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);

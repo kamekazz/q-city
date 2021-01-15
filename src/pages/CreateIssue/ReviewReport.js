@@ -117,7 +117,7 @@ const ReviewReport = (_id) => {
           <ValueContainer _keyValue="Fail:" _value={reportData.failed} />
         </ReportInfoDividerL>
         <ReportInfoDividerR>
-          <ImagesCarousel _images={reportData.images} />
+          <ImagesCarousel images={reportData.images} />
         </ReportInfoDividerR>
       </ReportInfoContainer>
       <NoteContainer>
