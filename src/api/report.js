@@ -32,21 +32,6 @@ export const updateReportStepTwo = (
       console.error('Error updating document: ', error);
     });
 
-export const deleteReport = (_id, history, handleClose) => {
-  db.collection('report')
-    .doc(_id)
-    .delete()
-    .then(function () {
-      console.log('Document successfully deleted!');
-      history.push('/home');
-      handleClose();
-    })
-    .catch(function (error) {
-      console.error('Error removing document: ', error);
-      handleClose();
-    });
-};
-
 export const updateReportImage = (_id, _indexImage, _keyValue, _value) => {
   let reportRef = db.collection('report').doc(_id);
   reportRef
@@ -76,29 +61,60 @@ export const updateReportImage = (_id, _indexImage, _keyValue, _value) => {
 
 export const deleteReportImage = (_id, _value, _url) => {
   let reportRef = db.collection('report').doc(_id);
-  console.log('_url', _url);
   reportRef
     .update({
       images: removeArrayUnion(_value),
     })
     .then(() => {
       console.log('Document successfully deleteReportImage!,');
-      // Create a reference to the file to delete
-      var imageRef = projectStorage.refFromURL(_url);
-
-      // Delete the file
-      imageRef
-        .delete()
-        .then(function () {
-          // File deleted successfully
-          console.log('File is delete form store,');
-        })
-        .catch(function (error) {
-          // Uh-oh, an error occurred!
-          console.log('error', error);
-        });
+      deleteImage(_url);
     })
     .catch((error) => {
       console.log('Error getting document:', error);
+    });
+};
+
+const deleteImage = (_url) => {
+  let imageRef = projectStorage.refFromURL(_url);
+  imageRef
+    .delete()
+    .then(function () {
+      // File deleted successfully
+      console.log('File is delete form store,');
+    })
+    .catch(function (error) {
+      // Uh-oh, an error occurred!
+      console.log('error', error);
+    });
+};
+
+const deleteMultipleImage = (_array) => {
+  for (let i = 0; i < _array.length; i++) {
+    const element = _array[i];
+    deleteImage(element.url);
+  }
+};
+export const deleteReport = (_id, history, handleClose) => {
+  let reportRf = db.collection('report').doc(_id);
+  reportRf
+    .get()
+    .then((doc) => {
+      let arrayForImages = doc.data().images;
+      deleteMultipleImage(arrayForImages);
+      reportRf
+        .delete()
+        .then(function () {
+          console.log('Document successfully deleted!');
+          history.push('/home');
+          handleClose();
+        })
+        .catch(function (error) {
+          console.error('Error removing document: ', error);
+          handleClose();
+        });
+    })
+    .catch(function (error) {
+      console.error('Error removing document: ', error);
+      handleClose();
     });
 };

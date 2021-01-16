@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import db from "db";
+import { useState, useEffect } from 'react';
+import db from 'db';
 // const id = "dUrfVOuWOfZmww9dpLeZ";
 
 const useFirestore = (_id) => {
@@ -7,11 +7,16 @@ const useFirestore = (_id) => {
 
   useEffect(() => {
     const unSub = db
-      .collection("report")
+      .collection('report')
       .doc(_id)
       .onSnapshot(function (doc) {
-        let allImages = doc.data().images;
-        setImages(allImages);
+        if (doc.exists) {
+          let allImages = doc.data().images;
+          setImages(allImages);
+        } else {
+          console.log('No such document');
+          setImages([]);
+        }
       });
 
     return () => unSub();

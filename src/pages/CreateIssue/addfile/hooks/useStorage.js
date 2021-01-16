@@ -9,7 +9,9 @@ const useStorage = (file, _id) => {
 
   useEffect(() => {
     // references
-    const storageRef = projectStorage.ref(`issue_report/${file.name}`);
+    const storageRef = projectStorage.ref(
+      `issue_report/${_id}/${_id + file.name}`
+    );
     const documentRef = db.collection('report').doc(_id);
 
     storageRef.put(file).on(

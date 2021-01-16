@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Divider } from '@material-ui/core';
 import ImagesCarousel from './ImagesCarousel';
+import { Button } from '@material-ui/core';
+import DeleteModal from './DeleteModel';
 
 const report_data = {
   ibm: '123456',
@@ -67,7 +69,8 @@ const report_data = {
   failed: 4352,
 };
 
-const ReviewReport = (_id) => {
+const ReviewReport = (props) => {
+  const { mainData } = props;
   const [reportData, setReportData] = useState({});
   const getReportData = () => {
     setReportData(report_data);
@@ -144,6 +147,13 @@ const ReviewReport = (_id) => {
           fullWidth
         />
       </ImprovementInfoContainer>
+
+      <BottomContainerEL>
+        <DeleteModal _id={mainData.id} />
+        <Button variant="contained" color="primary" onClick={props.handelStep}>
+          Next
+        </Button>
+      </BottomContainerEL>
     </div>
   );
 };
@@ -185,6 +195,11 @@ const ImprovementInfoContainer = styled.div`
   width: 100%;
 
   padding: 6px;
+`;
+
+const BottomContainerEL = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const ValueContainer = ({ _keyValue, _value }) => {
