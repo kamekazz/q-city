@@ -24,19 +24,19 @@ const report_data = {
       createdAt: 1235,
       titleImage: 'lafsfsbel',
       url:
-        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
+        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2F1a7ab7f8-1370-482d-8e0a-2bcd13548591.jpg?alt=media&token=ea589281-9f1b-4450-8653-45c5afd5083b',
     },
     {
       createdAt: 1234,
       titleImage: 'lsfsabel',
       url:
-        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=4094f101-00f9-4b67-bf1b-fe453ce4c831',
+        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2F1a7ab7f8-1370-482d-8e0a-2bcd13548591.jpg?alt=media&token=ea589281-9f1b-4450-8653-45c5afd5083b',
     },
     {
       createdAt: 1233,
       titleImage: 'lafsbel',
       url:
-        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=4094f101-00f9-4b67-bf1b-fe453ce4c831',
+        'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2F1a7ab7f8-1370-482d-8e0a-2bcd13548591.jpg?alt=media&token=ea589281-9f1b-4450-8653-45c5afd5083b',
     },
   ],
   note:
@@ -117,7 +117,7 @@ const ReviewReport = (_id) => {
           <ValueContainer _keyValue="Fail:" _value={reportData.failed} />
         </ReportInfoDividerL>
         <ReportInfoDividerR>
-          <ImagesCarousel images={reportData.images} />
+          {reportData.images && <ImagesCarousel images={reportData.images} />}
         </ReportInfoDividerR>
       </ReportInfoContainer>
       <NoteContainer>
@@ -139,7 +139,7 @@ const ReviewReport = (_id) => {
           label="Improvement Request"
           multiline
           rows={4}
-          defaultValue="Default Value"
+          // defaultValue="Default Value"
           variant="outlined"
           fullWidth
         />

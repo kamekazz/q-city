@@ -55,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
 
 function SwipeableTextMobileStepper(props) {
   const { images } = props;
-  const tutorialSteps = images;
+  const tutorialSteps = [];
+  tutorialSteps.push(...images);
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
