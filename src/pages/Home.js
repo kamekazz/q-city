@@ -6,43 +6,22 @@ import Hero from 'components/Hero';
 import ServiceItem from 'components/service/ServiceItem';
 
 import { fetchServices } from 'Redux/actions';
-import axios from 'axios';
+// import axios from 'axios';
 
 class Home extends React.Component {
   state = {
     services: [],
   };
 
-  componentDidMount() {
-    this.props.fetchServices();
-    this.getInfoForSalsify();
-  }
+  componentDidMount() {}
 
   renderServices = (services) =>
     services.map((service) => (
       <ServiceItem key={service.id} service={service} />
     ));
 
-  getInfoForSalsify = () => {
-    axios
-      .get
-      // 'https://app.salsify.com/catalogs/api/catalogs/cea4e749-855a-4b54-adc5-6e437fbde1da/products/538010'
-      ()
-      .then(function (response) {
-        // handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
-  };
-
   render() {
-    const { services } = this.props;
+    // const { services } = this.props;
     return (
       <div>
         <Hero />

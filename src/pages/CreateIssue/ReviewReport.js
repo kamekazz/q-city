@@ -231,7 +231,3 @@ const ValueContainerH7 = ({ _keyValue, _value }) => {
     </ValueContainerEl>
   );
 };
-
-const ValueContainerH7El = styled.div`
-  display: flex;
-`;

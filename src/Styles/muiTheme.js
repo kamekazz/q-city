@@ -16,8 +16,6 @@ const theme = createMuiTheme({
   },
   typography: {
     tab: {
-      fontFamily: 'Raleway',
-      textTransform: 'none',
       fontWeight: 700,
       color: 'white',
       fontSize: '1rem',
