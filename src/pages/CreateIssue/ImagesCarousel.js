@@ -34,7 +34,7 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 400,
+    maxWidth: 325,
     flexGrow: 1,
   },
   header: {
@@ -86,7 +86,7 @@ function SwipeableTextMobileStepper(props) {
         enableMouseEvents
       >
         {tutorialSteps.map((step, index) => (
-          <div key={step.titleImage}>
+          <div key={step.createdAt}>
             {Math.abs(activeStep - index) <= 2 ? (
               <img
                 className={classes.img}

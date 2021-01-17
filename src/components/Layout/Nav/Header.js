@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import logo from 'assets/logo.svg';
 import { Link, useLocation, useHistory } from 'react-router-dom';
+import { routesOptions } from './option.routes';
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -18,56 +19,10 @@ function ElevationScroll(props) {
     elevation: trigger ? 4 : 0,
   });
 }
-const listOfMenuItem = [
-  [
-    {
-      to: '/',
-      tabLabel: 'Home',
-    },
-  ],
-  [
-    {
-      to: '/services',
-      tabLabel: 'Services',
-    },
-    {
-      to: '/services/custom_software_development',
-      tabLabel: 'Custom Software development',
-    },
-    {
-      to: '/services/mobile_app_development',
-      tabLabel: 'Mobile App Development',
-    },
-    {
-      to: '/services/website_development',
-      tabLabel: 'Website Development',
-    },
-  ],
-  [
-    {
-      to: '/issue',
-      tabLabel: 'Issue',
-    },
-    {
-      to: '/issue/create_issue',
-      tabLabel: 'Create Issue Report',
-    },
-  ],
-  [
-    {
-      to: '/contact_us',
-      tabLabel: 'Contact Us',
-    },
-  ],
-  [
-    {
-      to: '/contact_us',
-      tabLabel: 'Contact Us',
-    },
-  ],
-];
+
 function Header(props) {
   const classes = useStyles();
+  const listOfMenuItem = routesOptions;
   let urlLocation = useLocation().pathname;
   const [value, setValue] = useState(0);
   const history = useHistory();
@@ -78,7 +33,6 @@ function Header(props) {
     history.push(_urlRoute);
   };
   useEffect(() => {
-    console.log('object');
     for (let i = 0; i < listOfMenuItem.length; i++) {
       const element = listOfMenuItem[i][0].to;
       let reg = new RegExp(`${element}`, 'i');
@@ -87,7 +41,7 @@ function Header(props) {
         setValue(i);
       }
     }
-  }, [urlLocation, setValue]);
+  }, [urlLocation, setValue, listOfMenuItem]);
   return (
     <>
       <ElevationScroll {...props}>
