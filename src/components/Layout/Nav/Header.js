@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import logo from 'assets/logo.svg';
 import { Link, useLocation, useHistory } from 'react-router-dom';
-import { getQueriesForElement } from '@testing-library/react';
+
 function ElevationScroll(props) {
   const { children } = props;
 
@@ -18,17 +18,56 @@ function ElevationScroll(props) {
     elevation: trigger ? 4 : 0,
   });
 }
-
+const listOfMenuItem = [
+  [
+    {
+      to: '/',
+      tabLabel: 'Home',
+    },
+  ],
+  [
+    {
+      to: '/services',
+      tabLabel: 'Services',
+    },
+    {
+      to: '/service/custom_software_development',
+      tabLabel: 'Custom Software development',
+    },
+    {
+      to: '/service/mobile_app_development',
+      tabLabel: 'Mobile App Development',
+    },
+    {
+      to: '/service/website_development',
+      tabLabel: 'Website Development',
+    },
+  ],
+  [
+    {
+      to: '/issue',
+      tabLabel: 'Issue',
+    },
+    {
+      to: '/create_issue',
+      tabLabel: 'Create Issue Report',
+    },
+  ],
+  [
+    {
+      to: '/contact_us',
+      tabLabel: 'Contact Us',
+    },
+  ],
+];
 function Header(props) {
   const classes = useStyles();
   let urlLocation = useLocation().pathname;
   const [value, setValue] = useState(0);
   const history = useHistory();
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   const handleNavigateTo = (_urlRoute) => {
     history.push(_urlRoute);
   };
@@ -52,45 +91,33 @@ function Header(props) {
               scrollButtons="on"
               aria-label="scrollable auto tabs example"
             >
-              <ActionTab
-                _to="/"
-                _label="Home"
-                _value={0}
-                _urlLocation={urlLocation}
-                _setValue={setValue}
-              />
-
-              <MultiMenuTap
-                _to="/services"
-                _label="Services"
-                _value={1}
-                _urlLocation={urlLocation}
-                _setValue={setValue}
-                _listOfMenuItem={listOfMenuItem.service}
-                _liveValue={value}
-              />
-
-              <ActionTab
-                _to="/create_issue"
-                _label="issue"
-                _value={2}
-                _urlLocation={urlLocation}
-                _setValue={setValue}
-              />
-              <ActionTab
-                _to="/about_us"
-                _label="About Us"
-                _value={4}
-                _urlLocation={urlLocation}
-                _setValue={setValue}
-              />
-              <ActionTab
-                _to="/contact_us"
-                _label="Contact Us"
-                _value={5}
-                _urlLocation={urlLocation}
-                _setValue={setValue}
-              />
+              {listOfMenuItem.map((_tab, _index) => {
+                if (_tab.length === 1) {
+                  return (
+                    <ActionTab
+                      key={_tab[0].to}
+                      _to={_tab[0].to}
+                      _label={_tab[0].tabLabel}
+                      _value={_index}
+                      _urlLocation={urlLocation}
+                      _setValue={setValue}
+                    />
+                  );
+                } else {
+                  return (
+                    <MultiMenuTap
+                      key={_tab[0].to}
+                      _to={_tab[0].to}
+                      _label={_tab[0].tabLabel}
+                      _value={_index}
+                      _urlLocation={urlLocation}
+                      _setValue={setValue}
+                      _listOfMenuItem={_tab}
+                      _liveValue={value}
+                    />
+                  );
+                }
+              })}
             </Tabs>
             <Button
               variant="contained"
@@ -110,7 +137,7 @@ function Header(props) {
 export default Header;
 
 const ActionTab = (props) => {
-  let { _to, _label, _setValue, _value, _urlLocation } = props;
+  let { _to, _label, _setValue, _value, _urlLocation, _key } = props;
   const classes = useStyles();
   useEffect(() => {
     if (_urlLocation === _to) {
@@ -120,6 +147,7 @@ const ActionTab = (props) => {
 
   return (
     <Tab
+      key={_key}
       component={Link}
       className={classes.tab}
       to={_to}
@@ -142,7 +170,6 @@ const MultiMenuTap = (props) => {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [inLink, setInLink] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -178,9 +205,6 @@ const MultiMenuTap = (props) => {
         elevation={0}
       >
         {_listOfMenuItem.map((_menuItem) => {
-          if (_menuItem.to === _urlLocation) {
-            _setValue(_value);
-          }
           return (
             <MenuItem
               key={_menuItem.to}
@@ -241,24 +265,3 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-const listOfMenuItem = {
-  service: [
-    {
-      to: '/services',
-      tabLabel: 'Services',
-    },
-    {
-      to: '/service/custom_software_development',
-      tabLabel: 'Custom Software development',
-    },
-    {
-      to: '/service/mobile_app_development',
-      tabLabel: 'Mobile App Development',
-    },
-    {
-      to: '/service/website_development',
-      tabLabel: 'Website Development',
-    },
-  ],
-};
