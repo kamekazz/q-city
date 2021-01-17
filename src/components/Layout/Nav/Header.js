@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import logo from 'assets/logo.svg';
 import { Link, useLocation, useHistory } from 'react-router-dom';
+import { getQueriesForElement } from '@testing-library/react';
 function ElevationScroll(props) {
   const { children } = props;
 
@@ -58,6 +59,7 @@ function Header(props) {
                 _urlLocation={urlLocation}
                 _setValue={setValue}
               />
+
               <MultiMenuTap
                 _to="/services"
                 _label="Services"
@@ -65,7 +67,9 @@ function Header(props) {
                 _urlLocation={urlLocation}
                 _setValue={setValue}
                 _listOfMenuItem={listOfMenuItem.service}
+                _liveValue={value}
               />
+
               <ActionTab
                 _to="/create_issue"
                 _label="issue"
@@ -126,11 +130,19 @@ const ActionTab = (props) => {
 };
 
 const MultiMenuTap = (props) => {
-  let { _to, _label, _setValue, _value, _urlLocation, _listOfMenuItem } = props;
+  let {
+    _to,
+    _label,
+    _setValue,
+    _value,
+    _urlLocation,
+    _listOfMenuItem,
+    _liveValue,
+  } = props;
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [open, setOpen] = useState(false);
+  const [inLink, setInLink] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -145,13 +157,6 @@ const MultiMenuTap = (props) => {
     handleClose();
   };
 
-  useEffect(() => {
-    if (_urlLocation === _to) {
-      _setValue(_value);
-    }
-  }, [_setValue, _urlLocation, _to, _value]);
-  console.log('_urlLocation2', _urlLocation);
-  console.log('_to', _to);
   return (
     <>
       <Tab
@@ -160,7 +165,7 @@ const MultiMenuTap = (props) => {
         to={_to}
         label={_label}
         onMouseOver={handleClick}
-        style={{ opacity: _urlLocation === _to ? '1' : '0.7' }}
+        style={{ opacity: _liveValue === _value ? '1' : '0.7' }}
       />
       <Menu
         id="simple-menu"
@@ -173,14 +178,17 @@ const MultiMenuTap = (props) => {
         elevation={0}
       >
         {_listOfMenuItem.map((_menuItem) => {
+          if (_menuItem.to === _urlLocation) {
+            _setValue(_value);
+          }
           return (
             <MenuItem
               key={_menuItem.to}
               onClick={goToUrl}
               component={Link}
               to={_menuItem.to}
-              // style={{ color: 'white', fontWeight: 700, opacity: '0.8' }}
               classes={{ root: classes.menuItem }}
+              style={{ opacity: _urlLocation === _menuItem.to ? '1' : '0.7' }}
             >
               {_menuItem.tabLabel}
             </MenuItem>
