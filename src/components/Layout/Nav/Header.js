@@ -31,15 +31,15 @@ const listOfMenuItem = [
       tabLabel: 'Services',
     },
     {
-      to: '/service/custom_software_development',
+      to: '/services/custom_software_development',
       tabLabel: 'Custom Software development',
     },
     {
-      to: '/service/mobile_app_development',
+      to: '/services/mobile_app_development',
       tabLabel: 'Mobile App Development',
     },
     {
-      to: '/service/website_development',
+      to: '/services/website_development',
       tabLabel: 'Website Development',
     },
   ],
@@ -49,8 +49,14 @@ const listOfMenuItem = [
       tabLabel: 'Issue',
     },
     {
-      to: '/create_issue',
+      to: '/issue/create_issue',
       tabLabel: 'Create Issue Report',
+    },
+  ],
+  [
+    {
+      to: '/contact_us',
+      tabLabel: 'Contact Us',
     },
   ],
   [
@@ -71,7 +77,17 @@ function Header(props) {
   const handleNavigateTo = (_urlRoute) => {
     history.push(_urlRoute);
   };
-
+  useEffect(() => {
+    console.log('object');
+    for (let i = 0; i < listOfMenuItem.length; i++) {
+      const element = listOfMenuItem[i][0].to;
+      let reg = new RegExp(`${element}`, 'i');
+      let result = reg.test(urlLocation);
+      if (result) {
+        setValue(i);
+      }
+    }
+  }, [urlLocation, setValue]);
   return (
     <>
       <ElevationScroll {...props}>
