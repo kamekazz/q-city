@@ -23,23 +23,13 @@ function Header(props) {
   let urlLocation = useLocation().pathname;
   const [value, setValue] = useState(0);
   const history = useHistory();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const handleNavigateTo = (_urlRoute) => {
     history.push(_urlRoute);
-  };
-
-  const handleClick = (e) => {
-    setAnchorEl(e.currentTarget);
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-    setOpen(false);
   };
 
   return (
@@ -74,6 +64,7 @@ function Header(props) {
                 _value={1}
                 _urlLocation={urlLocation}
                 _setValue={setValue}
+                _listOfMenuItem={listOfMenuItem.service}
               />
               <ActionTab
                 _to="/create_issue"
@@ -113,6 +104,93 @@ function Header(props) {
 }
 
 export default Header;
+
+const ActionTab = (props) => {
+  let { _to, _label, _setValue, _value, _urlLocation } = props;
+  const classes = useStyles();
+  useEffect(() => {
+    if (_urlLocation === _to) {
+      _setValue(_value);
+    }
+  }, [_setValue, _urlLocation, _to, _value]);
+
+  return (
+    <Tab
+      component={Link}
+      className={classes.tab}
+      to={_to}
+      label={_label}
+      style={{ opacity: _urlLocation === _to ? '1' : '0.7' }}
+    />
+  );
+};
+
+const MultiMenuTap = (props) => {
+  let { _to, _label, _setValue, _value, _urlLocation, _listOfMenuItem } = props;
+  const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const goToUrl = () => {
+    _setValue(_value);
+    handleClose();
+  };
+
+  useEffect(() => {
+    if (_urlLocation === _to) {
+      _setValue(_value);
+    }
+  }, [_setValue, _urlLocation, _to, _value]);
+  console.log('_urlLocation2', _urlLocation);
+  console.log('_to', _to);
+  return (
+    <>
+      <Tab
+        component={Link}
+        className={classes.tab}
+        to={_to}
+        label={_label}
+        onMouseOver={handleClick}
+        style={{ opacity: _urlLocation === _to ? '1' : '0.7' }}
+      />
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        MenuListProps={{ onMouseLeave: handleClose }}
+        classes={{ paper: classes.menu }}
+        elevation={0}
+      >
+        {_listOfMenuItem.map((_menuItem) => {
+          return (
+            <MenuItem
+              key={_menuItem.to}
+              onClick={goToUrl}
+              component={Link}
+              to={_menuItem.to}
+              // style={{ color: 'white', fontWeight: 700, opacity: '0.8' }}
+              classes={{ root: classes.menuItem }}
+            >
+              {_menuItem.tabLabel}
+            </MenuItem>
+          );
+        })}
+      </Menu>
+    </>
+  );
+};
+
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     // ...theme.mixins.toolbar,
@@ -129,6 +207,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 10,
     marginLeft: '25px',
     height: '4em',
+    '&:hover': {
+      opacity: 1,
+    },
   },
   button: {
     borderRadius: '50px',
@@ -141,61 +222,35 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '135px',
   },
   logoContainer: { padding: '0' },
+  menu: {
+    backgroundColor: theme.palette.primary.main,
+  },
+  menuItem: {
+    ...theme.typography.tab,
+    opacity: '0.7',
+    '&:hover': {
+      opacity: 1,
+    },
+  },
 }));
 
-const ActionTab = (props) => {
-  let { _to, _label, _setValue, _value, _urlLocation } = props;
-  const classes = useStyles();
-  useEffect(() => {
-    if (_urlLocation === _to) {
-      _setValue(_value);
-    }
-  }, [_setValue, _urlLocation]);
-
-  return (
-    <Tab component={Link} className={classes.tab} to={_to} label={_label} />
-  );
-};
-
-const MultiMenuTap = (props) => {
-  let { _to, _label, _setValue, _value, _urlLocation } = props;
-  const classes = useStyles();
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [open, setOpen] = useState(false);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  useEffect(() => {
-    if (_urlLocation === _to) {
-      _setValue(_value);
-    }
-  }, [_setValue, _urlLocation]);
-
-  return (
-    <>
-      <Tab
-        component={Link}
-        className={classes.tab}
-        to={_to}
-        label={_label}
-        onMouseOver={handleClick}
-      />
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-    </>
-  );
+const listOfMenuItem = {
+  service: [
+    {
+      to: '/services',
+      tabLabel: 'Services',
+    },
+    {
+      to: '/service/custom_software_development',
+      tabLabel: 'Custom Software development',
+    },
+    {
+      to: '/service/mobile_app_development',
+      tabLabel: 'Mobile App Development',
+    },
+    {
+      to: '/service/website_development',
+      tabLabel: 'Website Development',
+    },
+  ],
 };
