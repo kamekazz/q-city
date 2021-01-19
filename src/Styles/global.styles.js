@@ -2,18 +2,17 @@ import { createGlobalStyle } from 'styled-components';
 import { styleColor } from './styleThem';
 
 const GlobalStyle = createGlobalStyle`
-*,
+/* *,
 *::after,
 *::before {
     margin: 0;
     padding: 0;
     box-sizing: inherit;
-}
+} */
 body {
     box-sizing: border-box;
     font-family: "Lato", sans-serif;
     font-weight: 400;
-    line-height: 1.7;
     color: ${styleColor.color.greyDark};
 }
 ::selection {
@@ -46,7 +45,7 @@ body {
   
 /* Handle on hover */
 ::-webkit-scrollBar-thumb:hover {
-    background:${styleColor.primary}; 
+    background:${styleColor.secondary}; 
 }
 `;
 

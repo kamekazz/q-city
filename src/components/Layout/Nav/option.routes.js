@@ -35,13 +35,13 @@ const routesOptions = [
   ],
   [
     {
-      to: '/contact_us',
-      tabLabel: 'Contact Us',
+      to: '/about',
+      tabLabel: 'About Us',
     },
   ],
   [
     {
-      to: '/contact_ussdgsdg',
+      to: '/contact_us',
       tabLabel: 'Contact Us',
     },
   ],
