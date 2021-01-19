@@ -10,10 +10,11 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
 } */
 body {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     font-family: "Lato", sans-serif;
-    font-weight: 400;
+    /* font-weight: 400; */
     color: ${styleColor.color.greyDark};
+    margin: 0;
 }
 ::selection {
     background-color: ${styleColor.primary};
