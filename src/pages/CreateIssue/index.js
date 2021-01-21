@@ -1,10 +1,11 @@
-import withAuthorization from "components/Hooks/withAuthorization";
-import MultiForm from "./MultiForm";
+import { Container } from '@material-ui/core';
+import withAuthorization from 'components/Hooks/withAuthorization';
+import MultiForm from './MultiForm';
 const CreateIssuePages = () => {
   return (
-    <div>
+    <Container style={{ paddingTop: '1rem' }}>
       <MultiForm />
-    </div>
+    </Container>
   );
 };
 

@@ -1,4 +1,11 @@
-import { Stepper, Step, StepLabel, Paper } from '@material-ui/core';
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Paper,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import FileModule from './addFile/FileModule';
@@ -74,16 +81,23 @@ const MultiForm = () => {
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
-      <Stepper alternativeLabel activeStep={activateStep}>
-        {steps.map((_label) => (
-          <Step key={_label}>
-            <StepLabel>{_label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      {activateStep === steps.length
-        ? 'The Step completed'
-        : getStepsContent(activateStep, handelStep, handelBack)}
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Typography variant="h1" gutterBottom>
+          Create Issue Report
+        </Typography>
+        <div>
+          <Stepper alternativeLabel activeStep={activateStep}>
+            {steps.map((_label) => (
+              <Step key={_label}>
+                <StepLabel>{_label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          {activateStep === steps.length
+            ? 'The Step completed'
+            : getStepsContent(activateStep, handelStep, handelBack)}
+        </div>
+      </Grid>
     </Paper>
   );
 };
