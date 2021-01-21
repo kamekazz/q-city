@@ -1,12 +1,12 @@
-import { Typography, Button, TextField } from "@material-ui/core";
-import { useForm } from "react-hook-form";
-import styled from "styled-components";
-import { useState } from "react";
+import { Typography, Button, TextField } from '@material-ui/core';
+import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
+import { useState } from 'react';
 
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { updateReportStepTwo } from "api/report";
-import DeleteModal from "./DeleteModel";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { updateReportStepTwo } from 'api/report';
+import DeleteModal from './DeleteModel';
 
 const schema = yup.object().shape({
   issue_code: yup.string().required().min(3),
@@ -21,7 +21,7 @@ const IssueInfo = (props) => {
   const [disableButton, setDisableButton] = useState(false);
 
   const { register, handleSubmit, errors } = useForm({
-    mode: "onBlur",
+    mode: 'onBlur',
     resolver: yupResolver(schema),
   });
 
@@ -34,7 +34,7 @@ const IssueInfo = (props) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Typography
         variant="h5"
-        style={{ width: "100%", textAlign: "center", marginBottom: 6 }}
+        style={{ width: '100%', textAlign: 'center', marginBottom: 6 }}
       >
         Enter Issue for IBM:"{mainData.ibm}"
       </Typography>
@@ -115,6 +115,7 @@ const TextContainerEL = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 6px;
+  width: 100%;
   @media screen and (max-width: 480px) {
     justify-content: center;
   }

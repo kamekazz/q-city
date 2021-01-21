@@ -13,18 +13,25 @@ import IssueInfo from './IssueInfo';
 import ProductInfo from './ProductInfo';
 import ReviewReport from './ReviewReport';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     margin: '0 auto',
     padding: '6px 12px',
     '& .MuiStepIcon-active': {
-      color: 'blue',
+      color: theme.palette.primary.dark,
     },
     '& .MuiStepIcon-completed': {
-      color: 'green',
+      color: theme.palette.success.main,
     },
   },
-});
+  topText: {
+    fontSize: '4rem',
+    textAlign: 'center',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '2rem',
+    },
+  },
+}));
 
 const MultiForm = () => {
   const getSteps = () => {
@@ -82,7 +89,7 @@ const MultiForm = () => {
   return (
     <Paper className={classes.root}>
       <Grid container direction="column" justify="center" alignItems="center">
-        <Typography variant="h1" gutterBottom>
+        <Typography variant="h1" gutterBottom className={classes.topText}>
           Create Issue Report
         </Typography>
         <div>
