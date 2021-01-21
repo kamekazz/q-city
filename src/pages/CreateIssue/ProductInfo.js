@@ -7,7 +7,6 @@ import * as yup from 'yup';
 import { newIssueReport } from 'helpers/issueReport';
 import { createReport } from 'api/report';
 import { useState } from 'react';
-import { theme } from 'styles/muiTheme';
 
 const schema = yup.object().shape({
   ibm: yup.string().required().min(6).max(6),
@@ -44,6 +43,7 @@ const ProductInfo = (props) => {
   const { handelStep, setMainData } = props;
   const classes = useStyles();
   const [disableButton, setDisableButton] = useState(false);
+
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),

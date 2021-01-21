@@ -119,3 +119,32 @@ export const deleteReport = (_id, history, handleClose) => {
       handleClose();
     });
 };
+
+export const updateReportFamiliar = (_id, _improvementR, callback) => {
+  let reportRef = db.collection('report').doc(_id);
+  reportRef
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        reportRef
+          .update({ ..._improvementR, status: 'post_i' })
+          .then(function () {
+            console.log('Document successfully updated!');
+            callback(true);
+          })
+          .catch(function (error) {
+            // The document probably doesn't exist.
+            console.error('Error updating document: ', error);
+            callback(false);
+          });
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+        callback(false);
+      }
+    })
+    .catch(function (error) {
+      console.log('Error getting document:', error);
+      callback(false);
+    });
+};

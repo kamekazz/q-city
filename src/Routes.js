@@ -33,6 +33,9 @@ const Routes = () => (
     <Route path="/login">
       <LoginPage />
     </Route>
+    <Route path="/issue">
+      <CreateIssue />
+    </Route>
     <Route path="/issue/create_issue">
       <CreateIssue />
     </Route>

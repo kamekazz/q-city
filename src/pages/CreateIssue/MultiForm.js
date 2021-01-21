@@ -5,9 +5,11 @@ import {
   Paper,
   Grid,
   Typography,
+  Button,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import FileModule from './addFile/FileModule';
 import IssueInfo from './IssueInfo';
 import ProductInfo from './ProductInfo';
@@ -40,6 +42,11 @@ const MultiForm = () => {
 
   const [activateStep, setStep] = useState(0);
   const [mainData, setMainData] = useState({});
+
+  const resetSteps = () => {
+    setStep(0);
+    setMainData({});
+  };
 
   const getStepsContent = (_stepIndex, _handelStep, _handelBack) => {
     switch (_stepIndex) {
@@ -78,6 +85,34 @@ const MultiForm = () => {
         return 'undone step';
     }
   };
+
+  const renderAddNextIssue = () => {
+    return (
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Typography
+          variant="h5"
+          style={{ textAlign: 'center', marginBottom: '2rem' }}
+        >
+          Will you like to create another report?
+        </Typography>
+        <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="center"
+          style={{ marginBottom: '2rem' }}
+        >
+          <Button variant="contained" component={Link} to="/">
+            no
+          </Button>
+          <Button variant="contained" color="primary" onClick={resetSteps}>
+            yes
+          </Button>
+        </Grid>
+      </Grid>
+    );
+  };
+
   const handelStep = () => {
     setStep((_state) => _state + 1);
   };
@@ -101,7 +136,7 @@ const MultiForm = () => {
             ))}
           </Stepper>
           {activateStep === steps.length
-            ? 'The Step completed'
+            ? renderAddNextIssue()
             : getStepsContent(activateStep, handelStep, handelBack)}
         </div>
       </Grid>

@@ -8,9 +8,16 @@ import { Button } from '@material-ui/core';
 import DeleteModal from './DeleteModel';
 import db from 'db';
 
+import { useForm } from 'react-hook-form';
+import { updateReportFamiliar } from 'api/report';
+
 const ReviewReport = (props) => {
   const { mainData } = props;
-  console.log(mainData);
+  const [disableButton, setDisableButton] = useState(false);
+  const { register, handleSubmit } = useForm({
+    mode: 'onBlur',
+  });
+
   let [reportData, setData] = useState(null);
   useEffect(() => {
     db.collection('report')
@@ -31,12 +38,24 @@ const ReviewReport = (props) => {
     // a component using the hook un mounts
   }, [setData, mainData]);
 
+  const onSubmit = (data) => {
+    setDisableButton(true);
+    updateReportFamiliar(mainData.id, data, function (res) {
+      if (res) {
+        props.handelStep();
+        setDisableButton(false);
+      } else {
+        setDisableButton(false);
+      }
+    });
+    console.log('data', data);
+  };
   if (!reportData) {
     return null;
   }
-  console.log('reportData', reportData);
+
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <TopContainer>
         <TopL>
           <Typography variant="h5" color="secondary">
@@ -61,7 +80,6 @@ const ReviewReport = (props) => {
           <ValueContainer _keyValue="IBM:" _value={reportData.ibm} />
           <ValueContainer _keyValue="PO:" _value={reportData.po} />
           <ValueContainer _keyValue="Vender:" _value={reportData.vender} />
-
           <ValueContainer
             _keyValue="Container:"
             _value={reportData.container}
@@ -105,19 +123,26 @@ const ReviewReport = (props) => {
           label="Improvement Request"
           multiline
           rows={4}
-          // defaultValue="Default Value"
           variant="outlined"
           fullWidth
+          name="improvement_r"
+          inputRef={register}
         />
       </ImprovementInfoContainer>
 
       <BottomContainerEL>
         <DeleteModal _id={mainData.id} />
-        <Button variant="contained" color="primary" onClick={props.handelStep}>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={disableButton}
+          //  onClick={props.handelStep}
+        >
           Next
         </Button>
       </BottomContainerEL>
-    </div>
+    </form>
   );
 };
 export default ReviewReport;
@@ -125,6 +150,9 @@ const TopContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 const TopL = styled.div`
   display: flex;
@@ -135,11 +163,17 @@ const TopR = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  @media screen and (max-width: 600px) {
+    align-items: flex-start;
+  }
 `;
 const ReportInfoContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 const ReportInfoDividerL = styled.div`
   display: flex;
@@ -151,7 +185,7 @@ const ReportInfoDividerR = styled.div`
 `;
 
 const NoteContainer = styled.div`
-  width: 450px;
+  width: 100%;
 `;
 
 const ImprovementInfoContainer = styled.div`
