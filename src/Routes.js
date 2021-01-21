@@ -26,6 +26,7 @@ const Routes = () => (
     <Route path="/secret">
       <SecretPage />
     </Route>
+
     <Route path="/register">
       <RegisterPage />
     </Route>

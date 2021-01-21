@@ -251,6 +251,7 @@ const MultiMenuTap = (props) => {
         MenuListProps={{ onMouseLeave: handleClose }}
         classes={{ paper: classes.menu }}
         elevation={0}
+        style={{ zIndex: 1302 }}
       >
         {_listOfMenuItem.map((_menuItem) => {
           return (
