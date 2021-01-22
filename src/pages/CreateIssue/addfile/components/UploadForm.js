@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: 'none',
   },
+  form: {
+    textAlign: 'center',
+  },
 }));
 
 const UploadForm = ({ _id }) => {
@@ -37,7 +40,7 @@ const UploadForm = ({ _id }) => {
   };
 
   return (
-    <form>
+    <form className={classes.form}>
       <div className={classes.root}>
         <input
           accept="image/*"

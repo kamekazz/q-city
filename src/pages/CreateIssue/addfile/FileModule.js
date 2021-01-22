@@ -12,7 +12,7 @@ function FileModule(props) {
   const [selectedImg, setSelectedImg] = useState(null);
 
   return (
-    <div className="App">
+    <div className="App" style={{ width: '100%' }}>
       <Typography
         variant="h5"
         style={{ width: '100%', textAlign: 'center', marginBottom: 6 }}

@@ -32,7 +32,13 @@ export const updateReportStepTwo = (
       console.error('Error updating document: ', error);
     });
 
-export const updateReportImage = (_id, _indexImage, _keyValue, _value) => {
+export const updateReportImage = (
+  _id,
+  _indexImage,
+  _keyValue,
+  _value,
+  callback
+) => {
   let reportRef = db.collection('report').doc(_id);
   reportRef
     .get()
@@ -44,18 +50,22 @@ export const updateReportImage = (_id, _indexImage, _keyValue, _value) => {
           .update({ images })
           .then(function () {
             console.log('Document successfully updated!');
+            callback(true);
           })
           .catch(function (error) {
             // The document probably doesn't exist.
             console.error('Error updating document: ', error);
+            callback(false);
           });
       } else {
         // doc.data() will be undefined in this case
         console.log('No such document!');
+        callback(false);
       }
     })
     .catch(function (error) {
       console.log('Error getting document:', error);
+      callback(false);
     });
 };
 
@@ -126,7 +136,7 @@ export const updateReportFamiliar = (_id, _improvementR, callback) => {
     .then(function (doc) {
       if (doc.exists) {
         reportRef
-          .update({ ..._improvementR, status: 'post_i' })
+          .update({ ..._improvementR, status: 'pending' })
           .then(function () {
             console.log('Document successfully updated!');
             callback(true);

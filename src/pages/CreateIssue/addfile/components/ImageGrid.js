@@ -7,7 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-
+import Accordion from '@material-ui/core/Accordion';
 import SaveIcon from '@material-ui/icons/Save';
 import { TextField } from '@material-ui/core';
 import styled from 'styled-components';
@@ -16,15 +16,20 @@ import {
   updateReportImage,
   useGetImagesForDoc,
 } from 'api/report';
-
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import { Typography } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const ImageGrid = ({ setSelectedImg, _id }) => {
+  const classes = useStyles();
+
   const { images } = useGetImagesForDoc(_id);
 
   return (
-    <div className="img-grid">
+    <div className={classes.imageGrid}>
       {images &&
         images.map((element, index) => (
-          <div key={element.createdAt}>
+          <div key={element.createdAt} className={classes.image}>
             <ImgMediaCard
               _url={element.url}
               setSelectedImg={setSelectedImg}
@@ -41,11 +46,26 @@ const ImageGrid = ({ setSelectedImg, _id }) => {
 
 export default ImageGrid;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 400,
+    maxWidth: 325,
   },
-});
+  deleteButton: {
+    color: theme.palette.error.main,
+  },
+  imageGrid: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  image: {
+    margin: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      margin: '3px',
+    },
+  },
+}));
 
 function ImgMediaCard(props) {
   const classes = useStyles();
@@ -57,14 +77,22 @@ function ImgMediaCard(props) {
     _indexImage,
     _createdAt,
   } = props;
-  const [title, setTitle] = useState('dfd');
+  const [expanded, setExpanded] = React.useState(false);
+  const [title, setTitle] = useState('');
 
   const handleChange = (event) => {
     setTitle(event.target.value);
   };
 
-  const onsubmitSave = () => {
-    updateReportImage(_id, _indexImage, 'imageNote', title);
+  const onsubmitSave = (e) => {
+    e.preventDefault();
+    updateReportImage(_id, _indexImage, 'imageNote', title, function (res) {
+      if (res) {
+        setExpanded(false);
+      } else {
+        console.log('error');
+      }
+    });
   };
 
   const handleDelete = () => {
@@ -83,6 +111,10 @@ function ImgMediaCard(props) {
     setTitle(imageNote);
   }, [setTitle, imageNote]);
 
+  const handleChangeAccordion = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -95,28 +127,48 @@ function ImgMediaCard(props) {
           onClick={() => setSelectedImg(_url)}
         />
         <CardContent>
-          <TextField
-            label="Title"
-            variant="outlined"
-            fullWidth
-            onChange={handleChange}
-            value={title}
-          />
+          <Accordion expanded={expanded} onChange={handleChangeAccordion(true)}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Typography variant="subtitle1" gutterBottom>
+                {imageNote ? imageNote : 'edit notes'}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <form onSubmit={onsubmitSave}>
+                <TextField
+                  label="Notes"
+                  variant="outlined"
+                  // fullWidth
+                  onChange={handleChange}
+                />
+              </form>
+            </AccordionDetails>
+          </Accordion>
         </CardContent>
       </CardActionArea>
       <RowEl>
-        <Button size="small" color="secondary" onClick={handleDelete}>
+        <Button
+          size="small"
+          className={classes.deleteButton}
+          onClick={handleDelete}
+        >
           delete
         </Button>
-        <Button
-          color="primary"
-          size="small"
-          className={classes.button}
-          startIcon={<SaveIcon />}
-          onClick={onsubmitSave}
-        >
-          Save
-        </Button>
+        {expanded ? (
+          <Button
+            color="primary"
+            size="small"
+            className={classes.button}
+            startIcon={<SaveIcon />}
+            onClick={onsubmitSave}
+          >
+            Save
+          </Button>
+        ) : null}
       </RowEl>
     </Card>
   );
