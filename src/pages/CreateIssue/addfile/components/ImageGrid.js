@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import useFirestore from '../hooks/useFirestore';
 // import { motion } from 'framer-motion';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -12,10 +11,14 @@ import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { TextField } from '@material-ui/core';
 import styled from 'styled-components';
-import { deleteReportImage, updateReportImage } from 'api/report';
+import {
+  deleteReportImage,
+  updateReportImage,
+  useGetImagesForDoc,
+} from 'api/report';
 
 const ImageGrid = ({ setSelectedImg, _id }) => {
-  const { images } = useFirestore(_id);
+  const { images } = useGetImagesForDoc(_id);
 
   return (
     <div className="img-grid">

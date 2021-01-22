@@ -1,6 +1,5 @@
-import db from 'db';
-import { removeArrayUnion, projectStorage } from 'db/index';
-
+import db, { removeArrayUnion, projectStorage, pushArrayUnion } from 'db';
+import { useState, useEffect } from 'react';
 export const createReport = (_report, handelStep, setMainData) =>
   db
     .collection('report')
@@ -148,3 +147,71 @@ export const updateReportFamiliar = (_id, _improvementR, callback) => {
       callback(false);
     });
 };
+
+export const useGetImagesForDoc = (_id) => {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const unSub = db
+      .collection('report')
+      .doc(_id)
+      .onSnapshot(function (doc) {
+        if (doc.exists) {
+          let allImages = doc.data().images;
+          setImages(allImages);
+        } else {
+          console.log('No such document');
+          setImages([]);
+        }
+      });
+
+    return () => unSub();
+    // this is a cleanup function that react will run when
+    // a component using the hook un mounts
+  }, [_id]);
+
+  return { images };
+};
+
+const useStorageReport = (file, _id) => {
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState(null);
+  const [url, setUrl] = useState(null);
+
+  useEffect(() => {
+    // references
+    const storageRef = projectStorage.ref(
+      `issue_report/${_id}/${_id + file.name}`
+    );
+    const documentRef = db.collection('report').doc(_id);
+
+    storageRef.put(file).on(
+      'state_changed',
+      (snap) => {
+        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+        setProgress(percentage);
+      },
+      (err) => {
+        setError(err);
+      },
+      async () => {
+        const url = await storageRef.getDownloadURL();
+        // const createdAt = timestamp();
+        let d = new Date();
+        let n = d.getMilliseconds();
+        await documentRef.update({
+          images: pushArrayUnion({
+            url: url,
+            imageNote: '',
+            createdAt: n,
+          }),
+        });
+        setUrl(url);
+      }
+    );
+  }, [file, _id]);
+
+  return { progress, url, error };
+};
+
+export default useStorageReport;
