@@ -25,7 +25,7 @@ const ImageGrid = ({ setSelectedImg, _id }) => {
             <ImgMediaCard
               _url={element.url}
               setSelectedImg={setSelectedImg}
-              _titleImage={element.titleImage}
+              imageNote={element.imageNote}
               _id={_id}
               _indexImage={index}
               _createdAt={element.createdAt}
@@ -48,7 +48,7 @@ function ImgMediaCard(props) {
   const classes = useStyles();
   const {
     _url,
-    _titleImage,
+    imageNote,
     setSelectedImg,
     _id,
     _indexImage,
@@ -61,7 +61,7 @@ function ImgMediaCard(props) {
   };
 
   const onsubmitSave = () => {
-    updateReportImage(_id, _indexImage, 'titleImage', title);
+    updateReportImage(_id, _indexImage, 'imageNote', title);
   };
 
   const handleDelete = () => {
@@ -69,7 +69,7 @@ function ImgMediaCard(props) {
       _id,
       {
         url: _url,
-        titleImage: _titleImage,
+        imageNote: imageNote,
         createdAt: _createdAt,
       },
       _url
@@ -77,8 +77,8 @@ function ImgMediaCard(props) {
   };
 
   useEffect(() => {
-    setTitle(_titleImage);
-  }, [setTitle, _titleImage]);
+    setTitle(imageNote);
+  }, [setTitle, imageNote]);
 
   return (
     <Card className={classes.root}>
@@ -88,7 +88,7 @@ function ImgMediaCard(props) {
           alt="Contemplative Reptile"
           height="200"
           image={_url}
-          title={_titleImage}
+          title={imageNote}
           onClick={() => setSelectedImg(_url)}
         />
         <CardContent>

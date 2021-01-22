@@ -31,7 +31,7 @@ const useStorage = (file, _id) => {
         await documentRef.update({
           images: pushArrayUnion({
             url: url,
-            titleImage: '',
+            imageNote: '',
             createdAt: n,
           }),
         });

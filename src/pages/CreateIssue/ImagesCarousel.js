@@ -14,19 +14,19 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 // const tutorialSteps = [
 //   {
 //     createdAt: 1235,
-//     titleImage: 'l5432aasdfabel',
+//     imageNote: 'l5432aasdfabel',
 //     url:
 //       'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
 //   },
 //   {
 //     createdAt: 1234,
-//     titleImage: 'la523besfdl',
+//     imageNote: 'la523besfdl',
 //     url:
 //       'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
 //   },
 //   {
 //     createdAt: 1233,
-//     titleImage: 'la523asdfbel',
+//     imageNote: 'la523asdfbel',
 //     url:
 //       'https://firebasestorage.googleapis.com/v0/b/w-city-53c78.appspot.com/o/issue_report%2Fjojo.jpg?alt=media&token=9c56e3f0-1631-4335-9fd0-8fff58fc0cf5',
 //   },
@@ -77,7 +77,7 @@ function SwipeableTextMobileStepper(props) {
   return (
     <div className={classes.root}>
       <Paper square elevation={0} className={classes.header}>
-        <Typography>{tutorialSteps[activeStep].titleImage}</Typography>
+        <Typography>{tutorialSteps[activeStep].imageNote}</Typography>
       </Paper>
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -91,7 +91,7 @@ function SwipeableTextMobileStepper(props) {
               <img
                 className={classes.img}
                 src={step.url}
-                alt={step.titleImage}
+                alt={step.imageNote}
               />
             ) : null}
           </div>
