@@ -56,7 +56,7 @@ const ProductInfo = (props) => {
       if (res.success) {
         addToast(res.message, { appearance: 'info', autoDismiss: true });
         handelStep();
-        setMainData(report);
+        setMainData({ ...report, id: res.data.id });
       } else {
         addToast(res.errorMessage, { appearance: 'error', autoDismiss: true });
         setDisableButton(false);

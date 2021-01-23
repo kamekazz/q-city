@@ -27,6 +27,7 @@ const IssueInfo = (props) => {
   });
 
   const onSubmit = (data) => {
+    console.log('mainData', mainData);
     updateReportStepTwo(data, handelStep, setMainData, mainData.id);
     setDisableButton(true);
   };

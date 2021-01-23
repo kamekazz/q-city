@@ -54,7 +54,7 @@ export default function DeleteModal(props) {
     deleteReport(_id, function (res) {
       console.log('res', res);
       if (res.success) {
-        addToast(res.message, { appearance: 'info', autoDismiss: true });
+        addToast(res.message, { appearance: 'success', autoDismiss: true });
         handleClose();
         history.push('/');
       } else {

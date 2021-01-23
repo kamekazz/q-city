@@ -21,7 +21,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import { Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-const ImageGrid = ({ setSelectedImg, _id = '27ub764F7NbzE1DPHV4d' }) => {
+const ImageGrid = ({ setSelectedImg, _id }) => {
   const classes = useStyles();
 
   const { images } = useGetImagesForDoc(_id);
