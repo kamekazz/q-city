@@ -1,7 +1,7 @@
 import { Typography, Button, TextField, makeStyles } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-
+import { useToasts } from 'react-toast-notifications';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { newIssueReport } from 'helpers/issueReport';
@@ -43,7 +43,7 @@ const ProductInfo = (props) => {
   const { handelStep, setMainData } = props;
   const classes = useStyles();
   const [disableButton, setDisableButton] = useState(false);
-
+  const { addToast } = useToasts();
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
@@ -52,7 +52,17 @@ const ProductInfo = (props) => {
   const onSubmit = (data) => {
     const report = newIssueReport(data);
     setDisableButton(true);
-    createReport(report, handelStep, setMainData);
+    createReport(report, function (res) {
+      console.log('res', res);
+      if (res.success) {
+        addToast(res.message, { appearance: 'info', autoDismiss: true });
+        handelStep();
+        setMainData(report);
+      } else {
+        addToast(res.errorMessage, { appearance: 'error', autoDismiss: true });
+        setDisableButton(false);
+      }
+    });
   };
 
   return (
@@ -118,6 +128,7 @@ const ProductInfo = (props) => {
           variant="contained"
           color="primary"
           disabled={disableButton}
+          style={{ marginBottom: '2rem' }}
         >
           Next
         </Button>

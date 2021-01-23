@@ -1,16 +1,29 @@
 import db, { removeArrayUnion, projectStorage, pushArrayUnion } from 'db';
 import { useState, useEffect } from 'react';
-export const createReport = (_report, handelStep, setMainData) =>
+
+export const createReport = (_report, callback) =>
   db
     .collection('report')
     .add(_report)
     .then((snapshot) => {
-      handelStep();
-      setMainData({ ..._report, id: snapshot.id });
+      callback({
+        success: true,
+        data: { id: snapshot.id },
+        message:
+          'All your actions will be saved; you can leave and come back at any time.',
+        errorMessage: '',
+      });
     })
     .catch(function (error) {
       // The document probably doesn't exist.
-      console.error('Error updating document: ', error);
+
+      console.log('error data:', error);
+      callback({
+        success: false,
+        data: '',
+        message: '',
+        errorMessage: error.message,
+      });
     });
 
 export const updateReportStepTwo = (

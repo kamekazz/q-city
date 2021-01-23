@@ -6,12 +6,14 @@ import { Divider } from '@material-ui/core';
 import ImagesCarousel from './ImagesCarousel';
 import { Button } from '@material-ui/core';
 import DeleteModal from './DeleteModel';
+import { useToasts } from 'react-toast-notifications';
 import db from 'db';
 
 import { useForm } from 'react-hook-form';
 import { updateReportFamiliar } from 'api/report';
 
 const ReviewReport = (props) => {
+  const { addToast } = useToasts();
   const { mainData } = props;
   const [disableButton, setDisableButton] = useState(false);
   const { register, handleSubmit } = useForm({
@@ -44,6 +46,13 @@ const ReviewReport = (props) => {
       if (res) {
         props.handelStep();
         setDisableButton(false);
+        addToast(
+          'your report has been posted and will be waiting for review by the location admin.',
+          {
+            appearance: 'success',
+            autoDismiss: true,
+          }
+        );
       } else {
         setDisableButton(false);
       }
@@ -138,6 +147,7 @@ const ReviewReport = (props) => {
           type="submit"
           disabled={disableButton}
           //  onClick={props.handelStep}
+          style={{ marginBottom: '2rem' }}
         >
           Next
         </Button>

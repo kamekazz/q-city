@@ -24,7 +24,12 @@ function FileModule(props) {
       <ImageGrid setSelectedImg={setSelectedImg} _id={mainData.id} />
       <BottomContainerEL>
         <DeleteModal _id={mainData.id} />
-        <Button variant="contained" color="primary" onClick={props.handelStep}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={props.handelStep}
+          style={{ marginBottom: '2rem' }}
+        >
           Next
         </Button>
       </BottomContainerEL>

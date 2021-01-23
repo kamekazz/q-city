@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { updateReportStepTwo } from 'api/report';
 import DeleteModal from './DeleteModel';
+import { useToasts } from 'react-toast-notifications';
 
 const schema = yup.object().shape({
   issue_code: yup.string().required().min(3),
@@ -19,7 +20,7 @@ const schema = yup.object().shape({
 const IssueInfo = (props) => {
   const { handelStep, setMainData, mainData } = props;
   const [disableButton, setDisableButton] = useState(false);
-
+  const { addToast } = useToasts();
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
@@ -101,6 +102,13 @@ const IssueInfo = (props) => {
           variant="contained"
           color="primary"
           disabled={disableButton}
+          style={{ marginBottom: '2rem' }}
+          onClick={() =>
+            addToast('content', {
+              appearance: 'success',
+              autoDismiss: true,
+            })
+          }
         >
           Next
         </Button>
