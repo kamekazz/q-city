@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { motion } from 'framer-motion';
+import { useToasts } from 'react-toast-notifications';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -20,7 +21,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import { Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-const ImageGrid = ({ setSelectedImg, _id }) => {
+const ImageGrid = ({ setSelectedImg, _id = '27ub764F7NbzE1DPHV4d' }) => {
   const classes = useStyles();
 
   const { images } = useGetImagesForDoc(_id);
@@ -68,6 +69,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ImgMediaCard(props) {
+  const { addToast } = useToasts();
+
   const classes = useStyles();
   const {
     _url,
@@ -87,9 +90,11 @@ function ImgMediaCard(props) {
   const onsubmitSave = (e) => {
     e.preventDefault();
     updateReportImage(_id, _indexImage, 'imageNote', title, function (res) {
-      if (res) {
+      if (res.success) {
         setExpanded(false);
+        addToast(res.message, { appearance: 'success', autoDismiss: true });
       } else {
+        addToast(res.errorMessage, { appearance: 'error', autoDismiss: true });
         console.log('error');
       }
     });

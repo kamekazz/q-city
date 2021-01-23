@@ -63,22 +63,42 @@ export const updateReportImage = (
           .update({ images })
           .then(function () {
             console.log('Document successfully updated!');
-            callback(true);
+            callback({
+              success: true,
+              data: {},
+              message: 'Image notes successfully updated!',
+              errorMessage: '',
+            });
           })
           .catch(function (error) {
             // The document probably doesn't exist.
             console.error('Error updating document: ', error);
-            callback(false);
+            callback({
+              success: false,
+              data: '',
+              message: '',
+              errorMessage: error.message,
+            });
           });
       } else {
         // doc.data() will be undefined in this case
         console.log('No such document!');
-        callback(false);
+        callback({
+          success: false,
+          data: '',
+          message: '',
+          errorMessage: 'No such document!',
+        });
       }
     })
     .catch(function (error) {
       console.log('Error getting document:', error);
-      callback(false);
+      callback({
+        success: false,
+        data: '',
+        message: '',
+        errorMessage: error.message,
+      });
     });
 };
 
