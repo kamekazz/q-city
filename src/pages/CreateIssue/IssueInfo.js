@@ -103,12 +103,6 @@ const IssueInfo = (props) => {
           color="primary"
           disabled={disableButton}
           style={{ marginBottom: '2rem' }}
-          onClick={() =>
-            addToast('content', {
-              appearance: 'success',
-              autoDismiss: true,
-            })
-          }
         >
           Next
         </Button>

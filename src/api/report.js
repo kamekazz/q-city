@@ -117,28 +117,43 @@ const deleteMultipleImage = (_array) => {
     deleteImage(element.url);
   }
 };
-export const deleteReport = (_id, history, handleClose) => {
+export const deleteReport = (_id, callback) => {
   let reportRf = db.collection('report').doc(_id);
   reportRf
     .get()
     .then((doc) => {
-      let arrayForImages = doc.data().images;
-      deleteMultipleImage(arrayForImages);
+      let arrayForImages = doc.data()?.images;
+      if (arrayForImages) {
+        deleteMultipleImage(arrayForImages);
+      }
       reportRf
         .delete()
         .then(function () {
-          console.log('Document successfully deleted!');
-          history.push('/home');
-          handleClose();
+          callback({
+            success: true,
+            data: {},
+            message: 'Document successfully deleted!',
+            errorMessage: '',
+          });
         })
         .catch(function (error) {
           console.error('Error removing document: ', error);
-          handleClose();
+          callback({
+            success: false,
+            data: {},
+            message: '',
+            errorMessage: error.message,
+          });
         });
     })
     .catch(function (error) {
       console.error('Error removing document: ', error);
-      handleClose();
+      callback({
+        success: false,
+        data: {},
+        message: '',
+        errorMessage: error.message,
+      });
     });
 };
 

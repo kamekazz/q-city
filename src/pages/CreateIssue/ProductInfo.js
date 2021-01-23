@@ -53,7 +53,6 @@ const ProductInfo = (props) => {
     const report = newIssueReport(data);
     setDisableButton(true);
     createReport(report, function (res) {
-      console.log('res', res);
       if (res.success) {
         addToast(res.message, { appearance: 'info', autoDismiss: true });
         handelStep();

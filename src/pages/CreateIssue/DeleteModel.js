@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import { Button } from '@material-ui/core';
 import { deleteReport } from 'api/report';
 import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 function getModalStyle() {
   const top = 50;
@@ -32,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DeleteModal(props) {
+  const { addToast } = useToasts();
+
   const { _id } = props;
   let history = useHistory();
   const classes = useStyles();
@@ -48,7 +51,16 @@ export default function DeleteModal(props) {
   };
 
   const handleDelete = () => {
-    deleteReport(_id, history, handleClose);
+    deleteReport(_id, function (res) {
+      console.log('res', res);
+      if (res.success) {
+        addToast(res.message, { appearance: 'info', autoDismiss: true });
+        handleClose();
+        history.push('/');
+      } else {
+        addToast(res.errorMessage, { appearance: 'error', autoDismiss: true });
+      }
+    });
   };
 
   const handleSave = () => {
