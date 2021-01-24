@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -21,6 +21,9 @@ const useRowStyles = makeStyles({
     '& > *': {
       borderBottom: 'unset',
     },
+  },
+  bottomContainers: {
+    backgroundColor: 'red',
   },
 });
 
@@ -48,62 +51,29 @@ function Row(props) {
         <TableCell align="right">{row.level}</TableCell>
         <TableCell align="right">{row.created_date}</TableCell>
       </TableRow>
-      {/* <TableRow>
+      <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Action:
               </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <Typography variant="subtitle1" gutterBottom>
+                {row.action_description}
+              </Typography>
+              <Typography variant="h6" gutterBottom component="div">
+                Created By:
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                {row.created_by}
+              </Typography>
             </Box>
           </Collapse>
         </TableCell>
-      </TableRow> */}
+      </TableRow>
     </React.Fragment>
   );
 }
-
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
 
 export default function CollapsibleTable() {
   return (
@@ -120,7 +90,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
           {fakeIssueCodeData.map((row) => (
-            <Row key={row.name} row={row} />
+            <Row key={row.id} row={row} />
           ))}
         </TableBody>
       </Table>
