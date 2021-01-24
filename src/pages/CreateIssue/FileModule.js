@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import UploadForm from './components/UploadForm';
-import ImageGrid from './components/ImageGrid';
-import Modal from './components/Modal';
+import UploadForm from './addFile/components/UploadForm';
+import ImageGrid from './addFile/components/ImageGrid';
+import Modal from './addFile/components/Modal';
 import './addFile.css';
 import { Typography, Button } from '@material-ui/core';
-import DeleteModal from '../DeleteModel';
+import DeleteModal from './DeleteModel';
 
 function FileModule(props) {
   const { mainData } = props;

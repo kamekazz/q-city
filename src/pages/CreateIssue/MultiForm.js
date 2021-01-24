@@ -10,7 +10,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import FileModule from './addFile/FileModule';
+import FileModule from './FileModule';
 import IssueInfo from './IssueInfo';
 import ProductInfo from './ProductInfo';
 import ReviewReport from './ReviewReport';
