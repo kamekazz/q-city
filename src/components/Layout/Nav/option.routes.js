@@ -29,8 +29,12 @@ const routesOptions = [
       tabLabel: 'Issue',
     },
     {
-      to: '/issue/create_issue',
-      tabLabel: 'Create Issue Report',
+      to: '/issue/create_report',
+      tabLabel: 'Create Report',
+    },
+    {
+      to: '/issue/create_issue_code',
+      tabLabel: 'Create Issue Code',
     },
   ],
   [

@@ -13,7 +13,7 @@ body {
     /* box-sizing: border-box; */
     font-family: "Lato", sans-serif;
     /* font-weight: 400; */
-    background-color: #0b73b911;
+    background-color: #0a3f6311;
     color: ${styleColor.color.greyDark};
     margin: 0;
 }

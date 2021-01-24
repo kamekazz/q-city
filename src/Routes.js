@@ -19,7 +19,7 @@ import ReceivedOffersPage from './pages/offers/ReceivedOffers';
 
 import ReceivedCollaborationsPage from './pages/collaborations/ReceivedCollaborations';
 import CollaborationDetailPage from './pages/collaborations/CollaborationDetail';
-import CreateIssue from 'pages/CreateIssue';
+import CreateReport from 'pages/CreateReport';
 
 const Routes = () => (
   <Switch>
@@ -34,10 +34,10 @@ const Routes = () => (
       <LoginPage />
     </Route>
     <Route path="/issue">
-      <CreateIssue />
+      <CreateReport />
     </Route>
-    <Route path="/issue/create_issue">
-      <CreateIssue />
+    <Route path="/issue/create_report">
+      <CreateReport />
     </Route>
     <Route path="/logout">
       <LogoutPage />
