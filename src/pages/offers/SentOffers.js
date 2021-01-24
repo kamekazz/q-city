@@ -1,12 +1,12 @@
-import React from "react";
-import withAuthorization from "components/Hooks/withAuthorization";
-import { withToastManager } from "react-toast-notifications";
-import ServiceItem from "components/service/ServiceItem";
-import { connect } from "react-redux";
-import { newMessage, newCollaboration } from "helpers/offers";
-import { fetchSentOffers, collaborate } from "Redux/actions";
+import React from 'react';
+import withAuthorization from 'components/Hooks/withAuthorization';
+import { withToastManager } from 'react-toast-notifications';
+import ServiceItem from 'components/service/ServiceItem';
+import { connect } from 'react-redux';
+import { newMessage, newCollaboration } from 'api/helpers/offers';
+import { fetchSentOffers, collaborate } from 'Redux/actions';
 
-import Spinner from "components/Spinner";
+import Spinner from 'components/Spinner';
 
 class SentOffers extends React.Component {
   componentDidMount() {
@@ -24,8 +24,8 @@ class SentOffers extends React.Component {
     const message = newMessage({ offer, fromUser: user });
 
     this.props.collaborate({ collaboration, message }).then((_) =>
-      toastManager.add("Collaboration was Created!", {
-        appearance: "success",
+      toastManager.add('Collaboration was Created!', {
+        appearance: 'success',
         autoDismiss: true,
       })
     );
@@ -59,7 +59,7 @@ class SentOffers extends React.Component {
                   <hr />
                   <div className="service-offer">
                     <div>
-                      <span className="label">To User:</span>{" "}
+                      <span className="label">To User:</span>{' '}
                       {offer.toUser.fullName}
                     </div>
                     <div>
@@ -72,7 +72,7 @@ class SentOffers extends React.Component {
                       <span className="label">Time:</span> {offer.time} hours
                     </div>
                   </div>
-                  {offer.status === "accepted" && !offer.collaborationCreated && (
+                  {offer.status === 'accepted' && !offer.collaborationCreated && (
                     <div>
                       <hr />
                       <button

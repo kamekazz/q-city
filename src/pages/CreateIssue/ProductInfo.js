@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useToasts } from 'react-toast-notifications';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { newIssueReport } from 'helpers/issueReport';
+import { newIssueReport } from 'api/helpers/CreateIssueReport';
 import { createReport } from 'api/report';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
