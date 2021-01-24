@@ -18,5 +18,6 @@ export {
   Timestamp,
   pushArrayUnion,
   removeArrayUnion,
+  firebase,
 };
 export default db;

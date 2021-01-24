@@ -1,4 +1,4 @@
-import { Timestamp } from "db";
+import { Timestamp } from 'db';
 
 export const newIssueReport = ({
   ibm,
@@ -7,15 +7,16 @@ export const newIssueReport = ({
   location,
   container,
   uid,
+  createdBy,
 }) => ({
   ibm,
   po,
   vender,
   location,
   container,
-  createdBy: "000",
-  createdByUid: "000",
-  status: "draft",
+  createdBy,
+  createdByUid: uid,
+  status: 'draft',
   createdAt: Timestamp.fromDate(new Date()),
   images: [],
 });

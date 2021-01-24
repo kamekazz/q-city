@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { newIssueReport } from 'helpers/issueReport';
 import { createReport } from 'api/report';
 import { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 const schema = yup.object().shape({
   ibm: yup.string().required().min(6).max(6),
   po: yup.string().required().min(4),
@@ -40,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const ProductInfo = (props) => {
+  const user = useSelector((state) => state.auth.user);
+
   const { handelStep, setMainData } = props;
   const classes = useStyles();
   const [disableButton, setDisableButton] = useState(false);
@@ -50,7 +52,8 @@ const ProductInfo = (props) => {
   });
 
   const onSubmit = (data) => {
-    const report = newIssueReport(data);
+    const { uid, fullName } = user;
+    const report = newIssueReport({ ...data, uid, createdBy: fullName });
     setDisableButton(true);
     createReport(report, function (res) {
       if (res.success) {
