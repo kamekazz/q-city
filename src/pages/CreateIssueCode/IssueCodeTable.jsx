@@ -27,6 +27,7 @@ const useRowStyles = makeStyles((theme) => ({
     '& .MuiTableHead-root': {
       backgroundColor: theme.palette.primary.light,
       color: 'white',
+
       '& .MuiTableCell-head': {
         color: 'white',
         fontWeight: 900,
