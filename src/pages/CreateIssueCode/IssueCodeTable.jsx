@@ -23,6 +23,16 @@ const useRowStyles = makeStyles((theme) => ({
       borderBottom: 'unset',
     },
   },
+  rootTwo: {
+    '& .MuiTableHead-root': {
+      backgroundColor: theme.palette.primary.light,
+      color: 'white',
+      '& .MuiTableCell-head': {
+        color: 'white',
+        fontWeight: 900,
+      },
+    },
+  },
   bottomContainers: {
     backgroundColor: theme.palette.grey.A100,
     padding: '1rem',
@@ -66,7 +76,9 @@ function Row(props) {
           {row.issue_description}
         </TableCell>
         <TableCell align="right">{row.issue_code}</TableCell>
-        <TableCell align="right">{row.level}</TableCell>
+        <TableCell align="right" style={{ color: levelOfIssueCode(row.level) }}>
+          {row.level}
+        </TableCell>
         <TableCell align="right">{row.created_date}</TableCell>
       </TableRow>
       <TableRow>
@@ -114,8 +126,9 @@ function Row(props) {
 }
 
 export default function CollapsibleTable() {
+  const classes = useRowStyles();
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={classes.rootTwo}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
@@ -135,3 +148,13 @@ export default function CollapsibleTable() {
     </TableContainer>
   );
 }
+
+const levelOfIssueCode = (_value) => {
+  if (_value === 1) {
+    return 'red';
+  } else if (_value <= 4 && _value >= 2) {
+    return 'orange';
+  } else {
+    return 'black';
+  }
+};
