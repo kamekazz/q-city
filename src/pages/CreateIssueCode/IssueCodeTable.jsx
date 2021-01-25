@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import EditIcon from '@material-ui/icons/Edit';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
@@ -15,17 +15,35 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { fakeIssueCodeData } from 'api/fakeData/issueCodeData';
+import { Button } from '@material-ui/core';
 
-const useRowStyles = makeStyles({
+const useRowStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       borderBottom: 'unset',
     },
   },
   bottomContainers: {
-    backgroundColor: 'red',
+    backgroundColor: theme.palette.grey.A100,
+    padding: '1rem',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
-});
+  bottomContainersLevelOne: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    width: '50%',
+  },
+  bottomContainersLevelTwo: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  created_by: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+}));
 
 function Row(props) {
   const { row } = props;
@@ -54,20 +72,40 @@ function Row(props) {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
-                Action:
-              </Typography>
-              <Typography variant="subtitle1" gutterBottom>
-                {row.action_description}
-              </Typography>
-              <Typography variant="h6" gutterBottom component="div">
-                Created By:
-              </Typography>
-              <Typography variant="subtitle1" gutterBottom>
-                {row.created_by}
-              </Typography>
-            </Box>
+            <div className={classes.bottomContainers}>
+              <div className={classes.bottomContainersLevelOne}>
+                <Typography variant="h6" gutterBottom>
+                  Action:
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  style={{ lineHeight: '220%', marginLeft: '1rem' }}
+                >
+                  {row.action_description}
+                </Typography>
+              </div>
+              <div className={classes.bottomContainersLevelTwo}>
+                <div className={classes.created_by}>
+                  <Typography variant="h6" gutterBottom>
+                    Created By:
+                  </Typography>
+
+                  <Typography
+                    variant="subtitle1"
+                    style={{ lineHeight: '220%', marginLeft: '1rem' }}
+                  >
+                    {row.created_by}
+                  </Typography>
+                </div>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<EditIcon />}
+                >
+                  edit
+                </Button>
+              </div>
+            </div>
           </Collapse>
         </TableCell>
       </TableRow>
