@@ -38,7 +38,11 @@ function ProfileMenu(props) {
         color="inherit"
         size="medium"
       >
-        <AccountCircle color={isAuth ? 'secondary' : ''} fontSize="large" />
+        {isAuth ? (
+          <AccountCircle color={'secondary'} fontSize="large" />
+        ) : (
+          <AccountCircle fontSize="large" />
+        )}
       </IconButton>
       <Menu
         id="simple-menu"
@@ -47,10 +51,6 @@ function ProfileMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
         style={{ zIndex: 1302 }}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
       >
         {isAuth ? (
           <>

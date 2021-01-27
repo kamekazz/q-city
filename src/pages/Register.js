@@ -1,10 +1,10 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
-import React from "react";
-import RegisterForm from "components/auth/RegisterForm";
-import { register } from "Redux/actions";
-import { useToasts } from "react-toast-notifications";
-import onlyGuest from "components/Hooks/onlyGuest";
+import React from 'react';
+import RegisterForm from 'pages/auth/RegisterForm';
+import { register } from 'Redux/actions';
+import { useToasts } from 'react-toast-notifications';
+import onlyGuest from 'components/Hooks/onlyGuest';
 
 // import { withRouter } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ const Register = (props) => {
       (_) => () => {},
       (errorMessage) =>
         addToast(errorMessage, {
-          appearance: "error",
+          appearance: 'error',
           autoDismiss: true,
           autoDismissTimeout: 3000,
         })
