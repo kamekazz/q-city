@@ -3,7 +3,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 function ProfileMenu(props) {
@@ -30,20 +30,23 @@ function ProfileMenu(props) {
 
   return (
     <div>
-      <IconButton
-        aria-label="account of current user"
-        aria-controls="menu-appbar"
-        aria-haspopup="true"
-        onClick={handleMenu}
-        color="inherit"
-        size="medium"
-      >
-        {isAuth ? (
+      {isAuth ? (
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="inherit"
+          size="medium"
+        >
           <AccountCircle color={'secondary'} fontSize="large" />
-        ) : (
+        </IconButton>
+      ) : (
+        <IconButton onClick={goToLogin} color="inherit" size="medium">
           <AccountCircle fontSize="large" />
-        )}
-      </IconButton>
+        </IconButton>
+      )}
+
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -52,14 +55,8 @@ function ProfileMenu(props) {
         onClose={handleClose}
         style={{ zIndex: 1302 }}
       >
-        {isAuth ? (
-          <>
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={goToLogout}>Logout</MenuItem>
-          </>
-        ) : (
-          <MenuItem onClick={goToLogin}>Login</MenuItem>
-        )}
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={goToLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );
