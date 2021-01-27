@@ -2,17 +2,62 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { Divider } from '@material-ui/core';
+
 import ImagesCarousel from './ImagesCarousel';
 import { Button } from '@material-ui/core';
 import DeleteModal from './DeleteModel';
 import { useToasts } from 'react-toast-notifications';
 import db from 'db';
-
+import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from 'react-hook-form';
 import { updateReportFamiliar } from 'api/report';
-
+import moment from 'moment';
+const useStyles = makeStyles((theme) => ({
+  errorCodeText: {
+    color: theme.palette.error.main,
+  },
+  errorTextContainer: {
+    display: 'flex',
+  },
+  topDiv: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+  },
+  topDivR: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  contacted: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      flexWrap: 'wrap',
+    },
+  },
+  states: {},
+  noteContainer: {
+    marginRight: '2rem',
+    marginLeft: '2rem',
+    maxWidth: 400,
+    minWidth: 325,
+    [theme.breakpoints.down('xs')]: {
+      marginRight: 0,
+      marginLeft: 0,
+    },
+  },
+  bottomContainer: {
+    marginTop: '1rem',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+}));
 const ReviewReport = (props) => {
+  const classes = useStyles();
   const { addToast } = useToasts();
   const { mainData } = props;
   const [disableButton, setDisableButton] = useState(false);
@@ -23,7 +68,10 @@ const ReviewReport = (props) => {
   let [reportData, setData] = useState(null);
   useEffect(() => {
     db.collection('report')
-      .doc(mainData.id)
+      .doc(
+        // mainData.id
+        'ePikGdAuEqcdQpoIbr0t'
+      )
       .get()
       .then((doc) => {
         if (doc.exists) {
@@ -59,33 +107,44 @@ const ReviewReport = (props) => {
     });
     console.log('data', data);
   };
+
   if (!reportData) {
     return null;
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TopContainer>
-        <TopL>
-          <Typography variant="h5" color="secondary">
+      <div className={classes.topDiv}>
+        <div className={classes.errorTextContainer}>
+          <Typography
+            variant="h5"
+            color="primary"
+            style={{ marginRight: '6px' }}
+          >
+            Issue Code:
+          </Typography>
+          <Typography
+            className={classes.errorCodeText}
+            variant="h5"
+            color="secondary"
+          >
             {reportData.issue_code}
           </Typography>
-        </TopL>
-        <TopR>
+        </div>
+        <div className={classes.topDivR}>
           <ValueContainerH7
             _keyValue="Date:"
-            _value={reportData.createdAt.toDate().toString()}
+            _value={moment(reportData.createdAt.toDate().toString()).calendar()}
           />
 
           <ValueContainerH7
             _keyValue="Create By:"
             _value={reportData.createdBy}
           />
-        </TopR>
-      </TopContainer>
-
-      <ReportInfoContainer>
-        <ReportInfoDividerL>
+        </div>
+      </div>
+      <div className={classes.contacted}>
+        <div className={classes.states}>
           <ValueContainer _keyValue="IBM:" _value={reportData.ibm} />
           <ValueContainer _keyValue="PO:" _value={reportData.po} />
           <ValueContainer _keyValue="Vender:" _value={reportData.vender} />
@@ -97,49 +156,39 @@ const ReviewReport = (props) => {
             _keyValue="Issue Code:"
             _value={reportData.issue_code}
           />
-        </ReportInfoDividerL>
-        <ReportInfoDividerL>
           <ValueContainer _keyValue="Status:" _value={reportData.status} />
           <ValueContainer _keyValue="Location:" _value={reportData.location} />
           <ValueContainer _keyValue="Lot:" _value={reportData.lot} />
-          <ValueContainer _keyValue="SS:" _value={reportData.sample_size} />
+          <ValueContainer
+            _keyValue="Sample Size:"
+            _value={reportData.sample_size}
+          />
           <ValueContainer _keyValue="Pass:" _value={reportData.pass} />
           <ValueContainer _keyValue="Fail:" _value={reportData.failed} />
-        </ReportInfoDividerL>
-        <ReportInfoDividerR>
-          {reportData.images.length && (
-            <ImagesCarousel images={reportData.images} />
-          )}
-        </ReportInfoDividerR>
-      </ReportInfoContainer>
+        </div>
+        <div className={classes.noteContainer}>
+          <Typography variant="h6" color="primary">
+            Note:
+          </Typography>
+          <Typography variant="subtitle2">{reportData.note}</Typography>
+        </div>
+        {reportData.images.length && (
+          <ImagesCarousel images={reportData.images} />
+        )}
+      </div>
 
-      <NoteContainer>
-        <Typography variant="h6" color="secondary">
-          Note:
-        </Typography>
-        <Typography variant="subtitle2" color="primary">
-          {reportData.note}
-        </Typography>
-      </NoteContainer>
-      <Divider
-        variant="middle"
-        color="secondary"
-        style={{ margin: '10px 0' }}
+      <TextField
+        id="outlined-multiline-static"
+        label="Improvement Request"
+        multiline
+        rows={4}
+        variant="outlined"
+        fullWidth
+        name="improvement_r"
+        inputRef={register}
       />
-      <ImprovementInfoContainer>
-        <TextField
-          id="outlined-multiline-static"
-          label="Improvement Request"
-          multiline
-          rows={4}
-          variant="outlined"
-          fullWidth
-          name="improvement_r"
-          inputRef={register}
-        />
-      </ImprovementInfoContainer>
 
-      <BottomContainerEL>
+      <div className={classes.bottomContainer}>
         <DeleteModal _id={mainData.id} />
         <Button
           variant="contained"
@@ -151,71 +200,19 @@ const ReviewReport = (props) => {
         >
           Next
         </Button>
-      </BottomContainerEL>
+      </div>
     </form>
   );
 };
 export default ReviewReport;
-const TopContainer = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
-  }
-`;
-const TopL = styled.div`
-  display: flex;
-  width: 50%;
-`;
-const TopR = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  @media screen and (max-width: 600px) {
-    align-items: flex-start;
-  }
-`;
-const ReportInfoContainer = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
-  }
-`;
-const ReportInfoDividerL = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const ReportInfoDividerR = styled.div`
-  /* width: 400px; */
-  padding: 6px;
-`;
-
-const NoteContainer = styled.div`
-  width: 100%;
-`;
-
-const ImprovementInfoContainer = styled.div`
-  width: 100%;
-
-  padding: 6px;
-`;
-
-const BottomContainerEL = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
 
 const ValueContainer = ({ _keyValue, _value }) => {
   return (
     <ValueContainerEl>
-      <Typography variant="h6" color="secondary" gutterBottom>
+      <Typography variant="h6" color="primary" gutterBottom>
         {_keyValue}
       </Typography>
-      <Typography variant="h6" color="primary" gutterBottom>
+      <Typography variant="h6" gutterBottom>
         {_value}
       </Typography>
     </ValueContainerEl>
@@ -229,10 +226,10 @@ const ValueContainerEl = styled.div`
 const ValueContainerH7 = ({ _keyValue, _value }) => {
   return (
     <ValueContainerEl>
-      <Typography variant="body2" color="secondary" gutterBottom>
+      <Typography variant="body2" color="primary" gutterBottom>
         {_keyValue}
       </Typography>
-      <Typography variant="body2" color="primary" gutterBottom>
+      <Typography variant="body2" gutterBottom>
         {_value}
       </Typography>
     </ValueContainerEl>
