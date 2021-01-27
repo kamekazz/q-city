@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import IconButton from "@material-ui/core/IconButton";
-import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import React, { useState } from 'react';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import IconButton from '@material-ui/core/IconButton';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 function ProfileMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -20,12 +20,12 @@ function ProfileMenu(props) {
 
   const goToLogin = () => {
     handleClose();
-    history.push("login");
+    history.push('login');
   };
 
   const goToLogout = () => {
     handleClose();
-    history.push("logout");
+    history.push('logout');
   };
 
   return (
@@ -38,7 +38,7 @@ function ProfileMenu(props) {
         color="inherit"
         size="medium"
       >
-        <AccountCircle fontSize="large" />
+        <AccountCircle color={isAuth ? 'secondary' : ''} fontSize="large" />
       </IconButton>
       <Menu
         id="simple-menu"
@@ -46,9 +46,17 @@ function ProfileMenu(props) {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        style={{ zIndex: 1302 }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
       >
         {isAuth ? (
-          <MenuItem onClick={goToLogout}>Logout</MenuItem>
+          <>
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={goToLogout}>Logout</MenuItem>
+          </>
         ) : (
           <MenuItem onClick={goToLogin}>Login</MenuItem>
         )}

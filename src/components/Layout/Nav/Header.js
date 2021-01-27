@@ -21,6 +21,7 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ProfileMenu from './ProfileMenu';
 function ElevationScroll(props) {
   const { children } = props;
 
@@ -99,9 +100,7 @@ function Header(props) {
           }
         })}
       </Tabs>
-      <Button variant="contained" color="secondary" className={classes.button}>
-        Free esteemed
-      </Button>
+      <ProfileMenu />
     </>
   );
 
