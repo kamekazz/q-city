@@ -16,19 +16,23 @@ import DrawerComponents from './DrawerComponent';
 // });
 const CreateIssueCodePage = () => {
   // const classes = useStyles();
-  const [openDrawer, setOpenDrawer] = useState(true);
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const closeDrawer = () => {
+    setOpenDrawer(false);
+  };
 
   return (
     <Container style={{ paddingTop: '1rem' }}>
       <FormComponent />
-      <IssueCodeTable />
+      <IssueCodeTable setOpenDrawer={setOpenDrawer} />
       <Drawer
         open={openDrawer}
         anchor="right"
         onClose={() => setOpenDrawer(false)}
       >
         <div style={{ height: '4em' }} />
-        <DrawerComponents />
+        <DrawerComponents closeDrawer={closeDrawer} />
       </Drawer>
     </Container>
   );

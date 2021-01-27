@@ -57,7 +57,7 @@ const useRowStyles = makeStyles((theme) => ({
 }));
 
 function Row(props) {
-  const { row } = props;
+  const { row, setOpenDrawer } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
@@ -114,6 +114,7 @@ function Row(props) {
                   variant="contained"
                   color="secondary"
                   startIcon={<EditIcon />}
+                  onClick={() => setOpenDrawer(true)}
                 >
                   edit
                 </Button>
@@ -126,7 +127,8 @@ function Row(props) {
   );
 }
 
-export default function CollapsibleTable() {
+export default function CollapsibleTable(props) {
+  const { setOpenDrawer } = props;
   const classes = useRowStyles();
   return (
     <TableContainer component={Paper} className={classes.rootTwo}>
@@ -142,7 +144,7 @@ export default function CollapsibleTable() {
         </TableHead>
         <TableBody>
           {fakeIssueCodeData.map((row) => (
-            <Row key={row.id} row={row} />
+            <Row setOpenDrawer={setOpenDrawer} key={row.id} row={row} />
           ))}
         </TableBody>
       </Table>

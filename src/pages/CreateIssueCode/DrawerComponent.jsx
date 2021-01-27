@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     fontSize: '4rem',
+    '&:hover': {
+      color: theme.palette.primary.dark,
+      cursor: 'pointer',
+    },
   },
   form: { padding: '1rem' },
   bottomContainer: {
@@ -45,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
   deleteButton: {
     backgroundColor: theme.palette.error.main,
     color: 'white',
+
+    '&:hover': {
+      backgroundColor: theme.palette.error.dark,
+    },
   },
 }));
 const schema = yup.object().shape({
@@ -95,7 +103,9 @@ const levelArray = [
     label: 10,
   },
 ];
-const DrawerComponents = () => {
+
+const DrawerComponents = (props) => {
+  const { closeDrawer } = props;
   const [level, setLevel] = useState(1);
   const classes = useStyles();
 
@@ -110,7 +120,7 @@ const DrawerComponents = () => {
           <Typography variant="h3" className={classes.editText}>
             Edit Issue Code
           </Typography>
-          <CloseIcon className={classes.icon} />
+          <CloseIcon onClick={closeDrawer} className={classes.icon} />
         </div>
         <Divider />
       </div>
