@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+
 import Divider from '@material-ui/core/Divider';
 
 import {
@@ -9,8 +9,7 @@ import {
   MenuItem,
   makeStyles,
 } from '@material-ui/core';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+
 import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles((theme) => ({
   container: { display: 'flex', flexDirection: 'column' },
@@ -55,12 +54,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const schema = yup.object().shape({
-  issue_code: yup.string().required().min(3),
-  issue_description: yup.string().required().min(20),
-  level: yup.number().required(),
-  action_description: yup.string().required().min(20),
-});
+
 const levelArray = [
   {
     value: 1,

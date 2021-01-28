@@ -40,7 +40,7 @@ const MultiForm = () => {
     return ['START', 'ADD ISSUE', 'Uploaded files', 'Finalize'];
   };
 
-  const [activateStep, setStep] = useState(3);
+  const [activateStep, setStep] = useState(0);
   const [mainData, setMainData] = useState({});
 
   const resetSteps = () => {
