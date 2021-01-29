@@ -1,22 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
+
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import withAuthorization from 'components/Hooks/withAuthorization';
+import { listOfProcess } from './listOfProcess';
 
 const drawerWidth = 240;
 
@@ -54,42 +52,60 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  drawerItem: {
+    fontWeight: 700,
+    fontSize: '1rem',
+    opacity: '0.7',
+
+    '&:hover': {
+      opacity: 1,
+      color: theme.palette.secondary.dark,
+    },
+  },
 }));
 
 function IncomeProductReview(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [section, setSection] = useState('Validate the master label');
+  const [status, setStatus] = useState(listOfProcess);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleCloseDrawer = () => {
+    setMobileOpen(false);
+  };
+
+  const changeStatueOnSection = (index, _status) => {
+    setStatus([...status, (status[index].statusKey = _status)]);
+  };
+
+  const changeSection = (sectionText, index) => {
+    handleCloseDrawer();
+    setSection(sectionText);
+    changeStatueOnSection(index, 'draff');
   };
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+
+      <List disablePadding>
+        {listOfProcess.map((item, index) => {
+          return (
+            <ItemInDrawer
+              key={item.title}
+              title={item.title}
+              section={section}
+              changeSection={changeSection}
+              index={index}
+              statusKey={item.statusKey}
+            />
+          );
+        })}
       </List>
     </div>
   );
@@ -99,7 +115,7 @@ function IncomeProductReview(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed" color="secondary" className={classes.appBar}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -111,7 +127,7 @@ function IncomeProductReview(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            Inbound Inspection Process
           </Typography>
         </Toolbar>
       </AppBar>
@@ -191,3 +207,43 @@ IncomeProductReview.propTypes = {
 };
 
 export default withAuthorization(IncomeProductReview);
+
+const ItemInDrawer = ({ title, section, changeSection, index, statusKey }) => {
+  const classes = useStyles();
+  const theme = useTheme();
+
+  const retuernColor = (_statu) => {
+    switch (_statu) {
+      case 'done':
+        return theme.palette.success.main;
+      case 'draff':
+        return theme.palette.grey[400];
+      case 'warning':
+        return theme.palette.warning.main;
+      default:
+        return 'transparent';
+    }
+  };
+
+  return (
+    <ListItem
+      button
+      divider
+      selected={section === title}
+      key={title}
+      onClick={() => changeSection(title, index)}
+      style={{
+        backgroundColor: retuernColor(statusKey),
+      }}
+    >
+      <ListItemText
+        primary={title}
+        className={classes.drawerItem}
+        disableTypography
+        style={{
+          color: section === title && theme.palette.primary.light,
+        }}
+      />
+    </ListItem>
+  );
+};
