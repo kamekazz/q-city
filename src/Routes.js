@@ -32,6 +32,9 @@ const Routes = () => (
     <Route path="/issue/create_issue_code">
       <CreateIssueCode />
     </Route>
+    <Route path="/products">
+      <IncomeProductReview />
+    </Route>
     <Route path="/products/income">
       <IncomeProductReview />
     </Route>
