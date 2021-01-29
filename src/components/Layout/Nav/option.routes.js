@@ -7,12 +7,12 @@ const routesOptions = [
   ],
   [
     {
-      to: '/services',
-      tabLabel: 'Services',
+      to: '/products',
+      tabLabel: 'Products',
     },
     {
-      to: '/services/custom_software_development',
-      tabLabel: 'Custom Software development',
+      to: '/products/income',
+      tabLabel: 'Income Product Review',
     },
     {
       to: '/services/mobile_app_development',

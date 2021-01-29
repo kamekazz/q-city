@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     margin: '1rem',
+    maxWidth: 325,
     [theme.breakpoints.down('sm')]: {
       margin: '3px',
     },

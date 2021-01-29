@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from './pages/Home';
 import FaqPage from './pages/Faq';
 import ProfilePage from './pages/Profile';
-import ServicesPage from './pages/Services';
+
 //
 import LoginPage from './pages/Login';
 import LogoutPage from './pages/Logout';
@@ -13,6 +13,7 @@ import RegisterPage from './pages/Register';
 //new
 import CreateReport from 'pages/CreateReport';
 import CreateIssueCode from 'pages/CreateIssueCode';
+import IncomeProductReview from 'pages/IncomeProductReview';
 
 const Routes = () => (
   <Switch>
@@ -31,13 +32,13 @@ const Routes = () => (
     <Route path="/issue/create_issue_code">
       <CreateIssueCode />
     </Route>
+    <Route path="/products/income">
+      <IncomeProductReview />
+    </Route>
     <Route path="/logout">
       <LogoutPage />
     </Route>
 
-    <Route path="/service">
-      <ServicesPage />
-    </Route>
     <Route path="/profile">
       <ProfilePage />
     </Route>

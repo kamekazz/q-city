@@ -68,10 +68,7 @@ const ReviewReport = (props) => {
   let [reportData, setData] = useState(null);
   useEffect(() => {
     db.collection('report')
-      .doc(
-        // mainData.id
-        'ePikGdAuEqcdQpoIbr0t'
-      )
+      .doc(mainData.id)
       .get()
       .then((doc) => {
         if (doc.exists) {
