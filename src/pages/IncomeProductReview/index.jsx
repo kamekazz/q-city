@@ -15,6 +15,9 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import withAuthorization from 'components/Hooks/withAuthorization';
 import { listOfProcess } from './listOfProcess';
 import MasterLabel from './components/contacts/MasterLabel';
+import MainContainer from './components/contacts/MainContainer';
+import MasterPhysical from './components/contacts/MasterPhysical';
+import { Paper } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -64,6 +67,10 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.secondary.dark,
     },
   },
+  mainPaper: {
+    padding: 12,
+    maxWidth: 700,
+  },
 }));
 
 function IncomeProductReview(props) {
@@ -71,7 +78,7 @@ function IncomeProductReview(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [section, setSection] = useState('Validate the master label');
+  const [section, setSection] = useState('');
   const [status, setStatus] = useState(listOfProcess);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -88,7 +95,7 @@ function IncomeProductReview(props) {
   const changeSection = (sectionText, index) => {
     handleCloseDrawer();
     setSection(sectionText);
-    changeStatueOnSection(index, 'draff');
+    // changeStatueOnSection(index, 'draff');
   };
 
   const drawer = (
@@ -116,8 +123,10 @@ function IncomeProductReview(props) {
     switch (_section) {
       case 'Validate the master label':
         return <MasterLabel />;
+      case 'Physical inspection of the Master packaging':
+        return <MasterPhysical />;
       default:
-        return 'nada';
+        return <MainContainer />;
     }
   };
 
@@ -175,7 +184,7 @@ function IncomeProductReview(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {returnContacts(section)}
+        <Paper className={classes.mainPaper}>{returnContacts(section)}</Paper>
       </main>
     </div>
   );

@@ -1,4 +1,4 @@
 const MasterPhysical = () => {
-  return <div>Master label</div>;
+  return <div>MasterPhysical label</div>;
 };
 export default MasterPhysical;
