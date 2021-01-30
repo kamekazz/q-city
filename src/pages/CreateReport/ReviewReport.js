@@ -167,7 +167,7 @@ const ReviewReport = (props) => {
           <Typography variant="h6" color="primary">
             Note:
           </Typography>
-          <Typography variant="subtitle2">{reportData.note}</Typography>
+          <Typography paragraph>{reportData.note}</Typography>
         </div>
         {reportData.images.length && (
           <ImagesCarousel images={reportData.images} />
