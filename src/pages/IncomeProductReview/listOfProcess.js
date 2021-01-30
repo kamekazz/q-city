@@ -6,7 +6,7 @@ export const listOfProcess = [
   { statusKey: 'n/a', title: 'Validate the Inner label' },
   { statusKey: 'n/a', title: 'Enter dimension (IN)' },
   { statusKey: 'n/a', title: 'Physical inspection of the Inner packaging' },
-  { statusKey: 'n/a', title: 'Validate the EA label' },
+  { statusKey: 'n/a', title: 'Validate the EA packaging' },
   { statusKey: 'n/a', title: 'Enter dimension (EA)' },
   { statusKey: 'n/a', title: 'Physical inspection of the Ea packaging' },
   { statusKey: 'n/a', title: 'Out of the packaging' },
