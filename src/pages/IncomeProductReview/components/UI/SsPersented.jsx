@@ -1,3 +1,4 @@
+import { calculateParse } from 'helpers/math';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
@@ -8,7 +9,7 @@ class ApexChart extends React.Component {
     this.state = {
       series: [
         {
-          data: [1200, 5, 36, 60, 90, 120],
+          data: [this.props._lot, 5, 36, 60, 90, 120],
         },
       ],
       options: {
@@ -77,7 +78,7 @@ class ApexChart extends React.Component {
           floating: true,
         },
         subtitle: {
-          text: 'Sampling  for inspection',
+          text: 'ISO (the International Organization for Standardization)',
           align: 'center',
         },
         tooltip: {
@@ -102,7 +103,18 @@ class ApexChart extends React.Component {
       <div id="chart">
         <ReactApexChart
           options={this.state.options}
-          series={this.state.series}
+          series={[
+            {
+              data: [
+                this.props._lot,
+                this.props._sample_size,
+                Math.ceil(calculateParse(this.props._lot, 0.03)),
+                Math.ceil(calculateParse(this.props._lot, 0.05)),
+                Math.ceil(calculateParse(this.props._lot, 0.075)),
+                Math.ceil(calculateParse(this.props._lot, 0.1)),
+              ],
+            },
+          ]}
           type="bar"
           height={380}
         />

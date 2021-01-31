@@ -10,50 +10,97 @@ const useStyles = makeStyles((theme) => ({
   root: {
     // display: 'flex',
     // justifyContent: 'space-between',
+  },
+  inputs: {
+    marginBottom: theme.spacing(2),
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
 
-    '& > *': {
-      margin: theme.spacing(1),
+    '& button:nth-child(1)': {
+      marginRight: '2rem',
     },
   },
 }));
+
 const MainContainer = () => {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    textmask: '',
-    numberformat: '1320',
+    constrainer_alfa: '',
+    constrainer_num: '',
+    ibm: '',
+    lot: 0,
+    sample_size: 0,
   });
 
   function upperCasePipe(conformedValue) {
     return conformedValue.toUpperCase();
   }
   const handleChange = (event) => {
+    console.log('values', values);
     setValues({
       ...values,
-      [event.target.name]: upperCasePipe(event.target.value),
+      // [event.target.name]: upperCasePipe(event.target.value),
+      [event.target.name]: event.target.value,
     });
   };
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
         <InputLabel htmlFor="formatted-text-mask-input">Container#:</InputLabel>
         <Input
-          value={values.textmask}
+          value={values.constrainer_alfa}
           onChange={handleChange}
-          name="textmask"
-          inputComponent={TextMaskCustom}
+          name="constrainer_alfa"
+          inputProps={{ maxLength: 4 }}
+          style={{ width: 46 }}
           autoFocus
         />
+        {'-'}
+        <Input
+          value={values.constrainer_num}
+          onChange={handleChange}
+          name="constrainer_num"
+          inputProps={{ maxLength: 7 }}
+          style={{ width: 70, marginBottom: '1rem' }}
+        />
       </div>
-      <TextField style={{ maxWidth: 120 }} type="number" label="IBM Number#:" />
-      <TextField style={{ maxWidth: 120 }} type="number" label="Lot:" />
-      <TextField style={{ maxWidth: 120 }} type="number" label="sample size:" />
-      <ApexChart />
+      <div className={classes.inputs}>
+        <TextField
+          label="IBM #:"
+          inputProps={{ maxLength: 6 }}
+          name="idm"
+          value={values.idm}
+          style={{ width: 70 }}
+        />
+        <TextField
+          // type="number"
+          label="Lot:"
+          defaultValue={values.lot}
+          onChange={handleChange}
+          name="lot"
+        />
+        <TextField
+          type="number"
+          label="sample size:"
+          defaultValue={values.sample_size}
+          onChange={handleChange}
+          name="sample_size"
+        />
+      </div>
+      {console.log('values.lot', values.lot)}
+      <ApexChart _lot={values.lot} _sample_size={values.sample_size} />
 
       <div className={classes.buttonContainer}>
+        <Button variant="contained">cancel</Button>
         <Button variant="contained" color="primary">
           start
         </Button>
-        <Button variant="contained">cancel</Button>
       </div>
     </form>
   );
