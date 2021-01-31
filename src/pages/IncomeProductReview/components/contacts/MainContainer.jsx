@@ -130,34 +130,3 @@ const MainContainer = (props) => {
   );
 };
 export default MainContainer;
-
-function TextMaskCustom(props) {
-  const { inputRef, ...other } = props;
-
-  return (
-    <MaskedInput
-      {...other}
-      ref={(ref) => {
-        inputRef(ref ? ref.inputElement : null);
-      }}
-      mask={[
-        '[',
-        /[a-z]/i,
-        /[a-z]/i,
-        /[a-z]/i,
-        /[a-z]/i,
-        ']',
-        /\d/,
-        /\d/,
-        /\d/,
-        ' - ',
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-      ]}
-      placeholderChar={'\u2000'}
-      showMask
-    />
-  );
-}
