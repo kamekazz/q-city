@@ -80,6 +80,7 @@ function IncomeProductReview(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [section, setSection] = useState('');
   const [status, setStatus] = useState(listOfProcess);
+  const [mainData, setManiData] = useState({});
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -95,7 +96,6 @@ function IncomeProductReview(props) {
   const changeSection = (sectionText, index) => {
     handleCloseDrawer();
     setSection(sectionText);
-    // changeStatueOnSection(index, 'draff');
   };
 
   const drawer = (
@@ -126,7 +126,14 @@ function IncomeProductReview(props) {
       case 'Physical inspection of the Master packaging':
         return <MasterPhysical />;
       default:
-        return <MainContainer />;
+        return (
+          <MainContainer
+            setManiData={setManiData}
+            mainData={mainData}
+            changeStatueOnSection={changeStatueOnSection}
+            changeSection={changeSection}
+          />
+        );
     }
   };
 
