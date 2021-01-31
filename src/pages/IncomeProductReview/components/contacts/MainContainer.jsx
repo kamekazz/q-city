@@ -4,10 +4,13 @@ import TextField from '@material-ui/core/TextField';
 import MaskedInput from 'react-text-mask';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import { Button } from '@material-ui/core';
+import { ApexChart } from '../UI/SsPersented';
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    // display: 'flex',
+    // justifyContent: 'space-between',
+
     '& > *': {
       margin: theme.spacing(1),
     },
@@ -20,10 +23,13 @@ const MainContainer = () => {
     numberformat: '1320',
   });
 
+  function upperCasePipe(conformedValue) {
+    return conformedValue.toUpperCase();
+  }
   const handleChange = (event) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value,
+      [event.target.name]: upperCasePipe(event.target.value),
     });
   };
   return (
@@ -35,11 +41,20 @@ const MainContainer = () => {
           onChange={handleChange}
           name="textmask"
           inputComponent={TextMaskCustom}
+          autoFocus
         />
       </div>
       <TextField style={{ maxWidth: 120 }} type="number" label="IBM Number#:" />
       <TextField style={{ maxWidth: 120 }} type="number" label="Lot:" />
       <TextField style={{ maxWidth: 120 }} type="number" label="sample size:" />
+      <ApexChart />
+
+      <div className={classes.buttonContainer}>
+        <Button variant="contained" color="primary">
+          start
+        </Button>
+        <Button variant="contained">cancel</Button>
+      </div>
     </form>
   );
 };
@@ -56,10 +71,10 @@ function TextMaskCustom(props) {
       }}
       mask={[
         '[',
-        /[a-z]/,
-        /[a-z]/,
-        /[a-z]/,
-        /[a-z]/,
+        /[a-z]/i,
+        /[a-z]/i,
+        /[a-z]/i,
+        /[a-z]/i,
         ']',
         /\d/,
         /\d/,
