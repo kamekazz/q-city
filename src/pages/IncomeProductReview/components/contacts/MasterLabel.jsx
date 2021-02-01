@@ -74,7 +74,7 @@ const MasterLabel = () => {
     weightRange: '',
     showPassword: false,
   });
-  const [valueRadio, setValueRadio] = React.useState('female');
+  const [valueRadio, setValueRadio] = React.useState('yes');
 
   const handleChange = (event) => {
     setValueRadio(event.target.value);
