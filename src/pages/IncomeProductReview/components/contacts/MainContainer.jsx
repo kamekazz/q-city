@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
       marginRight: '2rem',
     },
   },
+  divContainer: {
+    display: 'flex',
+  },
 }));
 
 const MainContainer = (props) => {
@@ -73,24 +76,36 @@ const MainContainer = (props) => {
       autoComplete="off"
       onSubmit={handleOnSubmit}
     >
-      <div>
-        <InputLabel>Container#:</InputLabel>
-        <Input
-          value={values.constrainer_alfa}
-          onChange={handleChange}
-          name="constrainer_alfa"
-          inputProps={{ maxLength: 4 }}
-          style={{ width: 46 }}
-          autoFocus
-        />
-        {'-'}
-        <Input
-          value={values.constrainer_num}
-          onChange={handleChange}
-          name="constrainer_num"
-          inputProps={{ maxLength: 7 }}
-          style={{ width: 70, marginBottom: '1rem' }}
-        />
+      <div className={classes.divContainer}>
+        <div>
+          <InputLabel>Container#:</InputLabel>
+          <Input
+            value={values.constrainer_alfa}
+            onChange={handleChange}
+            name="constrainer_alfa"
+            inputProps={{ maxLength: 4 }}
+            style={{ width: 46 }}
+            autoFocus
+          />
+          {'-'}
+          <Input
+            value={values.constrainer_num}
+            onChange={handleChange}
+            name="constrainer_num"
+            inputProps={{ maxLength: 7 }}
+            style={{ width: 70, marginBottom: '1rem', marginRight: '2rem' }}
+          />
+        </div>
+        <div>
+          <InputLabel>PO#:</InputLabel>
+          <Input
+            value={values.po}
+            onChange={handleChange}
+            name="po"
+            inputProps={{ maxLength: 6 }}
+            style={{ width: 70 }}
+          />
+        </div>
       </div>
       <div className={classes.inputs}>
         <TextField
