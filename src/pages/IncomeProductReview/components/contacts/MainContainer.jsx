@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import MaskedInput from 'react-text-mask';
+// import MaskedInput from 'react-text-mask';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import { Button } from '@material-ui/core';
@@ -35,15 +35,54 @@ const MainContainer = (props) => {
   const { mainData, setManiData, changeStatueOnSection, changeSection } = props;
   const history = useHistory();
   const classes = useStyles();
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     constrainer_alfa: '',
+    constrainer_alfa_error: '',
     constrainer_num: '',
+    constrainer_num_error: '',
     ibm: '',
+    ibm_error: '',
     lot: 0,
+    lot_error: '',
     sample_size: 0,
+    sample_size_error: '',
+    po: '',
   });
+  const [disableStartButton, setDisableStartButton] = useState(true);
 
   useEffect(() => {}, [mainData, setManiData]);
+
+  useEffect(() => {
+    checkValidation();
+  }, [checkValidation]);
+
+  function checkValidation() {
+    if (values.constrainer_alfa.length == 4) {
+      if (values.constrainer_num.length == 7) {
+        if (values.po.length >= 4) {
+          if (values.ibm.length == 6) {
+            if (values.lot > 0) {
+              if (values.sample_size > 0) {
+                setDisableStartButton(false);
+              } else {
+                setDisableStartButton(true);
+              }
+            } else {
+              setDisableStartButton(true);
+            }
+          } else {
+            setDisableStartButton(true);
+          }
+        } else {
+          setDisableStartButton(true);
+        }
+      } else {
+        setDisableStartButton(true);
+      }
+    } else {
+      setDisableStartButton(true);
+    }
+  }
 
   function upperCasePipe(conformedValue) {
     return conformedValue.toUpperCase();
@@ -111,12 +150,12 @@ const MainContainer = (props) => {
         <TextField
           label="IBM #:"
           inputProps={{ maxLength: 6 }}
-          name="idm"
-          value={values.idm}
           style={{ width: 70 }}
+          name="ibm"
+          onChange={handleChange}
         />
         <TextField
-          // type="number"
+          type="number"
           label="Lot:"
           defaultValue={values.lot}
           onChange={handleChange}
@@ -130,14 +169,18 @@ const MainContainer = (props) => {
           name="sample_size"
         />
       </div>
-      {console.log('values.lot', values.lot)}
       <ApexChart _lot={values.lot} _sample_size={values.sample_size} />
 
       <div className={classes.buttonContainer}>
         <Button variant="contained" onClick={cancelButton}>
           cancel
         </Button>
-        <Button variant="contained" color="primary" type="submit">
+        <Button
+          variant="contained"
+          disabled={disableStartButton}
+          color="primary"
+          type="submit"
+        >
           start
         </Button>
       </div>

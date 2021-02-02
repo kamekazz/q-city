@@ -11,6 +11,7 @@ import { Star, StarBorder } from '@material-ui/icons';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   dimensionContainer: {
@@ -24,6 +25,14 @@ const useStyles = makeStyles((theme) => ({
   warningContainer: {
     display: 'flex',
     alignItems: 'flex-end',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+
+    '& button:nth-child(1)': {
+      marginRight: '2rem',
+    },
   },
 }));
 const MasterPhysical = () => {
@@ -96,6 +105,12 @@ const MasterPhysical = () => {
         <IconButton>
           <ErrorOutlineIcon />
         </IconButton>
+      </div>
+      <div className={classes.buttonContainer}>
+        <Button variant="contained">cancel</Button>
+        <Button variant="contained" color="primary" type="submit">
+          start
+        </Button>
       </div>
     </div>
   );
