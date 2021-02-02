@@ -93,7 +93,7 @@ function IncomeProductReview(props) {
     setStatus([...status, (status[index].statusKey = _status)]);
   };
 
-  const changeSection = (sectionText, index) => {
+  const changeSection = (sectionText) => {
     handleCloseDrawer();
     setSection(sectionText);
   };
@@ -122,7 +122,13 @@ function IncomeProductReview(props) {
   const returnContacts = (_section) => {
     switch (_section) {
       case 'Validate the master label':
-        return <MasterLabel />;
+        return (
+          <MasterLabel
+            setManiData={setManiData}
+            mainData={mainData}
+            changeSection={changeSection}
+          />
+        );
       case 'Physical inspection of the Master packaging':
         return <MasterPhysical />;
       default:

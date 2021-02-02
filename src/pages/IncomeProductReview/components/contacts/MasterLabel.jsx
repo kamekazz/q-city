@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -62,26 +62,32 @@ const useStyles = makeStyles((theme) => ({
       marginRight: '2rem',
     },
   },
+  cancelButton: {
+    color: theme.palette.error.main,
+    borderColor: theme.palette.error.main,
+  },
 }));
 
-const MasterLabel = () => {
+const MasterLabel = (props) => {
+  const { setManiData, mainData, changeSection } = props;
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
-  const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
+  const [values, setValues] = useState({
+    graphic: 'yes',
+    description: 'yes',
+    prop_65: 'a',
   });
-  const [valueRadio, setValueRadio] = React.useState('yes');
+
+  useEffect(() => {
+    if (!mainData.container) {
+      changeSection('Container Information');
+    }
+  }, [changeSection, mainData]);
 
   const handleChange = (event) => {
-    setValueRadio(event.target.value);
-  };
-
-  const handleChangesetAge = (event) => {
-    setAge(event.target.value);
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
@@ -92,6 +98,9 @@ const MasterLabel = () => {
             <InputLabel>Bar-Code</InputLabel>
             <Input
               autoFocus
+              name="bar_code"
+              onChange={handleChange}
+              type="number"
               endAdornment={
                 <InputAdornment position="end">
                   <CropFreeIcon />
@@ -104,19 +113,27 @@ const MasterLabel = () => {
           </IconButton>
         </div>
         <div className={classes.warningContainer}>
-          <TextField label="IBM on The label" />
+          <TextField
+            label="IBM on The label"
+            name="idm"
+            onChange={handleChange}
+          />
           <IconButton>
             <ErrorOutlineIcon />
           </IconButton>
         </div>
         <div className={classes.warningContainer}>
-          <TextField label="Alias on The label" />
+          <TextField
+            label="Alias on The label"
+            name="alias"
+            onChange={handleChange}
+          />
           <IconButton>
             <ErrorOutlineIcon />
           </IconButton>
         </div>
         <div className={classes.warningContainer}>
-          <TextField label="PO on The Box" />
+          <TextField label="PO on The Box" name="po" onChange={handleChange} />
           <IconButton>
             <ErrorOutlineIcon />
           </IconButton>
@@ -130,14 +147,14 @@ const MasterLabel = () => {
                 Does it have the correct graphic?
               </FormLabel>
               <RadioGroup
-                aria-label="gender"
-                name="gender1"
-                value={valueRadio}
+                aria-label="graphic"
+                name="graphic"
+                value={values.graphic}
                 onChange={handleChange}
                 row
               >
                 <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="male" control={<Radio />} label="No" />
+                <FormControlLabel value="no" control={<Radio />} label="No" />
               </RadioGroup>
             </div>
             <IconButton>
@@ -150,14 +167,14 @@ const MasterLabel = () => {
                 Is the description correct on the label?
               </FormLabel>
               <RadioGroup
-                aria-label="gender"
-                name="gender1"
-                value={valueRadio}
+                aria-label="description"
+                name="description"
+                value={values.description}
                 onChange={handleChange}
                 row
               >
                 <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="male" control={<Radio />} label="No" />
+                <FormControlLabel value="no" control={<Radio />} label="No" />
               </RadioGroup>
             </div>
             <IconButton>
@@ -165,7 +182,12 @@ const MasterLabel = () => {
             </IconButton>
           </div>
           <div className={classes.warningContainer}>
-            <TextField type="number" label="Quantity on the label" />
+            <TextField
+              type="number"
+              label="Quantity on the label"
+              name="quantity"
+              onChange={handleChange}
+            />
             <IconButton>
               <ErrorOutlineIcon />
             </IconButton>
@@ -175,6 +197,8 @@ const MasterLabel = () => {
               type="number"
               label="Cube Feet"
               style={{ width: 90, marginRight: '1rem' }}
+              name="cube_feet"
+              onChange={handleChange}
             />
             <TextField type="number" label="G.W." style={{ width: 70 }} />
             <IconButton>
@@ -183,23 +207,21 @@ const MasterLabel = () => {
           </div>
           <div className={classes.warningContainer}>
             <div>
-              <InputLabel id="demo-simple-select-helper-label">
-                Prop 65
-              </InputLabel>
+              <InputLabel id="prop-65">Prop 65</InputLabel>
               <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={age}
-                onChange={handleChangesetAge}
+                labelId="prop-65"
+                value={values.prop_65}
+                name="prop_65"
+                onChange={handleChange}
               >
-                <MenuItem value={0}>
+                <MenuItem value={'a'}>
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={10}>demo-simple-select-helper-label</MenuItem>
-                <MenuItem value={20}>B</MenuItem>
-                <MenuItem value={30}>C</MenuItem>
-                <MenuItem value={30}>G</MenuItem>
-                <MenuItem value={30}>Y</MenuItem>
+                <MenuItem value={'b'}>demo-simple-select-helper-label</MenuItem>
+                <MenuItem value={'c'}>B</MenuItem>
+                <MenuItem value={'d'}>C</MenuItem>
+                <MenuItem value={'e'}>G</MenuItem>
+                <MenuItem value={'f'}>Y</MenuItem>
               </Select>
               <FormHelperText>
                 Is the prop 65 on the label or in said the packaging?
@@ -213,9 +235,16 @@ const MasterLabel = () => {
         <img src={productImageUrl} alt="Logo" className={classes.image} />
       </div>
       <div className={classes.buttonContainer}>
-        <Button variant="contained">cancel</Button>
-        <Button variant="contained" color="primary" type="submit">
-          start
+        <Button variant="outlined" className={classes.cancelButton}>
+          cancel
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          onClick={() => console.log('values', values)}
+        >
+          save
         </Button>
       </div>
     </div>

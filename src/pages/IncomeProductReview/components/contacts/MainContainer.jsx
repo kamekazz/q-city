@@ -37,15 +37,15 @@ const MainContainer = (props) => {
   const classes = useStyles();
   const [values, setValues] = useState({
     constrainer_alfa: '',
-    constrainer_alfa_error: '',
+
     constrainer_num: '',
-    constrainer_num_error: '',
+
     ibm: '',
-    ibm_error: '',
+
     lot: 0,
-    lot_error: '',
+
     sample_size: 0,
-    sample_size_error: '',
+
     po: '',
   });
   const [disableStartButton, setDisableStartButton] = useState(true);
@@ -53,17 +53,17 @@ const MainContainer = (props) => {
   useEffect(() => {}, [mainData, setManiData]);
 
   useEffect(() => {
-    checkValidation();
-  }, [checkValidation]);
-
-  function checkValidation() {
-    if (values.constrainer_alfa.length == 4) {
-      if (values.constrainer_num.length == 7) {
-        if (values.po.length >= 4) {
-          if (values.ibm.length == 6) {
-            if (values.lot > 0) {
-              if (values.sample_size > 0) {
-                setDisableStartButton(false);
+    function checkValidation() {
+      if (values.constrainer_alfa.length === 4) {
+        if (values.constrainer_num.length === 7) {
+          if (values.po.length >= 4) {
+            if (values.ibm.length === 6) {
+              if (values.lot > 0) {
+                if (values.sample_size > 0) {
+                  setDisableStartButton(false);
+                } else {
+                  setDisableStartButton(true);
+                }
               } else {
                 setDisableStartButton(true);
               }
@@ -79,10 +79,9 @@ const MainContainer = (props) => {
       } else {
         setDisableStartButton(true);
       }
-    } else {
-      setDisableStartButton(true);
     }
-  }
+    checkValidation();
+  }, [values, setDisableStartButton]);
 
   function upperCasePipe(conformedValue) {
     return conformedValue.toUpperCase();
