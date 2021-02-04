@@ -80,7 +80,7 @@ function IncomeProductReview(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [section, setSection] = useState('');
   const [status, setStatus] = useState(listOfProcess);
-  const [mainData, setManiData] = useState({});
+  const [mainData, setManiData] = useState({ container: 'asfasdasfsa' });
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };

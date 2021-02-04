@@ -17,6 +17,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import productImageUrl from 'assets/productImageUrl.png';
+import { validateData } from 'pages/IncomeProductReview/validateData';
+import { theme } from 'styles/muiTheme';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -75,7 +77,24 @@ const MasterLabel = (props) => {
     graphic: 'yes',
     description: 'yes',
     prop_65: 'a',
+    prop_65_error: '',
+    ibm: '',
+    ibm_error: '',
+    bar_code: '',
+    bar_code_error: '',
+    alias: '',
+    alias_error: '',
+    po: '',
+    po_miss: '',
+    quantity: 0,
+    quantity_error: '',
+    cube: 0,
+    cube_error: '',
+    weight: 0,
+    weight_error: '',
   });
+
+  const [validateInfo, setValidateInfo] = useState({ ...validateData });
 
   useEffect(() => {
     if (!mainData.container) {
@@ -90,6 +109,86 @@ const MasterLabel = (props) => {
     });
   };
 
+  const checkUPC = () => {
+    if (values.bar_code === validateInfo.master_bar_code) {
+      setValues({ ...values, bar_code_error: '' });
+    } else {
+      setValues({ ...values, bar_code_error: 'Invalid UPC' });
+    }
+  };
+
+  const checkIBM = () => {
+    if (values.ibm === validateInfo.ibm) {
+      setValues({ ...values, ibm_error: '' });
+    } else {
+      setValues({ ...values, ibm_error: 'Invalid IBM#' });
+    }
+  };
+
+  const checkAlias = () => {
+    if (values.alias === validateInfo.alias) {
+      setValues({ ...values, alias_error: '' });
+    } else {
+      setValues({ ...values, alias_error: 'Invalid alias' });
+    }
+  };
+
+  const checkPo = () => {
+    if (values.po) {
+      if (values.po.length > 3) {
+        setValues({ ...values, po_miss: '' });
+      } else {
+        setValues({ ...values, po_miss: 'Invalid alias' });
+      }
+    } else {
+      setValues({ ...values, po_miss: 'Missing po info' });
+    }
+  };
+  const checkQuantity = (validateQuantity) => {
+    if (values.quantity) {
+      let integer = parseInt(values.quantity, 10);
+      if (integer == validateQuantity) {
+        setValues({ ...values, quantity_error: '' });
+      } else {
+        setValues({ ...values, quantity_error: 'Invalid Quantity' });
+      }
+    } else {
+      setValues({ ...values, quantity_error: 'Missing Quantity' });
+    }
+  };
+  const checkCube = (validateCube) => {
+    if (values.cube) {
+      let integer = Number(values.cube);
+      if (integer === validateCube) {
+        setValues({ ...values, cube_error: '' });
+      } else {
+        setValues({ ...values, cube_error: 'Invalid Quantity' });
+      }
+    } else {
+      setValues({ ...values, cube_error: 'Missing Quantity' });
+    }
+  };
+
+  const checkGW = (validateGW) => {
+    if (values.weight) {
+      let integer = Number(values.weight);
+      if (integer === validateGW) {
+        setValues({ ...values, weight_error: '' });
+      } else {
+        setValues({ ...values, weight_error: 'Invalid Weight' });
+      }
+    } else {
+      setValues({ ...values, weight_error: 'Missing Weight' });
+    }
+  };
+  const checkProp65 = (valid_value) => {
+    if (valid_value === values.prop_65) {
+      setValues({ ...values, prop_65_error: '' });
+    } else {
+      setValues({ ...values, prop_65_error: 'NO mach on the Prop65 letter' });
+    }
+  };
+
   return (
     <div>
       <div className={classes.topContainer}>
@@ -101,12 +200,19 @@ const MasterLabel = (props) => {
               name="bar_code"
               onChange={handleChange}
               type="number"
+              error={values.bar_code_error ? true : false}
+              onBlur={checkUPC}
               endAdornment={
                 <InputAdornment position="end">
                   <CropFreeIcon />
                 </InputAdornment>
               }
             />
+            {values.bar_code_error && (
+              <FormHelperText style={{ color: theme.palette.error.main }}>
+                {values.bar_code_error}
+              </FormHelperText>
+            )}
           </div>
           <IconButton>
             <ErrorOutlineIcon />
@@ -115,8 +221,11 @@ const MasterLabel = (props) => {
         <div className={classes.warningContainer}>
           <TextField
             label="IBM on The label"
-            name="idm"
+            name="ibm"
             onChange={handleChange}
+            helperText={values.ibm_error ? values.ibm_error : ''}
+            error={values.ibm_error ? true : false}
+            onBlur={checkIBM}
           />
           <IconButton>
             <ErrorOutlineIcon />
@@ -127,13 +236,23 @@ const MasterLabel = (props) => {
             label="Alias on The label"
             name="alias"
             onChange={handleChange}
+            onBlur={checkAlias}
+            error={values.alias_error ? true : false}
+            helperText={values.alias_error ? values.alias_error : ''}
           />
           <IconButton>
             <ErrorOutlineIcon />
           </IconButton>
         </div>
         <div className={classes.warningContainer}>
-          <TextField label="PO on The Box" name="po" onChange={handleChange} />
+          <TextField
+            label="PO on The Box"
+            name="po"
+            onChange={handleChange}
+            helperText={values.po_miss ? values.po_miss : ''}
+            error={values.po_miss ? true : false}
+            onBlur={checkPo}
+          />
           <IconButton>
             <ErrorOutlineIcon />
           </IconButton>
@@ -166,6 +285,17 @@ const MasterLabel = (props) => {
               <FormLabel component="legend">
                 Is the description correct on the label?
               </FormLabel>
+              <FormLabel
+                component="legend"
+                color="primary"
+                style={{
+                  textAlign: 'center',
+                  color: theme.palette.primary.main,
+                  marginTop: '3px',
+                }}
+              >
+                "Tape Measure 12'X1/2"" 3.5M"
+              </FormLabel>
               <RadioGroup
                 aria-label="description"
                 name="description"
@@ -187,6 +317,9 @@ const MasterLabel = (props) => {
               label="Quantity on the label"
               name="quantity"
               onChange={handleChange}
+              onBlur={() => checkQuantity(validateData.quantity)}
+              error={values.quantity_error ? true : false}
+              helperText={values.quantity_error ? values.quantity_error : ''}
             />
             <IconButton>
               <ErrorOutlineIcon />
@@ -197,10 +330,22 @@ const MasterLabel = (props) => {
               type="number"
               label="Cube Feet"
               style={{ width: 90, marginRight: '1rem' }}
-              name="cube_feet"
+              name="cube"
               onChange={handleChange}
+              onBlur={() => checkCube(validateData.cube_master)}
+              helperText={values.cube_error ? values.cube_error : ''}
+              error={values.cube_error ? true : false}
             />
-            <TextField type="number" label="G.W." style={{ width: 70 }} />
+            <TextField
+              type="number"
+              label="G.W."
+              style={{ width: 70 }}
+              name="weight"
+              onChange={handleChange}
+              onBlur={() => checkGW(validateData.weight_master)}
+              helperText={values.weight_error ? values.weight_error : ''}
+              error={values.weight_error ? true : false}
+            />
             <IconButton>
               <ErrorOutlineIcon />
             </IconButton>
@@ -213,13 +358,15 @@ const MasterLabel = (props) => {
                 value={values.prop_65}
                 name="prop_65"
                 onChange={handleChange}
+                error={values.prop_65_error ? true : false}
+                onBlur={() => checkProp65(validateData.props_65)}
               >
                 <MenuItem value={'a'}>
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={'b'}>demo-simple-select-helper-label</MenuItem>
-                <MenuItem value={'c'}>B</MenuItem>
-                <MenuItem value={'d'}>C</MenuItem>
+                <MenuItem value={'b'}>including lead compounds</MenuItem>
+                <MenuItem value={'c'}>including 2 compounds</MenuItem>
+                <MenuItem value={'d'}>including 3 compounds</MenuItem>
                 <MenuItem value={'e'}>G</MenuItem>
                 <MenuItem value={'f'}>Y</MenuItem>
               </Select>
@@ -242,7 +389,7 @@ const MasterLabel = (props) => {
           variant="contained"
           color="primary"
           type="submit"
-          onClick={() => console.log('values', values)}
+          // onClick={chickValidateInfoIbm}
         >
           save
         </Button>
@@ -251,4 +398,3 @@ const MasterLabel = (props) => {
   );
 };
 export default MasterLabel;
-// Is the prop 65 on the label or in said the packaging?
