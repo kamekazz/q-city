@@ -40,7 +40,12 @@ const useStyles = makeStyles((theme) => ({
 const MasterPhysical = () => {
   const classes = useStyles();
   const [value, setValue] = useState(30);
-  const [values, setValues] = useState({ length: 0 });
+  const [values, setValues] = useState({
+    length: 0,
+    length_error: '',
+    width: 0,
+    width_error: '',
+  });
   const [valueRadio, setValueRadio] = useState('yes');
 
   const handleChangeRadio = (event) => {
@@ -58,6 +63,19 @@ const MasterPhysical = () => {
     });
   };
 
+  const checkLength = () => {
+    let result = calcParseDeferentError({
+      input: values.length,
+      valid_value: validateData.dimension_master_length,
+      parse: 0.1,
+    });
+    if (result.success) {
+      setValues({ ...values, length_error: result.text });
+    } else {
+      setValues({ ...values, length_error: '' });
+    }
+  };
+
   return (
     <div>
       <div className={classes.dimensionContainer}>
@@ -67,14 +85,20 @@ const MasterPhysical = () => {
           style={{ width: 70 }}
           name="length"
           onChange={handleChanges}
-          onBlur={() =>
-            calcParseDeferentError({
-              input: values.length,
-              valid_value: validateData.dimension_master_length,
-            })
-          }
+          onBlur={() => checkLength()}
+          error={values.length_error ? true : false}
+          helperText={values.length_error ? values.length_error : ''}
         />
-        <TextField type="number" label="Width" style={{ width: 70 }} />
+        <TextField
+          type="number"
+          label="Width"
+          style={{ width: 70 }}
+          name="width"
+          onChange={handleChanges}
+          onBlur={() => checkLength()}
+          error={values.length_error ? true : false}
+          helperText={values.length_error ? values.length_error : ''}
+        />
         <TextField type="number" label="Height" style={{ width: 70 }} />
         <TextField type="number" label="Weight" style={{ width: 70 }} />
         <IconButton>

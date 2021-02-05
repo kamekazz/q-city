@@ -1,5 +1,3 @@
-import { Tune } from '@material-ui/icons';
-
 export const calculateParse = (total, parse) => {
   let result = 0;
   if (isNaN(parse) || isNaN(total)) {
@@ -11,8 +9,7 @@ export const calculateParse = (total, parse) => {
   return result;
 };
 
-export const calcParseDeferentError = ({ input, valid_value }) => {
-  debugger;
+export const calcParseDeferentError = ({ input, valid_value, parse }) => {
   let parse_total;
   let result = {};
   let hInput;
@@ -21,7 +18,7 @@ export const calcParseDeferentError = ({ input, valid_value }) => {
   if (isNaN(input) || isNaN(valid_value)) {
     result = { success: true, text: 'not a number' };
   } else {
-    parse_total = valid_value * 0.3;
+    parse_total = valid_value * parse;
     hInput = valid_value + parse_total;
     lInput = valid_value - parse_total;
     if (input > hInput) {

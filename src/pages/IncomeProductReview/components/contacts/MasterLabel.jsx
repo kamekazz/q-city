@@ -71,7 +71,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MasterLabel = (props) => {
-  const { setManiData, mainData, changeSection } = props;
+  const {
+    // setManiData,
+    mainData,
+    changeSection,
+  } = props;
   const classes = useStyles();
   const [values, setValues] = useState({
     graphic: 'yes',
