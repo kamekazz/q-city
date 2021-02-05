@@ -1,8 +1,10 @@
 export const validateData = {
   ibm: '105080',
   master_bar_code: '20075877012009',
+  inner_bar_code: '10075877012002',
   alias: '012',
   quantity: 72,
+  inner_quantity: 6,
   cube_master: 1.03,
   weight_master: 8.5,
   props_65: 'b',

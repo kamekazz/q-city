@@ -14,6 +14,7 @@ import Radio from '@material-ui/core/Radio';
 import { Button } from '@material-ui/core';
 import { calcParseDeferentError } from 'helpers/math';
 import { validateData } from 'pages/IncomeProductReview/validateData';
+import { theme } from 'styles/muiTheme';
 
 const useStyles = makeStyles((theme) => ({
   dimensionContainer: {
@@ -198,6 +199,17 @@ const MasterPhysical = () => {
         <div component="fieldset">
           <FormLabel component="legend">
             Is the quantity correct inside the packaging (MS)
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            color="primary"
+            style={{
+              textAlign: 'center',
+              color: theme.palette.primary.main,
+              marginTop: '3px',
+            }}
+          >
+            "12 inner"
           </FormLabel>
           <RadioGroup
             aria-label="gender"
