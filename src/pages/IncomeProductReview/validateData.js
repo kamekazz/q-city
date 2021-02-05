@@ -13,4 +13,10 @@ export const validateData = {
   dimension_master_height: 8.5,
   dimension_master_weight: 8.5,
   dimension_master_cube: 8.5,
+
+  dimension_inner_length: 4.25,
+  dimension_inner_width: 4.7,
+  dimension_inner_height: 4.25,
+  dimension_inner_weight: 0.7,
+  dimension_inner_cube: 0.08,
 };

@@ -20,6 +20,7 @@ import MasterPhysical from './components/contacts/MasterPhysical';
 import { Paper } from '@material-ui/core';
 import PdqRequirements from './components/contacts/PdqRequrements';
 import InnerLabel from './components/contacts/InnerLabel';
+import InnerPhysical from './components/contacts/InnerPhysical';
 
 const drawerWidth = 240;
 
@@ -80,7 +81,9 @@ function IncomeProductReview(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [section, setSection] = useState('Validate the Inner label');
+  const [section, setSection] = useState(
+    'Physical inspection of the Inner packaging'
+  );
   const [status, setStatus] = useState(listOfProcess);
   const [mainData, setManiData] = useState({ container: 'asfasdasfsa' });
   const handleDrawerToggle = () => {
@@ -143,6 +146,8 @@ function IncomeProductReview(props) {
             changeSection={changeSection}
           />
         );
+      case 'Physical inspection of the Inner packaging':
+        return <InnerPhysical />;
       default:
         return (
           <MainContainer
