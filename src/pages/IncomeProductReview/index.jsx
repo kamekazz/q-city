@@ -23,6 +23,7 @@ import InnerLabel from './components/contacts/InnerLabel';
 import InnerPhysical from './components/contacts/InnerPhysical';
 import EAPackaging from './components/contacts/EApackaging';
 import EAPhysical from './components/contacts/EAPhysical';
+import UOP from './components/contacts/UOP';
 
 const drawerWidth = 240;
 
@@ -83,7 +84,7 @@ function IncomeProductReview(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [section, setSection] = useState('Validate the EA packaging');
+  const [section, setSection] = useState('Out of the packaging');
   const [status, setStatus] = useState(listOfProcess);
   const [mainData, setManiData] = useState({ container: 'asfasdasfsa' });
   const handleDrawerToggle = () => {
@@ -158,6 +159,14 @@ function IncomeProductReview(props) {
         );
       case 'Physical inspection of the EA packaging':
         return <EAPhysical />;
+      case 'Out of the packaging':
+        return (
+          <UOP
+            setManiData={setManiData}
+            mainData={mainData}
+            changeSection={changeSection}
+          />
+        );
       default:
         return (
           <MainContainer
