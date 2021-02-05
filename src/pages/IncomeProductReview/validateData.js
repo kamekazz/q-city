@@ -7,7 +7,7 @@ export const validateData = {
   weight_master: 8.5,
   props_65: 'b',
   dimension_master_length: 15,
-  dimension_master_depth: 14,
+  dimension_master_width: 14,
   dimension_master_height: 8.5,
   dimension_master_weight: 8.5,
   dimension_master_cube: 8.5,
