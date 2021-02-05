@@ -37,15 +37,10 @@ const MainContainer = (props) => {
   const classes = useStyles();
   const [values, setValues] = useState({
     constrainer_alfa: '',
-
     constrainer_num: '',
-
     ibm: '',
-
     lot: 0,
-
     sample_size: 0,
-
     po: '',
   });
   const [disableStartButton, setDisableStartButton] = useState(true);

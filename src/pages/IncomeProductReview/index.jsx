@@ -78,7 +78,9 @@ function IncomeProductReview(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [section, setSection] = useState('');
+  const [section, setSection] = useState(
+    'Physical inspection of the Master packaging'
+  );
   const [status, setStatus] = useState(listOfProcess);
   const [mainData, setManiData] = useState({ container: 'asfasdasfsa' });
   const handleDrawerToggle = () => {

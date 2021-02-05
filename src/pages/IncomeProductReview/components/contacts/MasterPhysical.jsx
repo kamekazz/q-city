@@ -12,6 +12,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import { Button } from '@material-ui/core';
+import { calcParseDeferentError } from 'helpers/math';
+import { validateData } from 'pages/IncomeProductReview/validateData';
 
 const useStyles = makeStyles((theme) => ({
   dimensionContainer: {
@@ -38,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const MasterPhysical = () => {
   const classes = useStyles();
   const [value, setValue] = useState(30);
+  const [values, setValues] = useState({ length: 0 });
   const [valueRadio, setValueRadio] = useState('yes');
 
   const handleChangeRadio = (event) => {
@@ -47,10 +50,30 @@ const MasterPhysical = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleChanges = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   return (
     <div>
       <div className={classes.dimensionContainer}>
-        <TextField type="number" label="Length" style={{ width: 70 }} />
+        <TextField
+          type="number"
+          label="Length"
+          style={{ width: 70 }}
+          name="length"
+          onChange={handleChanges}
+          onBlur={() =>
+            calcParseDeferentError({
+              input: values.length,
+              valid_value: validateData.dimension_master_length,
+            })
+          }
+        />
         <TextField type="number" label="Width" style={{ width: 70 }} />
         <TextField type="number" label="Height" style={{ width: 70 }} />
         <TextField type="number" label="Weight" style={{ width: 70 }} />
