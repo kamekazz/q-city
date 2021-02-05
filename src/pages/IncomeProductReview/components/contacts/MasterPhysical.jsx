@@ -45,6 +45,10 @@ const MasterPhysical = () => {
     length_error: '',
     width: 0,
     width_error: '',
+    height: 0,
+    height_error: '',
+    weight: 0,
+    weight_error: '',
   });
   const [valueRadio, setValueRadio] = useState('yes');
 
@@ -76,6 +80,45 @@ const MasterPhysical = () => {
     }
   };
 
+  const checkWidth = () => {
+    let result = calcParseDeferentError({
+      input: values.width,
+      valid_value: validateData.dimension_master_width,
+      parse: 0.1,
+    });
+    if (result.success) {
+      setValues({ ...values, width_error: result.text });
+    } else {
+      setValues({ ...values, width_error: '' });
+    }
+  };
+
+  const checkHeight = () => {
+    let result = calcParseDeferentError({
+      input: values.height,
+      valid_value: validateData.dimension_master_height,
+      parse: 0.1,
+    });
+    if (result.success) {
+      setValues({ ...values, height_error: result.text });
+    } else {
+      setValues({ ...values, height_error: '' });
+    }
+  };
+
+  const checkWeight = () => {
+    let result = calcParseDeferentError({
+      input: values.weight,
+      valid_value: validateData.dimension_master_weight,
+      parse: 0.1,
+    });
+    if (result.success) {
+      setValues({ ...values, weight_error: result.text });
+    } else {
+      setValues({ ...values, weight_error: '' });
+    }
+  };
+
   return (
     <div>
       <div className={classes.dimensionContainer}>
@@ -95,12 +138,30 @@ const MasterPhysical = () => {
           style={{ width: 70 }}
           name="width"
           onChange={handleChanges}
-          onBlur={() => checkLength()}
-          error={values.length_error ? true : false}
-          helperText={values.length_error ? values.length_error : ''}
+          onBlur={() => checkWidth()}
+          error={values.width_error ? true : false}
+          helperText={values.width_error ? values.width_error : ''}
         />
-        <TextField type="number" label="Height" style={{ width: 70 }} />
-        <TextField type="number" label="Weight" style={{ width: 70 }} />
+        <TextField
+          type="number"
+          label="Height"
+          style={{ width: 70 }}
+          name="height"
+          onChange={handleChanges}
+          onBlur={() => checkHeight()}
+          error={values.height_error ? true : false}
+          helperText={values.height_error ? values.height_error : ''}
+        />
+        <TextField
+          type="number"
+          label="Weight"
+          style={{ width: 70 }}
+          name="weight"
+          onChange={handleChanges}
+          onBlur={() => checkWeight()}
+          error={values.weight_error ? true : false}
+          helperText={values.weight_error ? values.weight_error : ''}
+        />
         <IconButton>
           <ErrorOutlineIcon />
         </IconButton>

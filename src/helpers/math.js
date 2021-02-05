@@ -22,9 +22,9 @@ export const calcParseDeferentError = ({ input, valid_value, parse }) => {
     hInput = valid_value + parse_total;
     lInput = valid_value - parse_total;
     if (input > hInput) {
-      result = { success: true, text: 'the input is too high' };
+      result = { success: true, text: 'input high' };
     } else if (input < lInput) {
-      result = { success: true, text: 'the input is too low' };
+      result = { success: true, text: 'input low' };
     } else {
       result = { success: false, text: 'note a number' };
     }
