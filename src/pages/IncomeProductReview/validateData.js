@@ -2,6 +2,7 @@ export const validateData = {
   ibm: '105080',
   master_bar_code: '20075877012009',
   inner_bar_code: '10075877012002',
+  ea_bar_code: '075877012005',
   alias: '012',
   quantity: 72,
   inner_quantity: 6,
