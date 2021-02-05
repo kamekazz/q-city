@@ -20,4 +20,9 @@ export const validateData = {
   dimension_inner_height: 4.25,
   dimension_inner_weight: 0.7,
   dimension_inner_cube: 0.08,
+
+  dimension_ea_length: 1,
+  dimension_ea_width: 4.5,
+  dimension_ea_height: 5.5,
+  dimension_ea_weight: 0.26,
 };

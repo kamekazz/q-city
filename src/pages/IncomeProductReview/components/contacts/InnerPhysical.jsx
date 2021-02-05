@@ -198,7 +198,7 @@ const InnerPhysical = () => {
       <div className={classes.warningContainer}>
         <div component="fieldset">
           <FormLabel component="legend">
-            Is the quantity correct inside the packaging (MS)
+            Is the quantity correct inside the packaging (IN)
           </FormLabel>
           <FormLabel
             component="legend"

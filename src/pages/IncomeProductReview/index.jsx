@@ -22,6 +22,7 @@ import PdqRequirements from './components/contacts/PdqRequrements';
 import InnerLabel from './components/contacts/InnerLabel';
 import InnerPhysical from './components/contacts/InnerPhysical';
 import EAPackaging from './components/contacts/EApackaging';
+import EAPhysical from './components/contacts/EAPhysical';
 
 const drawerWidth = 240;
 
@@ -155,6 +156,8 @@ function IncomeProductReview(props) {
             changeSection={changeSection}
           />
         );
+      case 'Physical inspection of the EA packaging':
+        return <EAPhysical />;
       default:
         return (
           <MainContainer
