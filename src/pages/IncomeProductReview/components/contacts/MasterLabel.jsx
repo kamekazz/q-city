@@ -71,11 +71,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MasterLabel = (props) => {
-  const {
-    // setManiData,
-    mainData,
-    changeSection,
-  } = props;
+  const { setManiData, mainData, changeSection, changeStatueOnSection } = props;
   const classes = useStyles();
   const [values, setValues] = useState({
     graphic: 'yes',
@@ -105,6 +101,12 @@ const MasterLabel = (props) => {
       changeSection('Container Information');
     }
   }, [changeSection, mainData]);
+
+  const handleSave = () => {
+    setManiData({ ...mainData, master_label_input: { ...values } });
+    changeStatueOnSection(1, 'done');
+    changeSection('Physical inspection of the Master packaging');
+  };
 
   const handleChange = (event) => {
     setValues({
@@ -393,7 +395,7 @@ const MasterLabel = (props) => {
           variant="contained"
           color="primary"
           type="submit"
-          // onClick={chickValidateInfoIbm}
+          onClick={handleSave}
         >
           save
         </Button>

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Star, StarBorder } from '@material-ui/icons';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -37,9 +37,14 @@ const useStyles = makeStyles((theme) => ({
       marginRight: '2rem',
     },
   },
+  cancelButton: {
+    color: theme.palette.error.main,
+    borderColor: theme.palette.error.main,
+  },
 }));
-const MasterPhysical = () => {
+const MasterPhysical = (props) => {
   const classes = useStyles();
+  const { setManiData, mainData, changeSection, changeStatueOnSection } = props;
   const [value, setValue] = useState(30);
   const [values, setValues] = useState({
     length: 0,
@@ -60,6 +65,18 @@ const MasterPhysical = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleSave = () => {
+    setManiData({ ...mainData, master_physical_input: { ...values } });
+    changeStatueOnSection(2, 'done');
+    changeSection('PDQ requirements');
+  };
+
+  useEffect(() => {
+    if (!mainData.container) {
+      changeSection('Container Information');
+    }
+  }, [changeSection, mainData]);
 
   const handleChanges = (event) => {
     setValues({
@@ -227,9 +244,16 @@ const MasterPhysical = () => {
         </IconButton>
       </div>
       <div className={classes.buttonContainer}>
-        <Button variant="contained">cancel</Button>
-        <Button variant="contained" color="primary" type="submit">
-          start
+        <Button variant="outlined" className={classes.cancelButton}>
+          cancel
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          onClick={handleSave}
+        >
+          save
         </Button>
       </div>
     </div>

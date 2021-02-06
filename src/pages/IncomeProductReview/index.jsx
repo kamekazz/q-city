@@ -86,9 +86,9 @@ function IncomeProductReview(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [section, setSection] = useState('Out of the packaging');
+  const [section, setSection] = useState('Container Information');
   const [status, setStatus] = useState(listOfProcess);
-  const [mainData, setManiData] = useState({ container: 'asfasdasfsa' });
+  const [mainData, setManiData] = useState({});
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -135,12 +135,26 @@ function IncomeProductReview(props) {
             setManiData={setManiData}
             mainData={mainData}
             changeSection={changeSection}
+            changeStatueOnSection={changeStatueOnSection}
           />
         );
       case 'Physical inspection of the Master packaging':
-        return <MasterPhysical />;
+        return (
+          <MasterPhysical
+            setManiData={setManiData}
+            mainData={mainData}
+            changeSection={changeSection}
+            changeStatueOnSection={changeStatueOnSection}
+          />
+        );
       case 'PDQ requirements':
-        return <PdqRequirements />;
+        return (
+          <PdqRequirements
+            mainData={mainData}
+            changeSection={changeSection}
+            changeStatueOnSection={changeStatueOnSection}
+          />
+        );
       case 'Validate the Inner label':
         return (
           <InnerLabel
