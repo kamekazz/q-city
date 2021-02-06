@@ -25,6 +25,7 @@ import EAPackaging from './components/contacts/EApackaging';
 import EAPhysical from './components/contacts/EAPhysical';
 import UOP from './components/contacts/UOP';
 import SIR from './components/contacts/SIR';
+import Finalize from './components/contacts/Finalize';
 
 const drawerWidth = 240;
 
@@ -170,6 +171,8 @@ function IncomeProductReview(props) {
         );
       case 'Special inspection request':
         return <SIR />;
+      case 'Finalize':
+        return <Finalize />;
       default:
         return (
           <MainContainer
