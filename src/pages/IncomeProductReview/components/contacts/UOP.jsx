@@ -10,8 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 
 import productImageUrl from 'assets/uop.png';
-import { validateData } from 'pages/IncomeProductReview/validateData';
-import { theme } from 'styles/muiTheme';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -145,7 +144,7 @@ const UOP = (props) => {
             <IconButton>
               <ErrorOutlineIcon />
             </IconButton>
-          </div>{' '}
+          </div>
           <div className={classes.warningContainer}>
             <div component="fieldset">
               <FormLabel component="legend">
@@ -166,7 +165,7 @@ const UOP = (props) => {
             <IconButton>
               <ErrorOutlineIcon />
             </IconButton>
-          </div>{' '}
+          </div>
           <div className={classes.warningContainer}>
             <div component="fieldset">
               <FormLabel component="legend">
@@ -187,7 +186,7 @@ const UOP = (props) => {
             <IconButton>
               <ErrorOutlineIcon />
             </IconButton>
-          </div>{' '}
+          </div>
           <div className={classes.warningContainer}>
             <div component="fieldset">
               <FormLabel component="legend">

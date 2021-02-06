@@ -9,4 +9,5 @@ export const listOfProcess = [
   { statusKey: 'n/a', title: 'Physical inspection of the EA packaging' },
   { statusKey: 'n/a', title: 'Out of the packaging' },
   { statusKey: 'n/a', title: 'Special inspection request' },
+  { statusKey: 'n/a', title: 'Finalize' },
 ];

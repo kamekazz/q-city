@@ -24,6 +24,7 @@ import InnerPhysical from './components/contacts/InnerPhysical';
 import EAPackaging from './components/contacts/EApackaging';
 import EAPhysical from './components/contacts/EAPhysical';
 import UOP from './components/contacts/UOP';
+import SIR from './components/contacts/SIR';
 
 const drawerWidth = 240;
 
@@ -167,6 +168,8 @@ function IncomeProductReview(props) {
             changeSection={changeSection}
           />
         );
+      case 'Special inspection request':
+        return <SIR />;
       default:
         return (
           <MainContainer
