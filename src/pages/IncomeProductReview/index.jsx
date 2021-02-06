@@ -153,6 +153,7 @@ function IncomeProductReview(props) {
             mainData={mainData}
             changeSection={changeSection}
             changeStatueOnSection={changeStatueOnSection}
+            status={status}
           />
         );
       case 'Validate the Inner label':

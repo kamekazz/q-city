@@ -153,7 +153,7 @@ const MasterLabel = (props) => {
   const checkQuantity = (validateQuantity) => {
     if (values.quantity) {
       let integer = parseInt(values.quantity, 10);
-      if (integer == validateQuantity) {
+      if (integer === validateQuantity) {
         setValues({ ...values, quantity_error: '' });
       } else {
         setValues({ ...values, quantity_error: 'Invalid Quantity' });

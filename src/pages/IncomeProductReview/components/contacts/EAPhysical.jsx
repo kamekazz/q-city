@@ -5,16 +5,13 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import RadioGroup from '@material-ui/core/RadioGroup';
+
 import { useState } from 'react';
 import { Star, StarBorder } from '@material-ui/icons';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
+
 import { Button } from '@material-ui/core';
 import { calcParseDeferentError } from 'helpers/math';
 import { validateData } from 'pages/IncomeProductReview/validateData';
-import { theme } from 'styles/muiTheme';
 
 const useStyles = makeStyles((theme) => ({
   dimensionContainer: {
@@ -51,11 +48,6 @@ const EAPhysical = () => {
     weight: 0,
     weight_error: '',
   });
-  const [valueRadio, setValueRadio] = useState('yes');
-
-  const handleChangeRadio = (event) => {
-    setValueRadio(event.target.value);
-  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

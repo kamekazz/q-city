@@ -136,43 +136,6 @@ const EAPackaging = (props) => {
     }
   };
 
-  const checkQuantity = (validateQuantity) => {
-    if (values.quantity) {
-      let integer = parseInt(values.quantity, 10);
-      if (integer == validateQuantity) {
-        setValues({ ...values, quantity_error: '' });
-      } else {
-        setValues({ ...values, quantity_error: 'Invalid Quantity' });
-      }
-    } else {
-      setValues({ ...values, quantity_error: 'Missing Quantity' });
-    }
-  };
-  const checkCube = (validateCube) => {
-    if (values.cube) {
-      let integer = Number(values.cube);
-      if (integer === validateCube) {
-        setValues({ ...values, cube_error: '' });
-      } else {
-        setValues({ ...values, cube_error: 'Invalid Quantity' });
-      }
-    } else {
-      setValues({ ...values, cube_error: 'Missing Quantity' });
-    }
-  };
-
-  const checkGW = (validateGW) => {
-    if (values.weight) {
-      let integer = Number(values.weight);
-      if (integer === validateGW) {
-        setValues({ ...values, weight_error: '' });
-      } else {
-        setValues({ ...values, weight_error: 'Invalid Weight' });
-      }
-    } else {
-      setValues({ ...values, weight_error: 'Missing Weight' });
-    }
-  };
   const checkProp65 = (valid_value) => {
     if (valid_value === values.prop_65) {
       setValues({ ...values, prop_65_error: '' });
