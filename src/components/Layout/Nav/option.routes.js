@@ -2,7 +2,7 @@ const routesOptions = [
   [
     {
       to: '/',
-      tabLabel: 'Home',
+      tabLabel: 'Dashboard',
     },
   ],
   [
@@ -13,14 +13,6 @@ const routesOptions = [
     {
       to: '/products/income',
       tabLabel: 'Income Product Review',
-    },
-    {
-      to: '/services/mobile_app_development',
-      tabLabel: 'Mobile App Development',
-    },
-    {
-      to: '/services/website_development',
-      tabLabel: 'Website Development',
     },
   ],
   [

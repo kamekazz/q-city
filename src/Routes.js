@@ -45,7 +45,7 @@ const Routes = () => (
     <Route path="/profile">
       <ProfilePage />
     </Route>
-    <Route path="/faq">
+    <Route path="/contact_us">
       <FaqPage />
     </Route>
     <Route path="/">

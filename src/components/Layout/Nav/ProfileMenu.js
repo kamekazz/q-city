@@ -28,6 +28,11 @@ function ProfileMenu(props) {
     history.push('logout');
   };
 
+  const goToProfile = () => {
+    handleClose();
+    history.push('/profile');
+  };
+
   return (
     <div>
       {isAuth ? (
@@ -55,7 +60,7 @@ function ProfileMenu(props) {
         onClose={handleClose}
         style={{ zIndex: 1302 }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={goToProfile}>Profile</MenuItem>
         <MenuItem onClick={goToLogout}>Logout</MenuItem>
       </Menu>
     </div>
