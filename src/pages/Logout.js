@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
 
 import onlyGuest from 'components/Hooks/onlyGuest';
-import Avatar from '@material-ui/core/Avatar';
+
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+
 import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -32,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Logout() {
+function Logout() {
   const classes = useStyles();
   const { isAuth, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -67,3 +64,5 @@ export default function Logout() {
     </Container>
   );
 }
+
+export default onlyGuest(Logout);

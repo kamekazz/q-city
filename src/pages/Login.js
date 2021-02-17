@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useToasts } from 'react-toast-notifications';
+
 import { Link } from 'react-router-dom';
 import onlyGuest from 'components/Hooks/onlyGuest';
 import { login } from 'Redux/reducers/auth';
@@ -132,7 +133,10 @@ const Login = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="/" variant="body2">
+              <Link
+                href="https://w-city-53c78.firebaseapp.com/__/auth/action?mode=action&oobCode=code"
+                variant="body2"
+              >
                 Forgot password?
               </Link>
             </Grid>
