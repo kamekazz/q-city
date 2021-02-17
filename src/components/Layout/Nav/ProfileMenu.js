@@ -4,23 +4,21 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
+import { theme } from 'styles/muiTheme';
+import { getInitialsName } from 'helpers/letter';
 
-function ProfileMenu(props) {
+function ProfileMenu() {
+  const { user } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
-  const { isAuth } = props;
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const goToLogin = () => {
-    handleClose();
-    history.push('login');
   };
 
   const goToLogout = () => {
@@ -35,22 +33,22 @@ function ProfileMenu(props) {
 
   return (
     <div>
-      {isAuth ? (
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={handleMenu}
-          color="inherit"
-          size="medium"
-        >
-          <AccountCircle color={'secondary'} fontSize="large" />
-        </IconButton>
-      ) : (
-        <IconButton onClick={goToLogin} color="inherit" size="medium">
-          <AccountCircle fontSize="large" />
-        </IconButton>
-      )}
+      <IconButton
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
+        onClick={handleMenu}
+        color="inherit"
+        style={{
+          backgroundColor: theme.palette.secondary.main,
+          height: 52,
+          width: 52,
+
+          marginRight: '1rem',
+        }}
+      >
+        {getInitialsName(user.fullName)}
+      </IconButton>
 
       <Menu
         id="simple-menu"
