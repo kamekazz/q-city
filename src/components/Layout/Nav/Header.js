@@ -11,7 +11,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import logo from 'assets/logo.svg';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation, useHistory, NavLink } from 'react-router-dom';
 import { routesOptions } from './option.routes';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -144,13 +144,24 @@ function Header(props) {
           <ListItem
             divider
             button
-            component={Link}
-            to="/free_estaminet"
+            component={NavLink}
+            to="/profile"
             onClick={() => setOpenDrawer(false)}
             className={classes.drawerItemEstimate}
           >
             <ListItemText disableTypography className={classes.drawerItem}>
-              Free estaminet
+              Profile
+            </ListItemText>
+          </ListItem>
+          <ListItem
+            divider
+            button
+            component={NavLink}
+            to="/logout"
+            onClick={() => setOpenDrawer(false)}
+          >
+            <ListItemText disableTypography className={classes.drawerItem}>
+              Log Out
             </ListItemText>
           </ListItem>
         </List>

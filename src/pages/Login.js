@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
-  const [redirect, setRedirect] = useState(false);
+
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
@@ -64,9 +64,8 @@ const Login = () => {
   const { addToast } = useToasts();
 
   const onLogin = (loginData) => {
-    console.log('start');
     login(loginData).then(
-      (_) => setRedirect(true),
+      (_) => console.log(true),
       (errorMessage) =>
         addToast(errorMessage, {
           appearance: 'error',
@@ -75,10 +74,6 @@ const Login = () => {
         })
     );
   };
-
-  if (redirect) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <Container component="main" maxWidth="xs" className={classes.container}>

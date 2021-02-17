@@ -51,6 +51,9 @@ const Routes = () => (
     <Route exact path="/">
       <LandingPage />
     </Route>
+    <Route exact path="/dashboard">
+      {'dashboard'}
+    </Route>
   </Switch>
 );
 
