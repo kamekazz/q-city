@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Provider } from 'react-redux';
 import { ToastProvider } from 'react-toast-notifications';
 import initStore from './Redux/store';
@@ -7,12 +6,8 @@ import initStore from './Redux/store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import MainApp from './MainApp';
 
-import {
-  onAuthStateChanged,
-  storeAuthUser,
-  subscribeToMessages,
-  checkUserConnection,
-} from './Redux/actions';
+import { subscribeToMessages, checkUserConnection } from './Redux/actions';
+import { storeAuthUser, onAuthStateChanged } from 'Redux/reducers/auth';
 import GlobalStyle from 'styles/global.styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from 'styles/muiTheme';

@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 import React from 'react';
-import { registerFireBase } from 'Redux/actions';
+import { registerFireBase } from 'Redux/reducers/auth';
 import { useToasts } from 'react-toast-notifications';
 import onlyGuest from 'components/Hooks/onlyGuest';
 import Avatar from '@material-ui/core/Avatar';

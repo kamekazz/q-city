@@ -1,77 +1,73 @@
+import { SET_AUTH_USER, RESET_AUTH_STATE } from 'Redux/types';
+import { combineReducers } from 'redux';
 
-import { SET_AUTH_USER, 
-         RESET_AUTH_STATE,
-         FETCH_USER_SERVICES_SUCCESS,
-         FETCH_USER_MESSAGES_SUCCESS } from 'Redux/types'
-import { combineReducers } from 'redux'
+import * as api from 'api';
 
+export const registerFireBase = (registerFormData) =>
+  api.register({ ...registerFormData });
+
+export const login = (loginData) => api.login({ ...loginData });
+
+export const onAuthStateChanged = (onAuthCallback) =>
+  api.onAuthStateChanged(onAuthCallback);
+
+export const logout = (uid) => (dispatch) =>
+  api
+    .logout()
+    .then((_) => {
+      const userStatusDatabaseRef = api.createFirebaseRef('status', uid);
+      return userStatusDatabaseRef.set(api.isOfflineForDatabase);
+    })
+    .then((_) => dispatch({ user: null, type: SET_AUTH_USER }));
+
+export const storeAuthUser = (authUser) => (dispatch) => {
+  dispatch({ type: RESET_AUTH_STATE });
+  if (authUser) {
+    return api
+      .getUserProfile(authUser.uid)
+      .then((userWithProfile) =>
+        dispatch({ user: userWithProfile, type: SET_AUTH_USER })
+      );
+  } else {
+    return dispatch({ user: null, type: SET_AUTH_USER });
+  }
+};
 
 const initAuth = () => {
   const user = (state = {}, action) => {
-    switch(action.type) {
+    switch (action.type) {
       case SET_AUTH_USER:
-        return action.user
+        return action.user;
       default:
-        return state
+        return state;
     }
-  }
-
-  const messages = (state = [], action) => {
-    switch(action.type) {
-      case FETCH_USER_MESSAGES_SUCCESS:
-        return action.messages
-      default:
-        return state
-    }
-  }
-
-  const services = (state = [], action) => {
-    switch(action.type) {
-      case FETCH_USER_SERVICES_SUCCESS:
-        return action.services
-      default:
-        return state
-    }
-  }
+  };
 
   const isAuth = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
       case SET_AUTH_USER:
-        return !!action.user
+        return !!action.user;
       default:
-        return state
+        return state;
     }
-  } 
+  };
   const isAuthResolved = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
       case SET_AUTH_USER:
-        return true
+        return true;
       case RESET_AUTH_STATE:
-        return false
+        return false;
       default:
-        return state
+        return state;
     }
-  }
+  };
 
   return combineReducers({
     user,
     isAuth,
     isAuthResolved,
-    messages,
-    services
-  })
-}
+  });
+};
 
-const auth = initAuth()
-export default auth
-
-
-
-
-
-
-
-
-
-
-
+const auth = initAuth();
+export default auth;

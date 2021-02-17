@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import { Link, Redirect } from 'react-router-dom';
 import onlyGuest from 'components/Hooks/onlyGuest';
-import { login } from 'Redux/actions';
+import { login } from 'Redux/reducers/auth';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
