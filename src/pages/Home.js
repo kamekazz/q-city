@@ -5,7 +5,6 @@ import { connect } from 'react-redux'; // HOC
 import Hero from 'components/Hero';
 import ServiceItem from 'components/service/ServiceItem';
 
-import { fetchServices } from 'Redux/actions';
 // import axios from 'axios';
 
 class Home extends React.Component {
@@ -50,4 +49,4 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => ({ services: state.services.all });
 
-export default connect(mapStateToProps, { fetchServices })(Home);
+export default connect(mapStateToProps)(Home);

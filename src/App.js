@@ -6,7 +6,7 @@ import initStore from './Redux/store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import MainApp from './MainApp';
 
-import { subscribeToMessages, checkUserConnection } from './Redux/actions';
+import { checkUserConnection } from './Redux/actions';
 import { storeAuthUser, onAuthStateChanged } from 'Redux/reducers/auth';
 import GlobalStyle from 'styles/global.styles';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -21,9 +21,6 @@ class App extends React.Component {
 
       if (authUser) {
         checkUserConnection(authUser.uid);
-        this.unsubscribeMessages = store.dispatch(
-          subscribeToMessages(authUser.uid)
-        );
       }
 
       if (!authUser) {

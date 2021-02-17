@@ -1,7 +1,7 @@
-import { SET_AUTH_USER, RESET_AUTH_STATE } from 'Redux/types';
 import { combineReducers } from 'redux';
-
 import * as api from 'api';
+const SET_AUTH_USER = 'SET_AUTH_USER';
+const RESET_AUTH_STATE = 'RESET_AUTH_STATE';
 
 export const registerFireBase = (registerFormData) =>
   api.register({ ...registerFormData });
