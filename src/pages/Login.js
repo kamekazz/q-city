@@ -1,7 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
 import { Link, Redirect } from 'react-router-dom';
 import onlyGuest from 'components/Hooks/onlyGuest';
@@ -20,6 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
@@ -143,7 +143,7 @@ const Login = () => {
             </Grid>
             <Grid item>
               <Link to="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {"Don't have an account? Register"}
               </Link>
             </Grid>
           </Grid>

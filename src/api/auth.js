@@ -1,12 +1,12 @@
-import firebase from "firebase/app";
-import "firebase/auth";
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
-import db from "db";
+import db from 'db';
 
 const createUserProfile = (userProfile) =>
-  db.collection("profiles").doc(userProfile.uid).set(userProfile);
+  db.collection('profiles').doc(userProfile.uid).set(userProfile);
 
-export const register = async ({ email, password, fullName, avatar }) => {
+export const register = async ({ email, password, first_name, last_name }) => {
   try {
     const res = await firebase
       .auth()
@@ -14,11 +14,10 @@ export const register = async ({ email, password, fullName, avatar }) => {
     const { user } = res;
     const userProfile = {
       uid: user.uid,
-      fullName,
+      fullName: `${first_name} ${last_name}`,
       email,
-      avatar,
-      services: [],
-      description: "",
+      description: '',
+      level: 4,
     };
     await createUserProfile(userProfile);
     return userProfile;
@@ -40,7 +39,7 @@ export const onAuthStateChanged = (onAuthCallback) =>
 
 export const getUserProfile = (uid) =>
   db
-    .collection("profiles")
+    .collection('profiles')
     .doc(uid)
     .get()
     .then((snapshot) => ({ uid, ...snapshot.data() }));

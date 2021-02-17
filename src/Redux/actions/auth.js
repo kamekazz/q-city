@@ -1,10 +1,12 @@
-import { SET_AUTH_USER, RESET_AUTH_STATE } from "Redux/types";
+import { SET_AUTH_USER, RESET_AUTH_STATE } from 'Redux/types';
 
-import * as api from "api";
+import * as api from 'api';
 
-export const register = (registerFormData) =>
+export const registerFireBase = (registerFormData) =>
   api.register({ ...registerFormData });
+
 export const login = (loginData) => api.login({ ...loginData });
+
 export const onAuthStateChanged = (onAuthCallback) =>
   api.onAuthStateChanged(onAuthCallback);
 
@@ -12,7 +14,7 @@ export const logout = (uid) => (dispatch) =>
   api
     .logout()
     .then((_) => {
-      const userStatusDatabaseRef = api.createFirebaseRef("status", uid);
+      const userStatusDatabaseRef = api.createFirebaseRef('status', uid);
       return userStatusDatabaseRef.set(api.isOfflineForDatabase);
     })
     .then((_) => dispatch({ user: null, type: SET_AUTH_USER }));

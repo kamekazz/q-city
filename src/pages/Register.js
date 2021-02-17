@@ -1,18 +1,59 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
-
 import React from 'react';
-import RegisterForm from 'pages/auth/RegisterForm';
-import { register } from 'Redux/actions';
+import { registerFireBase } from 'Redux/actions';
 import { useToasts } from 'react-toast-notifications';
 import onlyGuest from 'components/Hooks/onlyGuest';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-// import { withRouter } from 'react-router-dom'
+const schema = yup.object().shape({
+  first_name: yup.string().required().min(2),
+  last_name: yup.string().required().min(2),
+  email: yup.string().required().email(),
+  password: yup.string().required().min(6),
+});
 
-const Register = (props) => {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+const Register = () => {
+  const { register, handleSubmit, errors } = useForm({
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+  });
   const { addToast } = useToasts();
-
+  const classes = useStyles();
   const registerUser = (userData) => {
-    register(userData).then(
+    registerFireBase(userData).then(
       (_) => () => {},
       (errorMessage) =>
         addToast(errorMessage, {
@@ -24,27 +65,105 @@ const Register = (props) => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="container has-text-centered">
-        <div className="column is-4 is-offset-4">
-          <h3 className="title has-text-grey">Register</h3>
-          <p className="subtitle has-text-grey">Please Register to proceed.</p>
-          <div className="box">
-            <figure className="avatar">
-              <img src="https://placehold.it/128x128" alt="Company Logo" />
-            </figure>
-            <RegisterForm onRegister={registerUser} />
-          </div>
-          <p className="has-text-grey">
-            <a>Sign In With Google</a>&nbsp;
-            <a href="/">Sign Up</a> &nbsp;·&nbsp;
-            <a href="../">Need Help?</a>
-          </p>
-        </div>
+    <Container component="main" maxWidth="xs">
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Register
+        </Typography>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(registerUser)}
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="first_name"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+                inputRef={register}
+                helperText={errors?.first_name?.message}
+                error={errors.first_name && true}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="last_name"
+                autoComplete="lname"
+                inputRef={register}
+                helperText={errors?.last_name?.message}
+                error={errors.last_name && true}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                inputRef={register}
+                helperText={errors?.email?.message}
+                error={errors.email && true}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                inputRef={register}
+                helperText={errors?.password?.message}
+                error={errors.password && true}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="I want to receive updates via email."
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign Up
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link to="/login" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
       </div>
-    </div>
+    </Container>
   );
 };
 
-// export default withRouter(Register)
 export default onlyGuest(Register);
