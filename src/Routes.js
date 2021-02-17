@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 //
-import HomePage from './pages/Home';
+import LandingPage from './pages/LandingPage';
 import FaqPage from './pages/Faq';
 import ProfilePage from './pages/Profile';
 
@@ -48,8 +48,8 @@ const Routes = () => (
     <Route path="/contact_us">
       <FaqPage />
     </Route>
-    <Route path="/">
-      <HomePage />
+    <Route exact path="/">
+      <LandingPage />
     </Route>
   </Switch>
 );
