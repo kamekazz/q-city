@@ -9,6 +9,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { acCreateIssueCode } from 'Redux/reducers/issuesCode';
 
 const schema = yup.object().shape({
   issue_code: yup.string().required().min(4),
@@ -98,7 +100,7 @@ const levelArray = [
 const FormComponent = () => {
   const classes = useStyles();
   const [level, setLevel] = useState(1);
-
+  const dispatch = useDispatch();
   const { register, handleSubmit, errors, reset } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
@@ -109,7 +111,8 @@ const FormComponent = () => {
   };
 
   const saveIssuesCode = (data) => {
-    console.log({ ...data, level });
+    let payload = { ...data, level };
+    dispatch(acCreateIssueCode(payload));
     reset();
   };
   return (

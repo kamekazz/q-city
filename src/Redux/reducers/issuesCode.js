@@ -5,9 +5,11 @@ const initialState = {
 };
 
 export function acCreateIssueCode(payload) {
-  return async function (dispatch) {
+  return async function (dispatch, getState) {
+    const { auth } = getState();
+    const { uid, fullName } = auth.user;
     try {
-      createIssueCode({ data: payload.data });
+      createIssueCode({ data: payload, actionUser: { uid, fullName } });
     } catch (error) {}
   };
 }
