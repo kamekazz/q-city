@@ -23,15 +23,15 @@ class App extends React.Component {
         checkUserConnection(authUser.uid);
       }
 
-      if (!authUser) {
-        this.unsubscribeMessages && this.unsubscribeMessages();
-      }
+      // if (!authUser) {
+      //   this.unsubscribeMessages && this.unsubscribeMessages();
+      // }
     });
   }
 
   componentWillUnmount() {
     this.unsubscribeAuth();
-    this.unsubscribeMessages();
+    // this.unsubscribeMessages();
   }
 
   render() {

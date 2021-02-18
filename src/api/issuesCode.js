@@ -2,9 +2,7 @@ import db from 'db';
 // import { firestore } from 'db';
 
 export function createIssueCode(payload) {
-  return db
-    .collection('issues_code')
-    .add({ ...payload.data, ...payload.actionUser });
+  return db.collection('issues_code').add(payload);
 }
 
 export function getAllIssuesCodes() {

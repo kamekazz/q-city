@@ -15,7 +15,6 @@ import { acCreateIssueCode } from 'Redux/reducers/issuesCode';
 const schema = yup.object().shape({
   issue_code: yup.string().required().min(4),
   issue_description: yup.string().required().min(20),
-
   action_description: yup.string().required().min(20),
 });
 
