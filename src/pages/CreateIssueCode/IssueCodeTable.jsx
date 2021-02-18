@@ -16,6 +16,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { fakeIssueCodeData } from 'api/fakeData/issueCodeData';
 import { Button } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
 const useRowStyles = makeStyles((theme) => ({
   root: {
@@ -128,6 +129,7 @@ function Row(props) {
 }
 
 export default function CollapsibleTable(props) {
+  const { issues_codes } = useSelector((state) => state.issuesCodeReducer);
   const { setOpenDrawer } = props;
   const classes = useRowStyles();
   return (
@@ -143,7 +145,7 @@ export default function CollapsibleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {fakeIssueCodeData.map((row) => (
+          {issues_codes.map((row) => (
             <Row setOpenDrawer={setOpenDrawer} key={row.id} row={row} />
           ))}
         </TableBody>
