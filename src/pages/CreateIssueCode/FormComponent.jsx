@@ -6,6 +6,16 @@ import { useState } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup.object().shape({
+  issue_code: yup.string().required().min(4),
+  issue_description: yup.string().required().min(20),
+
+  action_description: yup.string().required().min(20),
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -89,8 +99,18 @@ const FormComponent = () => {
   const classes = useStyles();
   const [level, setLevel] = useState(1);
 
+  const { register, handleSubmit, errors, reset } = useForm({
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+  });
+
   const handleChange = (event) => {
     setLevel(event.target.value);
+  };
+
+  const saveIssuesCode = (data) => {
+    console.log({ ...data, level });
+    reset();
   };
   return (
     <Paper elevation={3} className={classes.root}>
@@ -99,10 +119,27 @@ const FormComponent = () => {
           Create Issues Code
         </Typography>
       </div>
-      <div className={classes.contain}>
+      <form className={classes.contain} onSubmit={handleSubmit(saveIssuesCode)}>
         <div className={classes.levelOne}>
-          <TextField label="Issue Code" style={{ maxWidth: '90px' }} />
-          <TextField label="Description" multiline rowsMax={2} fullWidth />
+          <TextField
+            label="Issue Code"
+            style={{ maxWidth: '90px' }}
+            autoFocus
+            name="issue_code"
+            inputRef={register}
+            helperText={errors?.issue_code?.message}
+            error={errors.issue_code && true}
+          />
+          <TextField
+            label="Description"
+            multiline
+            rowsMax={2}
+            fullWidth
+            name="issue_description"
+            inputRef={register}
+            helperText={errors?.issue_description?.message}
+            error={errors.issue_description && true}
+          />
           <TextField
             select
             label="Select"
@@ -119,7 +156,16 @@ const FormComponent = () => {
           </TextField>
         </div>
         <div className={classes.levelTwo}>
-          <TextField label="Action" multiline rowsMax={4} fullWidth />
+          <TextField
+            label="Action"
+            multiline
+            rowsMax={4}
+            fullWidth
+            name="action_description"
+            inputRef={register}
+            helperText={errors?.action_description?.message}
+            error={errors.action_description && true}
+          />
           <div className={classes.buttonsContainer}>
             <Button
               style={{ marginRight: '1rem' }}
@@ -132,13 +178,13 @@ const FormComponent = () => {
               color="primary"
               size="small"
               startIcon={<SaveIcon />}
-              // onClick={onsubmitSave}
+              type="submit"
             >
               Save
             </Button>
           </div>
         </div>
-      </div>
+      </form>
     </Paper>
   );
 };
