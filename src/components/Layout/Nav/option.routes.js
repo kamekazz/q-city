@@ -7,6 +7,12 @@ const routesOptions = [
   ],
   [
     {
+      to: '/equipment',
+      tabLabel: 'Equipment',
+    },
+  ],
+  [
+    {
       to: '/products',
       tabLabel: 'Products',
     },
