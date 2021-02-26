@@ -5,6 +5,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import gunPhoto from 'assets/gun.jpeg';
 import ducPhoto from 'assets/duc.jpg';
 import adminPhoto from 'assets/admin.jpg';
+import batteryPhoto from 'assets/battery.jpg';
 
 export default function Landing() {
   const classes = useStyles();
@@ -53,17 +54,22 @@ const images = [
   {
     url: gunPhoto,
     title: '< Log Out Equipment',
-    width: '40%',
+    width: '25%',
+  },
+  {
+    url: batteryPhoto,
+    title: 'Switch Battery',
+    width: '25%',
   },
   {
     url: ducPhoto,
     title: 'Return Equipment >',
-    width: '40%',
+    width: '25%',
   },
   {
     url: adminPhoto,
     title: 'Admin',
-    width: '20%',
+    width: '25%',
   },
 ];
 
