@@ -9,7 +9,7 @@ import adminPhoto from 'assets/admin.jpg';
 export default function Landing() {
   const classes = useStyles();
   return (
-    <Paper>
+    <Paper className={classes.landing}>
       <Typography variant="h1" component="h1" gutterBottom align="center">
         Gun Inventory System
       </Typography>
@@ -68,6 +68,9 @@ const images = [
 ];
 
 const useStyles = makeStyles((theme) => ({
+  landing: {
+    gridArea: 'landing',
+  },
   root: {
     display: 'flex',
     flexWrap: 'wrap',

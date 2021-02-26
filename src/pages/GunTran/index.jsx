@@ -1,20 +1,33 @@
 import React from 'react';
-import { Container } from '@material-ui/core';
+import { Container, makeStyles } from '@material-ui/core';
 import withAuthorization from 'components/Hooks/withAuthorization';
 import Landing from './Components/Landing';
 import BatteryCount from './Components/BatteryCount';
 import GunCount from './Components/GunCount';
 import ActiveUsers from './Components/ActiveUsers';
 
-function index() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'grid',
+    gridTemplateColumns: '200px auto 200px',
+    gridTemplateRows: 'auto 200px',
+    gridTemplateAreas: '"landing landing landing"',
+    gap: '1rem',
+    height: 'calc(100vh - 4em)',
+    alignContent: 'center',
+  },
+}));
+
+function GunTran() {
+  const classes = useStyles();
   return (
-    <Container style={{ paddingTop: '1rem' }}>
+    <Container className={classes.root}>
       <Landing />
       <BatteryCount />
-      <GunCount />
       <ActiveUsers />
+      <GunCount />
     </Container>
   );
 }
 
-export default withAuthorization(index);
+export default withAuthorization(GunTran);

@@ -1,5 +1,6 @@
+import { Paper } from '@material-ui/core';
 import React from 'react';
 
 export default function ActiveUsers() {
-  return <div>ActiveUsers</div>;
+  return <Paper>ActiveUsers</Paper>;
 }
