@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,16 +11,19 @@ import { useHistory } from 'react-router-dom';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Typography } from '@material-ui/core';
 import adminPhoto from 'assets/admin.jpg';
-
-const cube = {
+import { useToasts } from 'react-toast-notifications';
+const CUBE = {
   url: adminPhoto,
   title: 'Admin',
   width: '25%',
 };
+const USERS_PIN = '1234';
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const history = useHistory();
+  const [values, setValues] = useState({});
+  const { addToast } = useToasts();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,8 +33,24 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-  const handelGoToAdminPage = () => {
-    history.push('/equipment/admin');
+  const submitPin = (event) => {
+    event.preventDefault();
+    handleClose();
+    if (values.pin === USERS_PIN) {
+      history.push('/equipment/admin');
+    } else {
+      addToast('Pin not valet', {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
+  };
+
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
@@ -39,17 +58,17 @@ export default function FormDialog() {
       <ButtonBase
         onClick={handleClickOpen}
         focusRipple
-        key={cube.title}
+        key={CUBE.title}
         className={classes.image}
         focusVisibleClassName={classes.focusVisible}
         style={{
-          width: cube.width,
+          width: CUBE.width,
         }}
       >
         <span
           className={classes.imageSrc}
           style={{
-            backgroundImage: `url(${cube.url})`,
+            backgroundImage: `url(${CUBE.url})`,
           }}
         />
         <span className={classes.imageBackdrop} />
@@ -60,7 +79,7 @@ export default function FormDialog() {
             color="inherit"
             className={classes.imageTitle}
           >
-            {cube.title}
+            {CUBE.title}
             <span className={classes.imageMarked} />
           </Typography>
         </span>
@@ -70,25 +89,30 @@ export default function FormDialog() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Admin Access</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Please enter the pin that you created on your profile page. If you
-            haven't created it, please do so.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Enter PIN"
-            type="Password"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} color="secondary">
-            done
-          </Button>
-        </DialogActions>
+        <form onSubmit={submitPin}>
+          <DialogTitle id="form-dialog-title">Admin Access</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please enter the pin that you created on your profile page. If you
+              haven't created it, please do so.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              label="Enter PIN"
+              type="number"
+              name="pin"
+              inputProps={{ maxLength: 4 }}
+              onChange={handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit" color="secondary">
+              done
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   );
