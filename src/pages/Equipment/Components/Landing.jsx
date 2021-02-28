@@ -15,7 +15,13 @@ export default function Landing() {
 
   return (
     <Paper className={classes.landing}>
-      <Typography variant="h1" component="h1" gutterBottom align="center">
+      <Typography
+        variant="h1"
+        component="h1"
+        gutterBottom
+        align="center"
+        className={classes.h1}
+      >
         Gun Inventory System
       </Typography>
       <div className={classes.root}>
@@ -149,5 +155,13 @@ const useStyles = makeStyles((theme) => ({
     bottom: -2,
     left: 'calc(50% - 9px)',
     transition: theme.transitions.create('opacity'),
+  },
+  h1: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 65,
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 40,
+    },
   },
 }));
