@@ -14,7 +14,8 @@ import RegisterPage from './pages/Register';
 import CreateReport from 'pages/CreateReport';
 import CreateIssueCode from 'pages/CreateIssueCode';
 import IncomeProductReview from 'pages/IncomeProductReview';
-import GunTran from 'pages/GunTran';
+import Equipment from 'pages/Equipment';
+import AdminEquipmentPage from 'pages/Equipment/Admin';
 
 const Routes = () => (
   <Switch>
@@ -53,7 +54,10 @@ const Routes = () => (
       <LandingPage />
     </Route>
     <Route exact path="/equipment">
-      <GunTran />
+      <Equipment />
+    </Route>
+    <Route exact path="/equipment/Admin">
+      <AdminEquipmentPage />
     </Route>
     <Route exact path="/dashboard">
       {'dashboard'}

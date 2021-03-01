@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gridArea: 'GunCount',
   },
 }));
 export default function GunCount() {

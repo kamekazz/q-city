@@ -1,21 +1,33 @@
-import { Paper, Typography } from '@material-ui/core';
 import React from 'react';
+import { Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
+// import { useHistory } from 'react-router-dom';
+
 import gunPhoto from 'assets/gun.jpeg';
 import ducPhoto from 'assets/duc.jpg';
-import adminPhoto from 'assets/admin.jpg';
+import batteryPhoto from 'assets/battery.jpg';
+import Pin from './Pin';
 
 export default function Landing() {
   const classes = useStyles();
+  // const history = useHistory();
+
   return (
     <Paper className={classes.landing}>
-      <Typography variant="h1" component="h1" gutterBottom align="center">
+      <Typography
+        variant="h1"
+        component="h1"
+        gutterBottom
+        align="center"
+        className={classes.h1}
+      >
         Gun Inventory System
       </Typography>
       <div className={classes.root}>
         {images.map((image) => (
           <ButtonBase
+            // onClick={handelGoToAdminPage}
             focusRipple
             key={image.title}
             className={classes.image}
@@ -44,6 +56,7 @@ export default function Landing() {
             </span>
           </ButtonBase>
         ))}
+        <Pin />
       </div>
     </Paper>
   );
@@ -53,17 +66,17 @@ const images = [
   {
     url: gunPhoto,
     title: '< Log Out Equipment',
-    width: '40%',
+    width: '25%',
+  },
+  {
+    url: batteryPhoto,
+    title: 'Switch Battery',
+    width: '25%',
   },
   {
     url: ducPhoto,
     title: 'Return Equipment >',
-    width: '40%',
-  },
-  {
-    url: adminPhoto,
-    title: 'Admin',
-    width: '20%',
+    width: '25%',
   },
 ];
 
@@ -142,5 +155,13 @@ const useStyles = makeStyles((theme) => ({
     bottom: -2,
     left: 'calc(50% - 9px)',
     transition: theme.transitions.create('opacity'),
+  },
+  h1: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 65,
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 40,
+    },
   },
 }));

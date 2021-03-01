@@ -1,7 +1,12 @@
-import { Paper } from '@material-ui/core';
+import { makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { theme } from 'styles/muiTheme';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    gridArea: 'ActiveUsers',
+  },
+}));
 
 const myState = {
   series: [
@@ -37,8 +42,9 @@ const myState = {
   },
 };
 export default function ActiveUsers() {
+  const classes = useStyles();
   return (
-    <Paper>
+    <Paper className={classes.root}>
       <ReactApexChart
         options={myState.options}
         series={myState.series}
